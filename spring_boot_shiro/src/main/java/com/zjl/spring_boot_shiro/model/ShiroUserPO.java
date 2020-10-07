@@ -4,7 +4,6 @@ import lombok.Data;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-import sun.java2d.pipe.ValidatePipe;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -25,7 +24,7 @@ public class ShiroUserPO implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "user_id",nullable = false,columnDefinition = "bigint(20) comment '用户id'")
+    @Column(name = "user_id",nullable = false,columnDefinition = "bigint(20) unsigned comment '用户id'")
     private Long userId;
     @Column(name = "user_name",nullable = false,columnDefinition = "varchar(45) comment '用户名'")
     private String userName;

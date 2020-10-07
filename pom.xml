@@ -11,6 +11,7 @@
 
     <modules>
         <module>spring_boot_shiro</module>
+        <module>commons</module>
     </modules>
 
     <properties>
@@ -19,6 +20,7 @@
         <shiro.version>1.6.0</shiro.version>
         <mysql.version>8.0.20</mysql.version>
         <druid.version>1.1.23</druid.version>
+        <springfox.version>3.0.0</springfox.version>
     </properties>
 
     <dependencyManagement>
@@ -75,6 +77,11 @@
                     <artifactId>junit-vintage-engine</artifactId>
                 </exclusion>
             </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-boot-starter</artifactId>
+            <version>${springfox.version}</version>
         </dependency>
     </dependencies>
 
