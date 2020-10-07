@@ -1,6 +1,12 @@
 package com.zjl.spring_boot_shiro.config;
 
+import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
+import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
+import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+import java.util.LinkedHashMap;
 
 /**
  * @name: ShiroConfiguration
@@ -8,7 +14,7 @@ import org.springframework.context.annotation.Bean;
  * @author: zhou
  * @create: 2020-10-07 13:16
  */
-// @Configuration
+@Configuration
 public class ShiroConfiguration {
 
     /**
@@ -18,12 +24,12 @@ public class ShiroConfiguration {
      * @param
      * @return org.apache.shiro.mgt.SecurityManager
      **/
-    // @Bean("shiroSecurityManager")
-    // public SecurityManager securityManager(){
-    //     DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
-    //     securityManager.setRealm(selfRealm());
-    //     return securityManager;
-    // }
+    @Bean
+    public DefaultWebSecurityManager securityManager(){
+        DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
+        securityManager.setRealm(selfRealm());
+        return securityManager;
+    }
 
     /** 
      * @description shiro过滤器配置
@@ -32,18 +38,18 @@ public class ShiroConfiguration {
      * @param 
      * @return org.apache.shiro.spring.web.ShiroFilterFactoryBean
      **/
-    // @Bean
-    // public ShiroFilterFactoryBean shiroFilterFactoryBean(){
-    //     ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
-    //     shiroFilterFactoryBean.setSecurityManager(securityManager());
-    //     LinkedHashMap<String, String> filterChainMap  = new LinkedHashMap<String, String>();
-    //     filterChainMap.put("/swagger-ui/**","anon");
-    //     filterChainMap.put("/webjars/**","anon");
-    //     filterChainMap.put("/swagger-resources/**","anon");
-    //     filterChainMap.put("/v3/**","anon");
-    //     shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainMap);
-    //     return shiroFilterFactoryBean;
-    // }
+    @Bean
+    public ShiroFilterFactoryBean shiroFilterFactoryBean(){
+        ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
+        shiroFilterFactoryBean.setSecurityManager(securityManager());
+        LinkedHashMap<String, String> filterChainMap  = new LinkedHashMap<String, String>();
+        filterChainMap.put("/swagger-ui/**","anon");
+        filterChainMap.put("/webjars/**","anon");
+        filterChainMap.put("/swagger-resources/**","anon");
+        filterChainMap.put("/v3/**","anon");
+        shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainMap);
+        return shiroFilterFactoryBean;
+    }
 
     /**
      * @description realm实现
@@ -54,8 +60,7 @@ public class ShiroConfiguration {
      **/
     @Bean
     public SelfRealm selfRealm(){
-        SelfRealm selfRealm = new SelfRealm();
-        return selfRealm;
+        return new SelfRealm();
     }
 
     /** 
@@ -65,10 +70,10 @@ public class ShiroConfiguration {
      * @param 
      * @return org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor
      **/
-    // @Bean("authenticator")
-    // public AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor(){
-    //     AuthorizationAttributeSourceAdvisor advisor = new AuthorizationAttributeSourceAdvisor();
-    //     advisor.setSecurityManager(securityManager());
-    //     return advisor;
-    // }
+    @Bean
+    public AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor(){
+        AuthorizationAttributeSourceAdvisor advisor = new AuthorizationAttributeSourceAdvisor();
+        advisor.setSecurityManager(securityManager());
+        return advisor;
+    }
 }
