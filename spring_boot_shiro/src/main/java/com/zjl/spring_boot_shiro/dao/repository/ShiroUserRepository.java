@@ -9,4 +9,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * @Description:
  */
 public interface ShiroUserRepository extends JpaRepository<ShiroUserPO,Long> {
+
+    ShiroUserPO findByUserName(String name);
 }

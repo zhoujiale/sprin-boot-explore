@@ -34,6 +34,8 @@ public class ShiroUserPO implements Serializable {
     private String salt;
     @Column(name = "dept_id",nullable = false,columnDefinition = "bigint(20) comment '部门'")
     private Long deptId;
+    @Column(name = "is_locked",nullable = false,columnDefinition = "tinyint(1) default 0 comment '是否被锁'")
+    private Boolean locked;
     @CreatedDate
     @Column(name = "create_time",nullable = false,columnDefinition = "datetime default current_timestamp comment '创建时间'")
     private LocalDateTime createTime;
