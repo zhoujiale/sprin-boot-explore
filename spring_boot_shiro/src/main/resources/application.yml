@@ -29,10 +29,13 @@ spring:
         config:
           enabled: true
       connection-properties: config.decrypt=true;config.decrypt.key=MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBAMEHLbu0kASdjAhnMrT/Xm+CpeOlytwF8k2Oph/bLVM920OQrdv9djpaMr13V5fcgWIxoRISGOw9xespSeYsbFkCAwEAAQ==
-
   jpa:
     hibernate:
       ddl-auto: update
     show-sql: true
+  redis:
+    port: 6379
+    host: localhost
+    password:
 
 
