@@ -7,8 +7,11 @@ import com.zjl.spring_boot_shiro.model.RolePO;
 import com.zjl.spring_boot_shiro.model.ShiroUserPO;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authc.*;
+import org.apache.shiro.authc.credential.CredentialsMatcher;
+import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
+import org.apache.shiro.crypto.hash.Md5Hash;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.util.ByteSource;
@@ -32,6 +35,8 @@ public class SelfRealm extends AuthorizingRealm {
     private ShiroUserDao shiroUserDao;
     @Autowired
     private RoleDao roleDao;
+
+    private final static int ITERATIONS = 2;
 
 
     @Override
@@ -66,5 +71,13 @@ public class SelfRealm extends AuthorizingRealm {
         Set<String> permissionSet = permissionPOList.stream().map(PermissionPO::getPermissionName).collect(Collectors.toSet());
         simpleAuthorizationInfo.setStringPermissions(permissionSet);
         return simpleAuthorizationInfo;
+    }
+
+    @Override
+    public void setCredentialsMatcher(CredentialsMatcher credentialsMatcher) {
+        HashedCredentialsMatcher matcher = new HashedCredentialsMatcher();
+        matcher.setHashAlgorithmName(Md5Hash.ALGORITHM_NAME);
+        matcher.setHashIterations(ITERATIONS);
+        super.setCredentialsMatcher(matcher);
     }
 }

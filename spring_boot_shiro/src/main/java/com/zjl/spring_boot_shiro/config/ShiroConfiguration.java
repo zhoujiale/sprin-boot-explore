@@ -1,8 +1,10 @@
 package com.zjl.spring_boot_shiro.config;
 
+import org.apache.shiro.session.mgt.SessionManager;
 import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
+import org.crazycake.shiro.RedisSessionDAO;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -16,6 +18,27 @@ import java.util.LinkedHashMap;
  */
 @Configuration
 public class ShiroConfiguration {
+    
+    /** 
+     * @description 会话管理器
+     * @author zhou       
+     * @created  2020/10/8 15:58
+     * @param 
+     * @return org.apache.shiro.session.mgt.SessionManager
+     **/
+    @Bean
+    public SessionManager sessionManager(){
+        SelfSessionManager sessionManager = new SelfSessionManager();
+        sessionManager.setSessionDAO(redisSessionDAO());
+        return sessionManager;
+    }
+
+    @Bean
+    public RedisSessionDAO redisSessionDAO(){
+        RedisSessionDAO redisSessionDAO = new RedisSessionDAO();
+        return redisSessionDAO;
+    }
+
 
     /**
      * @description shiro安全管理器
@@ -28,6 +51,7 @@ public class ShiroConfiguration {
     public DefaultWebSecurityManager securityManager(){
         DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
         securityManager.setRealm(selfRealm());
+        securityManager.setSessionManager(sessionManager());
         return securityManager;
     }
 
@@ -60,8 +84,11 @@ public class ShiroConfiguration {
      **/
     @Bean
     public SelfRealm selfRealm(){
-        return new SelfRealm();
+        SelfRealm selfRealm = new SelfRealm();
+        return selfRealm;
     }
+
+
 
     /** 
      * @description 启用注解
