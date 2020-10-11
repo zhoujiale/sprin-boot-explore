@@ -1,12 +1,14 @@
 package com.zjl.spring_boot_shiro.controller;
 
 import com.zjl.commons.util.WebResponse;
+import com.zjl.spring_boot_shiro.domian.LoginParam;
+import com.zjl.spring_boot_shiro.domian.UserParam;
+import com.zjl.spring_boot_shiro.model.ShiroUserPO;
+import com.zjl.spring_boot_shiro.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @name: UserController
@@ -19,9 +21,13 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(value = "/user")
 public class UserController {
 
+    @Autowired
+    private UserService userService;
+
     @ApiOperation(value = "登录")
     @PostMapping(value = "/login")
-    public WebResponse login(){
+    public WebResponse login(@RequestBody LoginParam loginParam){
+        userService.login(loginParam);
         return WebResponse.success();
     }
 
@@ -65,5 +71,12 @@ public class UserController {
     @GetMapping(value = "/notHasPermission")
     public WebResponse validNotHasPermission(){
         return WebResponse.success();
+    }
+
+    @ApiOperation(value = "添加用户")
+    @PostMapping(value = "/add")
+    public WebResponse addUser(@RequestBody UserParam userParam){
+        ShiroUserPO shiroUserPO = userService.addUser(userParam);
+        return WebResponse.success(shiroUserPO);
     }
 }

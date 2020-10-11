@@ -11,9 +11,9 @@ import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
@@ -50,5 +50,23 @@ public class ShiroUserDaoImpl implements ShiroUserDao {
         List<Long> roleList = userRolePOList.stream().map(UserRolePO::getRoleId).collect(Collectors.toList());
         List<RolePO> roleByIds = roleDao.getRoleByIds(roleList);
         return roleByIds;
+    }
+
+    @Override
+    public ShiroUserPO addUser(ShiroUserPO shiroUserPO) {
+        return shiroUserRepository.save(shiroUserPO);
+    }
+
+    @Override
+    public void addUserRole(Long userId, List<Long> roleIdList) {
+        UserRolePO userRolePO;
+        List<UserRolePO> userRolePOList = new ArrayList<>(roleIdList.size());
+        for (Long role : roleIdList) {
+            userRolePO = new UserRolePO();
+            userRolePO.setRoleId(role);
+            userRolePO.setUserId(userId);
+            userRolePOList.add(userRolePO);
+        }
+        userRoleRepository.saveAll(userRolePOList);
     }
 }
