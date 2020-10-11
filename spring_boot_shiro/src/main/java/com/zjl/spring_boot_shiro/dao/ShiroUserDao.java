@@ -30,6 +30,15 @@ public interface ShiroUserDao {
      * @return java.util.Set<java.lang.String>
      **/
     List<RolePO> getUserRoleByName(String name);
+    
+    /** 
+     * @description 通过id获取用户的角色 
+     * @author zhou       
+     * @created  2020/10/11 19:39
+     * @param 
+     * @return java.util.List<com.zjl.spring_boot_shiro.model.RolePO>
+     **/
+    List<RolePO> getUserRoleByUserId(Long userId);
 
     /**
      * @description 添加用户

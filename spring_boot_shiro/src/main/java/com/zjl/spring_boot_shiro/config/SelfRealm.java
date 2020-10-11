@@ -33,19 +33,14 @@ public class SelfRealm extends AuthorizingRealm {
     @Autowired
     private RoleDao roleDao;
 
-
-
-
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
         String principal = authenticationToken.getPrincipal().toString();
         ShiroUserPO user = shiroUserDao.getUserByName(principal);
         if (null == user){
-            log.error("用户{}不存在",principal);
             throw new UnknownAccountException();
         }
         if (user.getLocked()){
-            log.error("用户{}被锁",principal);
             throw new LockedAccountException();
         }
         SimpleAuthenticationInfo authenticationInfo = new SimpleAuthenticationInfo(user,user.getUserPassword(),

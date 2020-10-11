@@ -6,7 +6,7 @@ import lombok.Data;
 
 /**
  * @name: WebResponse
- * @description:
+ * @description: 统一响应
  * @author: zhou
  * @create: 2020-10-07 15:15
  */

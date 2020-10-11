@@ -3,6 +3,7 @@ package com.zjl.spring_boot_shiro.controller;
 import com.zjl.commons.util.WebResponse;
 import com.zjl.spring_boot_shiro.domian.LoginParam;
 import com.zjl.spring_boot_shiro.domian.UserParam;
+import com.zjl.spring_boot_shiro.domian.UserVO;
 import com.zjl.spring_boot_shiro.model.ShiroUserPO;
 import com.zjl.spring_boot_shiro.service.UserService;
 import io.swagger.annotations.Api;
@@ -27,8 +28,8 @@ public class UserController {
     @ApiOperation(value = "登录")
     @PostMapping(value = "/login")
     public WebResponse login(@RequestBody LoginParam loginParam){
-        userService.login(loginParam);
-        return WebResponse.success();
+        UserVO userVO = userService.login(loginParam);
+        return WebResponse.success(userVO);
     }
 
     @ApiOperation(value = "修改密码")

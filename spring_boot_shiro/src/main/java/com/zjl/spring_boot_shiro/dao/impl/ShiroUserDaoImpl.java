@@ -43,13 +43,7 @@ public class ShiroUserDaoImpl implements ShiroUserDao {
         if (null == byUserName){
             return Collections.emptyList();
         }
-        List<UserRolePO> userRolePOList = userRoleRepository.findAllByUserId(byUserName.getUserId());
-        if (CollectionUtils.isEmpty(userRolePOList)){
-            return Collections.emptyList();
-        }
-        List<Long> roleList = userRolePOList.stream().map(UserRolePO::getRoleId).collect(Collectors.toList());
-        List<RolePO> roleByIds = roleDao.getRoleByIds(roleList);
-        return roleByIds;
+        return getUserRoleByUserId(byUserName.getUserId());
     }
 
     @Override
@@ -69,4 +63,17 @@ public class ShiroUserDaoImpl implements ShiroUserDao {
         }
         userRoleRepository.saveAll(userRolePOList);
     }
+
+    @Override
+    public List<RolePO> getUserRoleByUserId(Long userId) {
+        List<UserRolePO> userRolePOList = userRoleRepository.findAllByUserId(userId);
+        if (CollectionUtils.isEmpty(userRolePOList)){
+            return Collections.emptyList();
+        }
+        List<Long> roleList = userRolePOList.stream().map(UserRolePO::getRoleId).collect(Collectors.toList());
+        List<RolePO> roleByIds = roleDao.getRoleByIds(roleList);
+        return roleByIds;
+    }
+
+
 }

@@ -17,22 +17,22 @@ import java.io.Serializable;
  */
 public class SelfSessionManager extends DefaultWebSessionManager {
 
-    private static final String TOKEN = "Authorization";
+    public static final String TOKEN = "Authorization";
     private static final String REFERENCED_SESSION_ID_SOURCE = "header";
 
-   public SelfSessionManager(){
-       super();
-   }
+    public SelfSessionManager() {
+        super();
+    }
 
     @Override
     protected Serializable getSessionId(ServletRequest request, ServletResponse response) {
         String sessionId = WebUtils.toHttp(request).getHeader(TOKEN);
-        if(StringUtils.isNotBlank(sessionId)){
-            request.setAttribute(ShiroHttpServletRequest.REFERENCED_SESSION_ID_SOURCE,REFERENCED_SESSION_ID_SOURCE);
-            request.setAttribute(ShiroHttpServletRequest.REFERENCED_SESSION_ID,sessionId);
-            request.setAttribute(ShiroHttpServletRequest.REFERENCED_SESSION_ID_IS_VALID,Boolean.TRUE);
+        if (StringUtils.isNotBlank(sessionId)) {
+            request.setAttribute(ShiroHttpServletRequest.REFERENCED_SESSION_ID_SOURCE, REFERENCED_SESSION_ID_SOURCE);
+            request.setAttribute(ShiroHttpServletRequest.REFERENCED_SESSION_ID, sessionId);
+            request.setAttribute(ShiroHttpServletRequest.REFERENCED_SESSION_ID_IS_VALID, Boolean.TRUE);
             return sessionId;
-        }else {
+        } else {
             return super.getSessionId(request, response);
         }
     }

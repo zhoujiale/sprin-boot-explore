@@ -38,6 +38,9 @@ public class RoleDaoImpl implements RoleDao {
 
     @Override
     public List<PermissionPO> getPermissionByRoleIdS(List<Long> roleIdList) {
+        if (CollectionUtils.isEmpty(roleIdList)){
+            return Collections.emptyList();
+        }
         List<RolePermissionPO> all = rolePermissionRepository.findAllByRoleIdIn(roleIdList);
         if (CollectionUtils.isEmpty(all)){
             return Collections.emptyList();
