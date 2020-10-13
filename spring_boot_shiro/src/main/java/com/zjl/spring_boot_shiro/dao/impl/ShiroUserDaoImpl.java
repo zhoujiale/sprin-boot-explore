@@ -75,5 +75,8 @@ public class ShiroUserDaoImpl implements ShiroUserDao {
         return roleByIds;
     }
 
-
+    @Override
+    public void modifyPassword(ShiroUserPO userByName) {
+        shiroUserRepository.save(userByName);
+    }
 }

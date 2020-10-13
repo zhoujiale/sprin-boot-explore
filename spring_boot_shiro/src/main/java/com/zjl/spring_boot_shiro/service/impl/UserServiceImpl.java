@@ -4,6 +4,7 @@ import com.zjl.commons.util.ErrorLogUtil;
 import com.zjl.spring_boot_shiro.dao.RoleDao;
 import com.zjl.spring_boot_shiro.dao.ShiroUserDao;
 import com.zjl.spring_boot_shiro.domian.LoginParam;
+import com.zjl.spring_boot_shiro.domian.PasswordParam;
 import com.zjl.spring_boot_shiro.domian.UserParam;
 import com.zjl.spring_boot_shiro.domian.UserVO;
 import com.zjl.spring_boot_shiro.error.ServiceErrorEnum;
@@ -67,7 +68,24 @@ public class UserServiceImpl implements UserService {
         return userVO;
     }
 
-    /** 
+    @Override
+    public void modifyPassword(PasswordParam passwordParam) {
+        ShiroUserPO userByName = shiroUserDao.getUserByName(passwordParam.getUserName());
+        if (null == userByName){
+            log.error("用户不存在");
+            throw new ServiceErrorException(ServiceErrorEnum.UN_KNOWN_ACCOUNT);
+        }
+        String encryptPassword = passwordHelper.encryptPassword(passwordParam.getPassword(), userByName.getSalt());
+        if (!userByName.getUserPassword().equals(encryptPassword)){
+            log.error("账户密码错误");
+            throw new ServiceErrorException(ServiceErrorEnum.ERROR_CREDENTIALS);
+        }
+        String newPassword = passwordHelper.encryptPassword(passwordParam.getNewPassword(), userByName.getSalt());
+        userByName.setUserPassword(newPassword);
+        shiroUserDao.modifyPassword(userByName);
+    }
+
+    /**
      * @description 处理shiro登录
      * @author zhou       
      * @created  2020/10/12 0:08

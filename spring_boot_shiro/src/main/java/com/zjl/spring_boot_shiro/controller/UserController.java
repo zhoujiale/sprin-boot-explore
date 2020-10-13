@@ -2,6 +2,7 @@ package com.zjl.spring_boot_shiro.controller;
 
 import com.zjl.commons.util.WebResponse;
 import com.zjl.spring_boot_shiro.domian.LoginParam;
+import com.zjl.spring_boot_shiro.domian.PasswordParam;
 import com.zjl.spring_boot_shiro.domian.UserParam;
 import com.zjl.spring_boot_shiro.domian.UserVO;
 import com.zjl.spring_boot_shiro.model.ShiroUserPO;
@@ -34,7 +35,8 @@ public class UserController {
 
     @ApiOperation(value = "修改密码")
     @PostMapping(value = "/modifyPassword")
-    public WebResponse modifyPassword(){
+    public WebResponse modifyPassword(@RequestBody PasswordParam passwordParam){
+        userService.modifyPassword(passwordParam);
         return WebResponse.success();
     }
 

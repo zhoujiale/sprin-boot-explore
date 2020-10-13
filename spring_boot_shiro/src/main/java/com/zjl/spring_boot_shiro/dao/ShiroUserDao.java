@@ -57,4 +57,13 @@ public interface ShiroUserDao {
      * @return void
      **/
     void addUserRole(Long userId, List<Long> roleIdList);
+
+    /**
+     * @description 修改用户
+     * @author zhou
+     * @created  2020/10/14 0:01
+     * @param
+     * @return void
+     **/
+    void modifyPassword(ShiroUserPO userByName);
 }
