@@ -1,6 +1,6 @@
 package com.zjl.spring_boot_shiro.controller;
 
-import com.zjl.commons.util.WebResponse;
+import com.zjl.commons.util.response.WebResponse;
 import com.zjl.spring_boot_shiro.domian.LoginParam;
 import com.zjl.spring_boot_shiro.domian.PasswordParam;
 import com.zjl.spring_boot_shiro.domian.UserParam;

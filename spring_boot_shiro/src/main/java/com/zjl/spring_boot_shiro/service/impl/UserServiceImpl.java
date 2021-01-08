@@ -1,6 +1,6 @@
 package com.zjl.spring_boot_shiro.service.impl;
 
-import com.zjl.commons.util.ErrorLogUtil;
+import com.zjl.commons.util.log.ErrorLogUtil;
 import com.zjl.spring_boot_shiro.dao.RoleDao;
 import com.zjl.spring_boot_shiro.dao.ShiroUserDao;
 import com.zjl.spring_boot_shiro.domian.LoginParam;

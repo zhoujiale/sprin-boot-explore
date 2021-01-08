@@ -1,6 +1,6 @@
 package com.zjl.spring_boot_shiro.aspect;
 
-import com.zjl.commons.util.WebResponse;
+import com.zjl.commons.util.response.WebResponse;
 import com.zjl.spring_boot_shiro.error.ServiceErrorException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;

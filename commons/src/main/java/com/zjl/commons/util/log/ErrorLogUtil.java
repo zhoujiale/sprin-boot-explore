@@ -1,4 +1,4 @@
-package com.zjl.commons.util;
+package com.zjl.commons.util.log;
 
 import lombok.extern.slf4j.Slf4j;
 

@@ -1,4 +1,4 @@
-package com.zjl.commons.util;
+package com.zjl.commons.util.response;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
