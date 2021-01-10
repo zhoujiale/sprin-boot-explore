@@ -85,6 +85,11 @@ public class UserServiceImpl implements UserService {
         shiroUserDao.modifyPassword(userByName);
     }
 
+    @Override
+    public void logout() {
+        SecurityUtils.getSubject().logout();
+    }
+
     /**
      * @description 处理shiro登录
      * @author zhou       

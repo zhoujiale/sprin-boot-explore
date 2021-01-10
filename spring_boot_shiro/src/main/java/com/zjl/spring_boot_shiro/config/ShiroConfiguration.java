@@ -16,7 +16,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
 
+import javax.servlet.Filter;
 import java.util.LinkedHashMap;
+import java.util.Map;
 
 /**
  * @name: ShiroConfiguration
@@ -99,12 +101,18 @@ public class ShiroConfiguration {
     @Bean
     public ShiroFilterFactoryBean shiroFilterFactoryBean(SecurityManager securityManager){
         ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
+        shiroFilterFactoryBean.setLoginUrl("/login.html");
         shiroFilterFactoryBean.setSecurityManager(securityManager);
+        Map<String, Filter> filters = new LinkedHashMap<>();
+        filters.put("corsAuth",new CorsAuthFilter());
+        shiroFilterFactoryBean.setFilters(filters);
         LinkedHashMap<String, String> filterChainMap  = new LinkedHashMap<String, String>();
         filterChainMap.put("/swagger-ui/**","anon");
         filterChainMap.put("/webjars/**","anon");
         filterChainMap.put("/swagger-resources/**","anon");
         filterChainMap.put("/v3/**","anon");
+        filterChainMap.put("/user/login","anon");
+        filterChainMap.put("/**","corsAuth");
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainMap);
         return shiroFilterFactoryBean;
     }
@@ -151,5 +159,10 @@ public class ShiroConfiguration {
         DefaultAdvisorAutoProxyCreator defaultAdvisorAutoProxyCreator = new DefaultAdvisorAutoProxyCreator();
         defaultAdvisorAutoProxyCreator.setUsePrefix(true);
         return defaultAdvisorAutoProxyCreator;
+    }
+
+    @Bean
+    public CorsFilter corsFilter(){
+        return new CorsFilter();
     }
 }

@@ -50,6 +50,7 @@
             <groupId>org.crazycake</groupId>
             <artifactId>shiro-redis</artifactId>
         </dependency>
+
     </dependencies>
 
     <build>

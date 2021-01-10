@@ -131,14 +131,4 @@ public class RSAUtil {
         }
     }
 
-    public static void main(String[] args) {
-        String s = "123456";
-        KeyPair key = getKey();
-        System.out.println("公钥:"+Base64.getEncoder().encodeToString(key.getPublic().getEncoded()));
-        System.out.println("私钥:"+Base64.getEncoder().encodeToString(key.getPrivate().getEncoded()));
-        String publicEncrypt = publicEncrypt(s, Base64.getEncoder().encodeToString(key.getPublic().getEncoded()));
-        System.out.println("公钥加密:"+publicEncrypt);
-        String privateDecrypt = privateDecrypt(publicEncrypt, Base64.getEncoder().encodeToString(key.getPrivate().getEncoded()));
-        System.out.println("私钥解密:"+privateDecrypt);
-    }
 }

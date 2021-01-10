@@ -24,6 +24,7 @@
         <commons-collection.version>4.4</commons-collection.version>
         <commons-lang.version>3.11</commons-lang.version>
         <shiro-redis.version>3.3.1</shiro-redis.version>
+        <fastjson.version>1.2.68</fastjson.version>
     </properties>
 
     <dependencyManagement>
@@ -103,6 +104,11 @@
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
             <version>${commons-lang.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>${fastjson.version}</version>
         </dependency>
     </dependencies>
 

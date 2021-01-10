@@ -17,7 +17,7 @@ import java.io.Serializable;
  */
 public class SelfSessionManager extends DefaultWebSessionManager {
 
-    public static final String TOKEN = "Authorization";
+    public static final String TOKEN = "auth-token";
     private static final String REFERENCED_SESSION_ID_SOURCE = "header";
 
     public SelfSessionManager() {

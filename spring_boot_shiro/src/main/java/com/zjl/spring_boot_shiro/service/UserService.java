@@ -39,4 +39,13 @@ public interface UserService {
      * @return void
      **/
     void modifyPassword(PasswordParam passwordParam);
+    
+    /** 
+     * @description 退出登录 
+     * @author zhou       
+     * @created  2021/1/10 22:30
+     * @param 
+     * @return void
+     **/
+    void logout();
 }

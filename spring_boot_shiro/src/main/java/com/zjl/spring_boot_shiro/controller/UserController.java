@@ -9,6 +9,8 @@ import com.zjl.spring_boot_shiro.model.ShiroUserPO;
 import com.zjl.spring_boot_shiro.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
+import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -43,6 +45,7 @@ public class UserController {
     @ApiOperation(value = "退出登录")
     @GetMapping(value = "/logout")
     public WebResponse logout(){
+        userService.logout();
         return WebResponse.success("退出登录");
     }
 
@@ -54,26 +57,30 @@ public class UserController {
 
     @ApiOperation(value = "拥有角色")
     @GetMapping(value = "/hasRole")
+    @RequiresRoles(value = "user")
     public WebResponse validHasRole(){
-        return WebResponse.success();
+        return WebResponse.success("拥有user角色");
     }
 
     @ApiOperation(value = "没有角色")
     @GetMapping(value = "/notHasRole")
+    @RequiresRoles(value = "admin")
     public WebResponse validNotHasRole(){
-        return WebResponse.success();
+        return WebResponse.success("拥有admin角色");
     }
 
     @ApiOperation(value = "拥有权限")
     @GetMapping(value = "/hasPermission")
+    @RequiresPermissions(value = "test1")
     public WebResponse validHasPermission(){
-        return WebResponse.success();
+        return WebResponse.success("拥有test1权限");
     }
 
     @ApiOperation(value = "没有权限")
     @GetMapping(value = "/notHasPermission")
+    @RequiresPermissions(value = "test2")
     public WebResponse validNotHasPermission(){
-        return WebResponse.success();
+        return WebResponse.success("拥有test2权限");
     }
 
     @ApiOperation(value = "添加用户")
