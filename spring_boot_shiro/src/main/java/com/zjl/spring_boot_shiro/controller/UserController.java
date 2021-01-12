@@ -57,28 +57,28 @@ public class UserController {
 
     @ApiOperation(value = "拥有角色")
     @GetMapping(value = "/hasRole")
-    @RequiresRoles(value = "user")
+    //@RequiresRoles(value = "user")
     public WebResponse validHasRole(){
         return WebResponse.success("拥有user角色");
     }
 
     @ApiOperation(value = "没有角色")
-    @GetMapping(value = "/notHasRole")
-    @RequiresRoles(value = "admin")
+    //@GetMapping(value = "/notHasRole")
+    //@RequiresRoles(value = "admin")
     public WebResponse validNotHasRole(){
         return WebResponse.success("拥有admin角色");
     }
 
     @ApiOperation(value = "拥有权限")
     @GetMapping(value = "/hasPermission")
-    @RequiresPermissions(value = "test1")
+    //@RequiresPermissions(value = "test1")
     public WebResponse validHasPermission(){
         return WebResponse.success("拥有test1权限");
     }
 
     @ApiOperation(value = "没有权限")
     @GetMapping(value = "/notHasPermission")
-    @RequiresPermissions(value = "test2")
+    //@RequiresPermissions(value = "test2")
     public WebResponse validNotHasPermission(){
         return WebResponse.success("拥有test2权限");
     }

@@ -44,14 +44,29 @@ public class ShiroConfiguration {
         return sessionManager;
     }
 
+    /**
+     * @description redis缓存管理器
+     * @author zhou
+     * @create 2021/1/12 19:59
+     * @param
+     * @return org.crazycake.shiro.RedisCacheManager
+     **/
     @Bean("shiroRedisCacheManager")
     public RedisCacheManager shiroRedisCacheManager(RedisManager redisManager){
         RedisCacheManager redisCacheManager = new RedisCacheManager();
         redisCacheManager.setRedisManager(redisManager);
+        //重写凭证的缓存key字段名
         redisCacheManager.setPrincipalIdFieldName("userId");
         return redisCacheManager;
     }
 
+    /**
+     * @description redis会话持久实现
+     * @author zhou
+     * @create 2021/1/12 20:00
+     * @param
+     * @return org.crazycake.shiro.RedisSessionDAO
+     **/
     @Bean
     public RedisSessionDAO redisSessionDAO(RedisManager redisManager){
         RedisSessionDAO redisSessionDAO = new RedisSessionDAO();
@@ -60,10 +75,12 @@ public class ShiroConfiguration {
     }
 
     /** 
-     * @description
+     * @description redis管理器
      * @author zhou       
      * @created  2020/10/11 14:23
-     * @param 
+     * @param host 主机
+     * @param port 端口
+     * @param password 密码
      * @return org.crazycake.shiro.RedisManager
      **/
     @Bean
@@ -81,7 +98,8 @@ public class ShiroConfiguration {
      * @description shiro安全管理器
      * @author zhou
      * @created  2020/10/7 17:27
-     * @param
+     * @param sessionManager 会话管理器
+     * @param shiroRedisCacheManager 缓存管理器
      * @return org.apache.shiro.mgt.SecurityManager
      **/
     @Bean
@@ -97,7 +115,7 @@ public class ShiroConfiguration {
      * @description shiro过滤器配置
      * @author zhou       
      * @created  2020/10/7 17:37
-     * @param 
+     * @param securityManager 安全管理器
      * @return org.apache.shiro.spring.web.ShiroFilterFactoryBean
      **/
     @Bean
@@ -109,6 +127,8 @@ public class ShiroConfiguration {
         filters.put("corsAuth",new CorsAuthFilter());
         shiroFilterFactoryBean.setFilters(filters);
         LinkedHashMap<String, String> filterChainMap  = new LinkedHashMap<String, String>();
+        filterChainMap.put("/swagger-ui.html", "anon");
+        filterChainMap.put("/v2/**", "anon");
         filterChainMap.put("/swagger-ui/**","anon");
         filterChainMap.put("/webjars/**","anon");
         filterChainMap.put("/swagger-resources/**","anon");
@@ -133,6 +153,13 @@ public class ShiroConfiguration {
         return selfRealm;
     }
 
+    /**
+     * @description 加密算法配置
+     * @author zhou
+     * @create 2021/1/12 20:02
+     * @param
+     * @return org.apache.shiro.authc.credential.HashedCredentialsMatcher
+     **/
     @Bean
     public HashedCredentialsMatcher hashedCredentialsMatcher(){
         HashedCredentialsMatcher hashedCredentialsMatcher = new HashedCredentialsMatcher();
@@ -145,7 +172,7 @@ public class ShiroConfiguration {
      * @description 启用注解
      * @author zhou       
      * @created  2020/10/7 18:23
-     * @param 
+     * @param securityManager 安全管理器
      * @return org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor
      **/
     @Bean
