@@ -52,7 +52,7 @@ public class UserController {
     @ApiOperation(value = "受保护资源")
     @GetMapping(value = "/needLogin")
     public WebResponse needLogin(){
-        return WebResponse.success();
+        return WebResponse.success("受保护的资源");
     }
 
     @ApiOperation(value = "拥有角色")

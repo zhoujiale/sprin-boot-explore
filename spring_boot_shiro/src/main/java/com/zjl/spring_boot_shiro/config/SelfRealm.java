@@ -50,9 +50,9 @@ public class SelfRealm extends AuthorizingRealm {
 
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
-        String principal = principalCollection.getPrimaryPrincipal().toString();
+        ShiroUserPO shiroUserPO = (ShiroUserPO) principalCollection.getPrimaryPrincipal();
         SimpleAuthorizationInfo simpleAuthorizationInfo = new SimpleAuthorizationInfo();
-        List<RolePO> rolePOList = shiroUserDao.getUserRoleByName(principal);
+        List<RolePO> rolePOList = shiroUserDao.getUserRoleByName(shiroUserPO.getUserName());
         Set<String> roleSet = rolePOList.stream().map(RolePO::getRoleName).collect(Collectors.toSet());
         simpleAuthorizationInfo.setRoles(roleSet);
         if (CollectionUtils.isEmpty(rolePOList)){
