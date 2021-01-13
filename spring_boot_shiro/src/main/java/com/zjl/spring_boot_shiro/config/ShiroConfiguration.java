@@ -127,8 +127,6 @@ public class ShiroConfiguration {
         filters.put("corsAuth",new CorsAuthFilter());
         shiroFilterFactoryBean.setFilters(filters);
         LinkedHashMap<String, String> filterChainMap  = new LinkedHashMap<String, String>();
-        filterChainMap.put("/swagger-ui.html", "anon");
-        filterChainMap.put("/v2/**", "anon");
         filterChainMap.put("/swagger-ui/**","anon");
         filterChainMap.put("/webjars/**","anon");
         filterChainMap.put("/swagger-resources/**","anon");
