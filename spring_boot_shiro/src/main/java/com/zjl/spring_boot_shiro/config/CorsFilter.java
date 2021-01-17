@@ -26,7 +26,7 @@ public class CorsFilter implements Filter {
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         HttpServletRequest request = WebUtils.toHttp(servletRequest);
         HttpServletResponse response = WebUtils.toHttp(servletResponse);
-        this.setHeader(request, response);
+        setHeader(request, response);
         filterChain.doFilter(request, response);
     }
 

@@ -1,6 +1,7 @@
 package com.zjl.spring_boot_shiro.config;
 
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
+import org.apache.shiro.authc.credential.PasswordMatcher;
 import org.apache.shiro.crypto.hash.Md5Hash;
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.session.mgt.SessionManager;
@@ -103,9 +104,10 @@ public class ShiroConfiguration {
      * @return org.apache.shiro.mgt.SecurityManager
      **/
     @Bean
-    public DefaultWebSecurityManager securityManager(SessionManager sessionManager,RedisCacheManager shiroRedisCacheManager){
+    public DefaultWebSecurityManager securityManager(SessionManager sessionManager,RedisCacheManager shiroRedisCacheManager,
+                                                     SelfRealm selfRealm){
         DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
-        securityManager.setRealm(selfRealm());
+        securityManager.setRealm(selfRealm);
         securityManager.setSessionManager(sessionManager);
         securityManager.setCacheManager(shiroRedisCacheManager);
         return securityManager;
@@ -147,8 +149,15 @@ public class ShiroConfiguration {
     @Bean
     public SelfRealm selfRealm(){
         SelfRealm selfRealm = new SelfRealm();
-        selfRealm.setCredentialsMatcher(hashedCredentialsMatcher());
+        // selfRealm.setCredentialsMatcher(hashedCredentialsMatcher());
+        selfRealm.setCredentialsMatcher(passwordMatcher());
         return selfRealm;
+    }
+
+    @Bean
+    public PasswordMatcher passwordMatcher(){
+        PasswordMatcher passwordMatcher = new PasswordMatcher();
+        return passwordMatcher;
     }
 
     /**

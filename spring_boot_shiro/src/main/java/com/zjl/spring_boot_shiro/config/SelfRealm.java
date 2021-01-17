@@ -11,7 +11,6 @@ import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
-import org.apache.shiro.util.ByteSource;
 import org.apache.shiro.util.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -43,8 +42,9 @@ public class SelfRealm extends AuthorizingRealm {
         if (user.getLocked()){
             throw new LockedAccountException();
         }
-        SimpleAuthenticationInfo authenticationInfo = new SimpleAuthenticationInfo(user,user.getUserPassword(),
-                ByteSource.Util.bytes(user.getSalt()),getName());
+        // SimpleAuthenticationInfo authenticationInfo = new SimpleAuthenticationInfo(user,user.getUserPassword(),
+        //         ByteSource.Util.bytes(user.getSalt()),getName());
+        SimpleAuthenticationInfo authenticationInfo = new SimpleAuthenticationInfo(user,user.getUserPassword(),getName());
         return authenticationInfo;
     }
 

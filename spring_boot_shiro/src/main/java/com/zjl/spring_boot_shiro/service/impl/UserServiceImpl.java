@@ -17,6 +17,7 @@ import com.zjl.spring_boot_shiro.util.PasswordHelper;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
+import org.apache.shiro.authc.credential.PasswordMatcher;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -41,15 +42,18 @@ public class UserServiceImpl implements UserService {
     private PasswordHelper passwordHelper;
     @Autowired
     private RoleDao roleDao;
+    @Autowired
+    private PasswordMatcher passwordMatcher;
 
     @Override
     @Transactional(rollbackFor = RuntimeException.class)
     public ShiroUserPO addUser(UserParam userParam) {
         ShiroUserPO shiroUserPO = UserParam.covertByUserParam(userParam);
-        String salt = passwordHelper.getSalt();
-        String encryptPassword = passwordHelper.encryptPassword(shiroUserPO.getUserPassword(), salt);
+        // String salt = passwordHelper.getSalt();
+        // String encryptPassword = passwordHelper.encryptPassword(shiroUserPO.getUserPassword(), salt);
+        String encryptPassword = passwordMatcher.getPasswordService().encryptPassword(shiroUserPO.getUserPassword());
         shiroUserPO.setUserPassword(encryptPassword);
-        shiroUserPO.setSalt(salt);
+        // shiroUserPO.setSalt(salt);
         shiroUserPO = shiroUserDao.addUser(shiroUserPO);
         shiroUserDao.addUserRole(shiroUserPO.getUserId(),userParam.getRoleIdList());
         return shiroUserPO;
@@ -75,12 +79,13 @@ public class UserServiceImpl implements UserService {
             log.error("用户不存在");
             throw new ServiceErrorException(ServiceErrorEnum.UN_KNOWN_ACCOUNT);
         }
-        String encryptPassword = passwordHelper.encryptPassword(passwordParam.getPassword(), userByName.getSalt());
-        if (!userByName.getUserPassword().equals(encryptPassword)){
+        // String encryptPassword = passwordHelper.encryptPassword(passwordParam.getPassword(), userByName.getSalt());
+        if (!passwordMatcher.getPasswordService().passwordsMatch(passwordParam.getPassword(),userByName.getUserPassword())){
             log.error("账户密码错误");
             throw new ServiceErrorException(ServiceErrorEnum.ERROR_CREDENTIALS);
         }
-        String newPassword = passwordHelper.encryptPassword(passwordParam.getNewPassword(), userByName.getSalt());
+        // String newPassword = passwordHelper.encryptPassword(passwordParam.getNewPassword(), userByName.getSalt());
+        String newPassword = passwordMatcher.getPasswordService().encryptPassword(passwordParam.getNewPassword());
         userByName.setUserPassword(newPassword);
         shiroUserDao.modifyPassword(userByName);
     }
