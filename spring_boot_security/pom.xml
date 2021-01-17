@@ -7,6 +7,7 @@
         <artifactId>spring_boot_explore</artifactId>
         <version>1.0</version>
     </parent>
+    <packaging>jar</packaging>
     <groupId>com.zjl</groupId>
     <artifactId>spring_boot_security</artifactId>
     <version>0.0.1-SNAPSHOT</version>
@@ -28,8 +29,12 @@
             <artifactId>spring-boot-starter-data-jpa</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.apache.shiro</groupId>
-            <artifactId>shiro-spring-boot-web-starter</artifactId>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
         <dependency>
             <groupId>mysql</groupId>
