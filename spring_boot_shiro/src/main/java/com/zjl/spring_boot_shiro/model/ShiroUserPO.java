@@ -28,7 +28,7 @@ public class ShiroUserPO implements Serializable {
     private Long userId;
     @Column(name = "user_name",nullable = false,columnDefinition = "varchar(45) comment '用户名'")
     private String userName;
-    @Column(name = "user_password",nullable = false,columnDefinition = "varchar(64) comment '用户密码'")
+    @Column(name = "user_password",nullable = false,columnDefinition = "varchar(128) comment '用户密码'")
     private String userPassword;
     @Column(name = "salt",columnDefinition = "varchar(128) comment '加盐'")
     private String salt;

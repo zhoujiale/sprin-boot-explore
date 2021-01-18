@@ -15,7 +15,9 @@ public enum ServiceErrorEnum {
     LOCK_ACCOUNT("5002", "账号被锁定"),
     AUTH_ERROR("5003", "认证异常"),
     NEED_LOGIN("5004","未登录或登录过期"),
-    NEED_PERMISSION("5079","该账号没有这项操作权限");
+    NEED_PERMISSION("5079","该账号没有这项操作权限"),
+    ADD_ROLE_ERROR("5080", "添加角色异常")
+    ;
     private String errCode;
 
     private String errMsg;

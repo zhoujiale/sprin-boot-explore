@@ -1,4 +1,4 @@
-package com.zjl.spring_boot_shiro.domian;
+package com.zjl.spring_boot_shiro.domian.vo;
 
 import com.zjl.spring_boot_shiro.model.RolePO;
 import io.swagger.annotations.ApiModel;

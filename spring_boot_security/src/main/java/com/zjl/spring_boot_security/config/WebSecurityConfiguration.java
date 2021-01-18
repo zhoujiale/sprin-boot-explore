@@ -9,5 +9,5 @@ import org.springframework.context.annotation.Configuration;
  * @create: 2021-01-17 21:28
  */
 @Configuration
-public class SecurityConfigration {
+public class WebSecurityConfiguration {
 }

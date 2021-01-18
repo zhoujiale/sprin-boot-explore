@@ -1,4 +1,4 @@
-package com.zjl.spring_boot_shiro.domian;
+package com.zjl.spring_boot_shiro.domian.bo;
 
 import io.swagger.annotations.ApiModel;
 import lombok.Data;

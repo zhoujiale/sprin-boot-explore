@@ -1,6 +1,6 @@
 package com.zjl.spring_boot_shiro.service.impl;
 
-import com.zjl.spring_boot_shiro.domian.UserParam;
+import com.zjl.spring_boot_shiro.domian.bo.UserParam;
 import com.zjl.spring_boot_shiro.service.UserService;
 import org.junit.Test;
 import org.junit.runner.RunWith;

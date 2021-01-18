@@ -2,12 +2,9 @@ package com.zjl.commons.util.crypt;
 
 import com.zjl.commons.util.log.ErrorLogUtil;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.tomcat.util.buf.HexUtils;
 
 import javax.xml.bind.DatatypeConverter;
-import javax.xml.crypto.AlgorithmMethod;
 import java.io.UnsupportedEncodingException;
-import java.security.AlgorithmParameters;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 

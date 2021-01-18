@@ -1,9 +1,9 @@
 package com.zjl.spring_boot_shiro.service;
 
-import com.zjl.spring_boot_shiro.domian.LoginParam;
-import com.zjl.spring_boot_shiro.domian.PasswordParam;
-import com.zjl.spring_boot_shiro.domian.UserParam;
-import com.zjl.spring_boot_shiro.domian.UserVO;
+import com.zjl.spring_boot_shiro.domian.bo.LoginParam;
+import com.zjl.spring_boot_shiro.domian.bo.PasswordParam;
+import com.zjl.spring_boot_shiro.domian.bo.UserParam;
+import com.zjl.spring_boot_shiro.domian.vo.UserVO;
 import com.zjl.spring_boot_shiro.model.ShiroUserPO;
 
 /**
@@ -27,7 +27,7 @@ public interface UserService {
      * @author zhou       
      * @created  2020/10/11 18:20
      * @param 
-     * @return com.zjl.spring_boot_shiro.domian.UserVO
+     * @return com.zjl.spring_boot_shiro.domian.vo.UserVO
      **/
     UserVO login(LoginParam loginParam);
 

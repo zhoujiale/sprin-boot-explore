@@ -1,10 +1,10 @@
 package com.zjl.spring_boot_shiro.controller;
 
 import com.zjl.commons.util.response.WebResponse;
-import com.zjl.spring_boot_shiro.domian.LoginParam;
-import com.zjl.spring_boot_shiro.domian.PasswordParam;
-import com.zjl.spring_boot_shiro.domian.UserParam;
-import com.zjl.spring_boot_shiro.domian.UserVO;
+import com.zjl.spring_boot_shiro.domian.bo.LoginParam;
+import com.zjl.spring_boot_shiro.domian.bo.PasswordParam;
+import com.zjl.spring_boot_shiro.domian.bo.UserParam;
+import com.zjl.spring_boot_shiro.domian.vo.UserVO;
 import com.zjl.spring_boot_shiro.model.ShiroUserPO;
 import com.zjl.spring_boot_shiro.service.UserService;
 import io.swagger.annotations.Api;
