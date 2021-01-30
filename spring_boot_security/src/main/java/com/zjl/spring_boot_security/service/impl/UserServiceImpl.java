@@ -1,9 +1,12 @@
 package com.zjl.spring_boot_security.service.impl;
 
 import com.zjl.spring_boot_security.dao.UserDao;
+import com.zjl.spring_boot_security.domain.bo.LoginBO;
 import com.zjl.spring_boot_security.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 /**
@@ -19,4 +22,10 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserDao userDao;
+
+    @Override
+    public void userLogin(LoginBO loginBO) {
+        SecurityContext currentUser = SecurityContextHolder.getContext();
+
+    }
 }
