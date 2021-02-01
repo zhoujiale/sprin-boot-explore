@@ -1,5 +1,6 @@
 package com.zjl.spring_boot_security.dao;
 
+import com.zjl.spring_boot_security.model.PermissionPO;
 import com.zjl.spring_boot_security.model.RolePO;
 
 import java.util.List;
@@ -21,4 +22,13 @@ public interface RoleDao {
      * @return java.util.List<com.zjl.spring_boot_security.model.RolePO>
      **/
     List<RolePO> queryRoleListByIds(List<Long> roleIdList);
+
+    /**
+     * @description 通过角色id获取权限
+     * @author zhou
+     * @create 2021/2/1 14:10
+     * @param roleIdList 角色id
+     * @return java.util.List<com.zjl.spring_boot_security.model.PermissionPO>
+     **/
+    List<PermissionPO> queryPermissionListByRoleList(List<Long> roleIdList);
 }

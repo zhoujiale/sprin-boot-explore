@@ -4,6 +4,7 @@ import com.zjl.spring_boot_security.dao.RoleDao;
 import com.zjl.spring_boot_security.dao.UserDao;
 import com.zjl.spring_boot_security.dao.repository.UserRepository;
 import com.zjl.spring_boot_security.dao.repository.UserRoleRepository;
+import com.zjl.spring_boot_security.model.PermissionPO;
 import com.zjl.spring_boot_security.model.RolePO;
 import com.zjl.spring_boot_security.model.SecurityUserPO;
 import com.zjl.spring_boot_security.model.UserRolePO;
@@ -12,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -32,6 +34,8 @@ public class UserDaoImpl implements UserDao {
     private UserRoleRepository userRoleRepository;
     @Autowired
     private RoleDao roleDao;
+
+
     @Override
     public SecurityUserPO queryUserByName(String userName) {
         SecurityUserPO securityUserPO = new SecurityUserPO();
@@ -50,5 +54,28 @@ public class UserDaoImpl implements UserDao {
             return Collections.emptyList();
         }
         return roleDao.queryRoleListByIds(userRolePOList.stream().map(UserRolePO::getRoleId).collect(Collectors.toList()));
+    }
+
+    @Override
+    public List<PermissionPO> getAllPermission(List<Long> roleIdList) {
+        return roleDao.queryPermissionListByRoleList(roleIdList);
+    }
+
+    @Override
+    public SecurityUserPO addSecurityUser(SecurityUserPO securityUserPO) {
+        return userRepository.save(securityUserPO);
+    }
+
+    @Override
+    public void addUserRole(Long userId, List<Long> roleIdList) {
+        List<UserRolePO> userRolePOList = new ArrayList<>(roleIdList.size());
+        UserRolePO userRolePO;
+        for (Long roleId : roleIdList) {
+            userRolePO = new UserRolePO();
+            userRolePO.setUserId(userId);
+            userRolePO.setRoleId(roleId);
+            userRolePOList.add(userRolePO);
+        }
+
     }
 }

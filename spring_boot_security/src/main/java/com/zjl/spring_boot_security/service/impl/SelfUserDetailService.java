@@ -12,7 +12,6 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.stereotype.Component;
 
 import java.util.Collection;
 import java.util.HashSet;
@@ -27,11 +26,11 @@ import java.util.stream.Collectors;
  * @date 2021/01/18 19:36
  **/
 @Slf4j
-@Component
 public class SelfUserDetailService implements UserDetailsService {
 
     @Autowired
     private UserDao userDao;
+
 
     @Override
     public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {

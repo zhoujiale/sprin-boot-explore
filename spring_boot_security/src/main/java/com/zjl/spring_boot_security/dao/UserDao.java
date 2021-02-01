@@ -32,6 +32,31 @@ public interface UserDao {
      **/
     List<RolePO> getAllRoles(Long userId);
 
+    /**
+     * @description 获取账号的所有权限
+     * @author zhou
+     * @create 2021/2/1 13:43
+     * @param roleIdList 角色id
+     * @return java.util.List<com.zjl.spring_boot_security.model.PermissionPO>
+     **/
+    List<PermissionPO> getAllPermission(List<Long> roleIdList);
 
-    List<PermissionPO> getAllPermission(List<Long> singletonList);
+    /**
+     * @description 添加账号和账号对应的角色
+     * @author zhou
+     * @create 2021/2/1 14:16
+     * @param securityUserPO 账号
+     * @return com.zjl.spring_boot_security.model.SecurityUserPO
+     **/
+    SecurityUserPO addSecurityUser(SecurityUserPO securityUserPO);
+
+    /**
+     * @description 为账号添加角色
+     * @author zhou
+     * @create 2021/2/1 14:21
+     * @param userId 账号id
+     * @param roleIdList  角色集合
+     * @return void
+     **/
+    void addUserRole(Long userId, List<Long> roleIdList);
 }
