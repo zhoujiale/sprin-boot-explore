@@ -9,6 +9,10 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -49,29 +53,36 @@ public class UserController {
     @ApiOperation(value = "受保护资源")
     @GetMapping(value = "/needLogin")
     public WebResponse needLogin(){
+        SecurityContext context = SecurityContextHolder.getContext();
+        Authentication authentication = context.getAuthentication();
+        System.out.println(authentication.isAuthenticated());
         return WebResponse.success("受保护的资源");
     }
 
     @ApiOperation(value = "拥有角色")
     @GetMapping(value = "/hasRole")
+    @PreAuthorize("hasRole('ROLE_USER')")
     public WebResponse validHasRole(){
         return WebResponse.success("拥有user角色");
     }
 
     @ApiOperation(value = "没有角色")
     @GetMapping(value = "/notHasRole")
+    @PreAuthorize(value = "hasRole('ROLE_ADMIN')")
     public WebResponse validNotHasRole(){
         return WebResponse.success("拥有admin角色");
     }
 
     @ApiOperation(value = "拥有权限")
     @GetMapping(value = "/hasPermission")
+    @PreAuthorize(value = "hasAuthority('TEST_ONE')")
     public WebResponse validHasPermission(){
         return WebResponse.success("拥有test1权限");
     }
 
     @ApiOperation(value = "没有权限")
     @GetMapping(value = "/notHasPermission")
+    @PreAuthorize(value = "hasAuthority('TEST_TWO')")
     public WebResponse validNotHasPermission(){
         return WebResponse.success("拥有test2权限");
     }

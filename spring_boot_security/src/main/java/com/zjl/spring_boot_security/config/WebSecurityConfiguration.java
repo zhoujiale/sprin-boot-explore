@@ -10,7 +10,6 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -22,20 +21,22 @@ import org.springframework.security.crypto.password.PasswordEncoder;
  */
 @Configuration
 @EnableWebSecurity
-@EnableGlobalMethodSecurity(securedEnabled = true)
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
+    private static final String[] COOKIE_ARRAYS = {"selfCookie"};
 
     @Bean
-    public PasswordEncoder passwordEncoder(){
+    public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+        http.cors().and().csrf().disable();
+        //http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         http.authorizeRequests()
-                .antMatchers(HttpMethod.OPTIONS,"/**").permitAll()
+                .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                 .antMatchers(HttpMethod.GET,
                         "/favicon.ico",
                         "/**/*.html",
@@ -45,11 +46,19 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                         "/webjars/**",
                         "/swagger-resources/**",
                         "/v3/**"
-                        ).permitAll()
+                ).permitAll()
                 .antMatchers(HttpMethod.POST,
                         "/user/login/**")
                 .permitAll();
-        http.authorizeRequests().anyRequest().authenticated().and().logout();
+        http.authorizeRequests().anyRequest().authenticated();
+        http.logout(logout -> logout
+                .logoutUrl("/user/logout/**")
+                .clearAuthentication(true)
+                .invalidateHttpSession(true)
+                .deleteCookies(COOKIE_ARRAYS)
+
+        );
+        http.exceptionHandling().authenticationEntryPoint(selfAuthenticationHandler()).accessDeniedHandler(selfAccessDecisionHandler());
     }
 
     @Bean
@@ -65,7 +74,18 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     }
 
     @Bean
-    public SelfUserDetailService selfUserDetailService(){
+    public SelfUserDetailService selfUserDetailService() {
         return new SelfUserDetailService();
     }
+
+    @Bean
+    public SelfAuthenticationHandler selfAuthenticationHandler() {
+        return new SelfAuthenticationHandler();
+    }
+
+    @Bean
+    public SelfAccessDecisionHandler selfAccessDecisionHandler() {
+        return new SelfAccessDecisionHandler();
+    }
+
 }

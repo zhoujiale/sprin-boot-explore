@@ -39,3 +39,6 @@ spring:
     port: 6379
     host: localhost
     password: 7rWBBtyi2H3Cc9ld
+logging:
+  level:
+    org.springframework.web: debug

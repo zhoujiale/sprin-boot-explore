@@ -76,6 +76,6 @@ public class UserDaoImpl implements UserDao {
             userRolePO.setRoleId(roleId);
             userRolePOList.add(userRolePO);
         }
-
+        userRoleRepository.saveAll(userRolePOList);
     }
 }
