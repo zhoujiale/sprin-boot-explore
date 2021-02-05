@@ -15,6 +15,10 @@ import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 /**
  * @author zhou
  * @version 1.0
@@ -23,7 +27,7 @@ import org.springframework.web.bind.annotation.*;
  * @date 2021/01/21 17:44
  **/
 @Slf4j
-@Api(value = "用户模块",tags = {"用户模块"})
+@Api(value = "用户模块", tags = {"用户模块"})
 @RestController
 @RequestMapping("/user")
 public class UserController {
@@ -33,26 +37,24 @@ public class UserController {
 
     @ApiOperation(value = "登录")
     @PostMapping(value = "/login")
-    public WebResponse login(@RequestBody LoginBO loginBO){
+    public WebResponse login(@RequestBody LoginBO loginBO, HttpServletResponse response, HttpServletRequest request) {
         userService.userLogin(loginBO);
+        Cookie selfCookie = new Cookie("selfCookie", "my-cookie");
+        selfCookie.setPath(request.getContextPath() + "/");
+        response.addCookie(selfCookie);
         return WebResponse.success();
     }
 
-    @ApiOperation(value = "退出登录")
-    @PostMapping(value = "/logout")
-    public WebResponse logout(){
-        return WebResponse.success("成功退出登录");
-    }
 
     @ApiOperation(value = "修改密码")
     @PostMapping(value = "/modifyPassword")
-    public WebResponse modifyPassword(){
+    public WebResponse modifyPassword() {
         return WebResponse.success();
     }
 
     @ApiOperation(value = "受保护资源")
     @GetMapping(value = "/needLogin")
-    public WebResponse needLogin(){
+    public WebResponse needLogin() {
         SecurityContext context = SecurityContextHolder.getContext();
         Authentication authentication = context.getAuthentication();
         System.out.println(authentication.isAuthenticated());
@@ -62,35 +64,35 @@ public class UserController {
     @ApiOperation(value = "拥有角色")
     @GetMapping(value = "/hasRole")
     @PreAuthorize("hasRole('ROLE_USER')")
-    public WebResponse validHasRole(){
+    public WebResponse validHasRole() {
         return WebResponse.success("拥有user角色");
     }
 
     @ApiOperation(value = "没有角色")
     @GetMapping(value = "/notHasRole")
     @PreAuthorize(value = "hasRole('ROLE_ADMIN')")
-    public WebResponse validNotHasRole(){
+    public WebResponse validNotHasRole() {
         return WebResponse.success("拥有admin角色");
     }
 
     @ApiOperation(value = "拥有权限")
     @GetMapping(value = "/hasPermission")
     @PreAuthorize(value = "hasAuthority('TEST_ONE')")
-    public WebResponse validHasPermission(){
+    public WebResponse validHasPermission() {
         return WebResponse.success("拥有test1权限");
     }
 
     @ApiOperation(value = "没有权限")
     @GetMapping(value = "/notHasPermission")
     @PreAuthorize(value = "hasAuthority('TEST_TWO')")
-    public WebResponse validNotHasPermission(){
+    public WebResponse validNotHasPermission() {
         return WebResponse.success("拥有test2权限");
     }
 
     @ApiOperation(value = "添加用户")
     @PostMapping(value = "/add")
-    public WebResponse addUser(@RequestBody UserBO userBO){
+    public WebResponse addUser(@RequestBody UserBO userBO) {
         SecurityUserPO securityUserPO = userService.addUser(userBO);
-         return WebResponse.success(securityUserPO);
+        return WebResponse.success(securityUserPO);
     }
 }

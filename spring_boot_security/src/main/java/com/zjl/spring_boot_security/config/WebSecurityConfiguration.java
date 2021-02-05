@@ -53,10 +53,8 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.authorizeRequests().anyRequest().authenticated();
         http.logout(logout -> logout
                 .logoutUrl("/user/logout/**")
-                .clearAuthentication(true)
-                .invalidateHttpSession(true)
-                .deleteCookies(COOKIE_ARRAYS)
-
+                .logoutSuccessHandler(selfLogoutSuccessHandler())
+                .deleteCookies("selfCookie")
         );
         http.exceptionHandling().authenticationEntryPoint(selfAuthenticationHandler()).accessDeniedHandler(selfAccessDecisionHandler());
     }
@@ -86,6 +84,11 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Bean
     public SelfAccessDecisionHandler selfAccessDecisionHandler() {
         return new SelfAccessDecisionHandler();
+    }
+
+    @Bean
+    public SelfLogoutSuccessHandler selfLogoutSuccessHandler(){
+        return new SelfLogoutSuccessHandler();
     }
 
 }
