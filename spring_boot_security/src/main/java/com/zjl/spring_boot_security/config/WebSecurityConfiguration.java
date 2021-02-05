@@ -40,8 +40,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.cors(Customizer.withDefaults());
-        http.csrf();
-        //http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+        http.csrf().disable();
         http.authorizeRequests()
                 .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                 .antMatchers(HttpMethod.GET,
@@ -52,7 +51,8 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                         "/swagger-ui/**",
                         "/webjars/**",
                         "/swagger-resources/**",
-                        "/v3/**"
+                        "/v3/**",
+                        "/user/sessionExpire/**"
                 ).permitAll()
                 .antMatchers(HttpMethod.POST,
                         "/user/login/**")
@@ -97,11 +97,6 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Bean
     public SelfLogoutSuccessHandler selfLogoutSuccessHandler(){
         return new SelfLogoutSuccessHandler();
-    }
-
-    @Bean
-    public SelfCorsFilter selfCorsFilter(){
-        return new SelfCorsFilter();
     }
 
     @Bean

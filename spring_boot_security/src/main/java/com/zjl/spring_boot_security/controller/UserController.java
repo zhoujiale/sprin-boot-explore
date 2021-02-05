@@ -3,6 +3,7 @@ package com.zjl.spring_boot_security.controller;
 import com.zjl.commons.util.response.WebResponse;
 import com.zjl.spring_boot_security.domain.bo.LoginBO;
 import com.zjl.spring_boot_security.domain.bo.UserBO;
+import com.zjl.spring_boot_security.error.ServiceErrorEnum;
 import com.zjl.spring_boot_security.model.SecurityUserPO;
 import com.zjl.spring_boot_security.service.UserService;
 import io.swagger.annotations.Api;
@@ -94,5 +95,10 @@ public class UserController {
     public WebResponse addUser(@RequestBody UserBO userBO) {
         SecurityUserPO securityUserPO = userService.addUser(userBO);
         return WebResponse.success(securityUserPO);
+    }
+
+    @GetMapping(value = "/sessionExpire")
+    public WebResponse sessionExpire() {
+        return WebResponse.fail(ServiceErrorEnum.NEED_LOGIN.getErrCode(), ServiceErrorEnum.NEED_LOGIN.getErrMsg());
     }
 }
