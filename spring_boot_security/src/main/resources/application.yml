@@ -41,4 +41,4 @@ spring:
     password: 7rWBBtyi2H3Cc9ld
 logging:
   level:
-    org.springframework.web: debug
+    org.springframework.security: debug
