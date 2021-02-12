@@ -41,7 +41,7 @@ public class UserController {
     public WebResponse login(@RequestBody LoginBO loginBO, HttpServletResponse response, HttpServletRequest request) {
         userService.userLogin(loginBO);
         Cookie selfCookie = new Cookie("selfCookie", "my-cookie");
-        selfCookie.setPath(request.getContextPath() + "/");
+            selfCookie.setPath(request.getContextPath() + "/");
         response.addCookie(selfCookie);
         return WebResponse.success();
     }

@@ -18,7 +18,6 @@ import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import java.util.Arrays;
-
 /**
  * @name: SecurityConfigration
  * @description: 安全配置
@@ -30,19 +29,13 @@ import java.util.Arrays;
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
-    private static final String[] COOKIE_ARRAYS = {"selfCookie"};
-
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
+    private static final String ORIGIN = "http://www.docway.net";
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.cors(Customizer.withDefaults());
         http.csrf().disable();
         http.authorizeRequests()
-                .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                 .antMatchers(HttpMethod.GET,
                         "/favicon.ico",
                         "/**/*.html",
@@ -85,6 +78,11 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     }
 
     @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+
+    @Bean
     public SelfAuthenticationHandler selfAuthenticationHandler() {
         return new SelfAuthenticationHandler();
     }
@@ -102,8 +100,9 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Arrays.asList("http://www.docway.net"));
+        configuration.setAllowedOrigins(Arrays.asList(ORIGIN));
         configuration.setAllowedMethods(Arrays.asList("GET","POST","PUT","DELETE","OPTION"));
+        configuration.setAllowedHeaders(Arrays.asList("Origin", "X-Requested-With", "Content-Type", "Accept","Authorization","If-Modified-Since"));
         configuration.setAllowCredentials(true);
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
