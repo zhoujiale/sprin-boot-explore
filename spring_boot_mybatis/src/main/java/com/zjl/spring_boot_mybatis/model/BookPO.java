@@ -1,10 +1,12 @@
 package com.zjl.spring_boot_mybatis.model;
 
+import lombok.ToString;
+
+import javax.annotation.Generated;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import javax.annotation.Generated;
-
+@ToString
 public class BookPO {
     @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-02-12T11:49:30.787+08:00", comments="Source field: tb_book.book_id")
     private Integer bookId;
