@@ -3,21 +3,22 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-       <groupId>com.zjl</groupId>
+        <groupId>com.zjl</groupId>
         <artifactId>spring_boot_explore</artifactId>
         <version>1.0</version>
     </parent>
+
     <packaging>jar</packaging>
     <groupId>com.zjl</groupId>
-    <artifactId>spring_boot_security</artifactId>
+    <artifactId>spring_boot_rabbitmq</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>spring_boot_security</name>
-    <description>spring_boot_security</description>
+    <name>spring_boot_rabbitmq</name>
+    <description>Rabbbitmq project for Spring Boot</description>
+
 
     <properties>
         <java.version>1.8</java.version>
     </properties>
-
     <dependencies>
         <dependency>
             <groupId>com.zjl</groupId>
@@ -25,8 +26,9 @@
             <version>1.0</version>
         </dependency>
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-jpa</artifactId>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <scope>runtime</scope>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -34,16 +36,7 @@
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-security</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <scope>runtime</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.alibaba</groupId>
-            <artifactId>druid-spring-boot-starter</artifactId>
+            <artifactId>spring-boot-starter-amqp</artifactId>
         </dependency>
     </dependencies>
 
@@ -56,5 +49,6 @@
             </plugin>
         </plugins>
     </build>
+
 
 </project>

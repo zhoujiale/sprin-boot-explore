@@ -1,0 +1,12 @@
+package com.zjl.spring_boot_jpa.dao.repository;
+
+import com.zjl.spring_boot_jpa.model.OrderDetailPO;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+/**
+ * @Auther: zhou
+ * @Date: 2021-02-17 20:25
+ * @Description:
+ */
+public interface OrderDetailRepository extends JpaRepository<OrderDetailPO,Integer> {
+}

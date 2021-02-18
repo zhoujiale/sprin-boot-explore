@@ -14,6 +14,7 @@
         <module>spring_boot_security</module>
         <module>spring_boot_mybatis</module>
         <module>spring_boot_jpa</module>
+        <module>spring_boot_rabbitmq</module>
         <module>commons</module>
     </modules>
 
@@ -113,6 +114,11 @@
                 <groupId>com.github.pagehelper</groupId>
                 <artifactId>pagehelper-spring-boot-starter</artifactId>
                 <version>${pagehelper.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-amqp</artifactId>
+                <version>${spring-boot.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
