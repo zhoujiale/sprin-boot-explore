@@ -1,0 +1,29 @@
+server:
+  port: 9093
+  servlet:
+    context-path: /mq
+spring:
+  application:
+    name: MQ
+  rabbitmq:
+    host: 127.0.0.1
+    username: dev
+    password: dev
+    virtual-host: /dev
+    port: 5672
+    listener:
+      simple:
+        retry:
+          enabled: true
+          #最大重试次数
+          max-attempts: 3
+          #乘子
+          multiplier: 2
+          #初始化重试间隔
+          initial-interval: 3000
+          #最大重试间隔
+          max-interval: 30000
+
+logging:
+  level:
+    org.springframework.amqp: info
