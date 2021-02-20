@@ -22,13 +22,13 @@ class BookServiceImplTest {
     void addBookList() {
         List<BookPO> bookPOList = new ArrayList<>();
         BookPO bookPO1 = new BookPO();
-        bookPO1.setBookName("西游记");
-        bookPO1.setPrice(new BigDecimal(80));
+        bookPO1.setBookName("三国演义");
+        bookPO1.setPrice(new BigDecimal(70));
         bookPO1.setPublicationDate(DateUtil.localDateOf("2019-01-09"));
         bookPOList.add(bookPO1);
         BookPO bookPO2 = new BookPO();
-        bookPO2.setBookName("红楼梦");
-        bookPO2.setPrice(new BigDecimal(82.50));
+        bookPO2.setBookName("水浒传");
+        bookPO2.setPrice(new BigDecimal(86.50));
         bookPO2.setPublicationDate(DateUtil.localDateOf("2018-05-23"));
         bookPOList.add(bookPO2);
         bookService.addBookList(bookPOList);
