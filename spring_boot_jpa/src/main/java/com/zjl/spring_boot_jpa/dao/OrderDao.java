@@ -1,5 +1,6 @@
 package com.zjl.spring_boot_jpa.dao;
 
+import com.zjl.spring_boot_jpa.domain.OrderDTO;
 import com.zjl.spring_boot_jpa.domain.OrderVO;
 import com.zjl.spring_boot_jpa.model.OrderPO;
 
@@ -12,6 +13,8 @@ import java.util.List;
  * @Description:
  */
 public interface OrderDao {
+
+    List<OrderDTO> queryByCustomerId(Integer customerId);
 
     List<OrderVO> getList();
 

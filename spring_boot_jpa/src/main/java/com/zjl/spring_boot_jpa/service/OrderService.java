@@ -1,5 +1,6 @@
 package com.zjl.spring_boot_jpa.service;
 
+import com.zjl.spring_boot_jpa.domain.OrderDTO;
 import com.zjl.spring_boot_jpa.domain.OrderVO;
 import com.zjl.spring_boot_jpa.model.OrderPO;
 
@@ -16,4 +17,6 @@ public interface OrderService {
     List<OrderVO> getList();
 
     List<OrderPO> filterPrice(BigDecimal price);
+
+    List<OrderDTO> queryByCustomerId(Integer customerId);
 }

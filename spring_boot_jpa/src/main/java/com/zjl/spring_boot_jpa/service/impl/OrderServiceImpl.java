@@ -1,6 +1,7 @@
 package com.zjl.spring_boot_jpa.service.impl;
 
 import com.zjl.spring_boot_jpa.dao.OrderDao;
+import com.zjl.spring_boot_jpa.domain.OrderDTO;
 import com.zjl.spring_boot_jpa.domain.OrderVO;
 import com.zjl.spring_boot_jpa.model.OrderPO;
 import com.zjl.spring_boot_jpa.service.OrderService;
@@ -30,5 +31,10 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public List<OrderPO> filterPrice(BigDecimal price) {
         return orderDao.filterPrice(price);
+    }
+
+    @Override
+    public List<OrderDTO> queryByCustomerId(Integer customerId) {
+        return orderDao.queryByCustomerId(customerId);
     }
 }

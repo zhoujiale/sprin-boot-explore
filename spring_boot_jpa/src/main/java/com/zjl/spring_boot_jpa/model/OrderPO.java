@@ -37,4 +37,6 @@ public class OrderPO implements Serializable {
     @LastModifiedDate
     @Column(name = "update_time",nullable = false,columnDefinition = "datetime default current_timestamp on update current_timestamp")
     private LocalDateTime updateTime;
+
+
 }
