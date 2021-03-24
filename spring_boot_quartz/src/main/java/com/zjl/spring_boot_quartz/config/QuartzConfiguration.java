@@ -20,13 +20,23 @@ public class QuartzConfiguration {
     private static final String SCHEDULER_NAME = "Self_Scheduler";
 
     private static final String SCHEDULER_CONTEXT_KEY = "applicationContextKey";
-
+    
+    /**
+     * @description 调度器工厂类
+     * @author zhou
+     * @create 2021/3/24 12:27 
+     * @param 
+     * @return org.springframework.scheduling.quartz.SchedulerFactoryBean
+     **/
     @Bean
-    public SchedulerFactoryBean schedulerFactoryBean(DataSource dataSource,Properties quartzProperties){
+    public SchedulerFactoryBean schedulerFactoryBean(DataSource dataSource, Properties quartzProperties){
         SchedulerFactoryBean schedulerFactoryBean = new SchedulerFactoryBean();
+        schedulerFactoryBean.setOverwriteExistingJobs(true);
         schedulerFactoryBean.setDataSource(dataSource);
         schedulerFactoryBean.setSchedulerName(SCHEDULER_NAME);
         schedulerFactoryBean.setQuartzProperties(quartzProperties);
+        //延时30s
+        schedulerFactoryBean.setStartupDelay(30);
         schedulerFactoryBean.setApplicationContextSchedulerContextKey(SCHEDULER_CONTEXT_KEY);
         return schedulerFactoryBean;
     }
@@ -42,7 +52,9 @@ public class QuartzConfiguration {
         properties.put("org.quartz.threadPool.threadCount","20");
         properties.put("org.quartz.threadPool.threadPriority","5");
         //jobStore
-
+        properties.put("org.quartz.jobStore.class","org.quartz.impl.jdbcjobstore.JobStoreTX");
+        properties.put("org.quartz.jobStore.tablePrefix","QRTZ_");
+        properties.put("org.quartz.jobStore.misfireThreshold", "12000");
         return properties;
     }
 }

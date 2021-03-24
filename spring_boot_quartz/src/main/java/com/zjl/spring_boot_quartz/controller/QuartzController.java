@@ -1,9 +1,13 @@
 package com.zjl.spring_boot_quartz.controller;
 
 import com.zjl.commons.util.response.WebResponse;
+import com.zjl.spring_boot_quartz.model.SelfJobPO;
+import com.zjl.spring_boot_quartz.service.JobService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -19,27 +23,37 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping(value = "/api")
 public class QuartzController {
 
+    @Autowired
+    private JobService jobService;
+
     @ApiOperation(value = "获取任务列表")
     @GetMapping(value = "/list")
-    public WebResponse list(){
-        return WebResponse.success();
+    public WebResponse list(@RequestParam(value = "pageNum",defaultValue = "1")Integer pageNum,
+                            @RequestParam(value = "pageSize",defaultValue = "10")Integer pageSize,
+                            @RequestParam(value = "name",required = false)String name){
+        Page<SelfJobPO> jobPOPage = jobService.getPage(pageNum,pageSize,name);
+        return WebResponse.success(jobPOPage);
     }
 
     @ApiOperation(value = "添加任务")
     @PostMapping(value = "/add")
-    public WebResponse add(){
+    public WebResponse add(@RequestBody SelfJobPO selfJobPO){
+        jobService.add(selfJobPO);
         return WebResponse.success();
     }
 
     @ApiOperation(value = "编辑任务")
     @PostMapping(value = "/update")
-    public WebResponse update(){
+    public WebResponse update(@RequestBody SelfJobPO selfJobPO){
+        jobService.update(selfJobPO);
         return WebResponse.success();
     }
 
     @ApiOperation(value = "删除任务")
     @DeleteMapping(value = "/delete")
-    public WebResponse delete(){
+    public WebResponse delete(@RequestParam(value = "jobId")Long jobId){
+        jobService.delete(jobId);
         return WebResponse.success();
     }
+
 }
