@@ -14,6 +14,7 @@ import org.springframework.stereotype.Repository;
 import javax.persistence.criteria.Predicate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * @author zhou
@@ -54,5 +55,11 @@ public class SelfJobDaoImpl implements SelfJobDao {
             return criteriaBuilder.and(andList.toArray(new Predicate[andList.size()]));
         };
         return selfJobRepository.findAll(specification,pageRequest);
+    }
+
+    @Override
+    public SelfJobPO getById(Long jobId) {
+        Optional<SelfJobPO> byId = selfJobRepository.findById(jobId);
+        return byId.orElse(null);
     }
 }

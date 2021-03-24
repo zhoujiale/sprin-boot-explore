@@ -3,6 +3,8 @@ package com.zjl.spring_boot_quartz.dao.repository;
 import com.zjl.spring_boot_quartz.model.SelfJobLogPO;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.util.List;
+
 /**
  * @author zhou
  * @className SelfJobLogRepository
@@ -10,4 +12,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * @description
  **/
 public interface SelfJobLogRepository extends JpaRepository<SelfJobLogPO,Long> {
+
+    Integer deleteSelfJobLogPOSByLogIdIn(List<Long> logIdList);
 }

@@ -1,4 +1,4 @@
-package com.zjl.spring_boot_quartz.dao;
+package com.zjl.spring_boot_quartz.service;
 
 import com.zjl.spring_boot_quartz.model.SelfJobLogPO;
 import org.springframework.data.domain.Page;
@@ -7,16 +7,16 @@ import java.util.List;
 
 /**
  * @author zhou
- * @className SelfJobLogDao
- * @date 2021/03/24 15:58
+ * @className LogService
+ * @date 2021/03/24 19:02
  * @description
  **/
-public interface SelfJobLogDao {
+public interface LogService {
 
     /**
-     * @description 分页获取任务日志
+     * @description 分页获取定时任务的执行日志
      * @author zhou
-     * @create 2021/3/24 19:12
+     * @create 2021/3/24 19:03
      * @param jobId 任务id
      * @param pageNum 页号
      * @param pageSize 大小
@@ -25,11 +25,11 @@ public interface SelfJobLogDao {
     Page<SelfJobLogPO> getPage(Long jobId, Integer pageNum, Integer pageSize);
 
     /**
-     * @description 批量删除日志
+     * @description 删除日志
      * @author zhou
-     * @create 2021/3/24 19:15
-     * @param logIdList 日志id
+     * @create 2021/3/24 19:06
+     * @param logIdList
      * @return void
      **/
-    void batchDelete(List<Long> logIdList);
+    void delete(List<Long> logIdList);
 }

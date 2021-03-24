@@ -21,7 +21,9 @@ public enum ServiceErrorEnum {
     JOB_ID("5082", "缺少job_id"),
     JAVA_BEAN("5083", "缺少java_bean"),
     JOB_NAME("5084", "缺少任务名称"),
-    CORN("5085","缺少cron表达式" )
+    CORN("5085","缺少cron表达式" ),
+    LOG_EMPTY("5086", "请选择日志"),
+    JOB_EMPTY("5087", "任务不存在")
     ;
     private String errCode;
 

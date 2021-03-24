@@ -46,4 +46,13 @@ public interface SelfJobDao {
      * @return org.springframework.data.domain.Page<com.zjl.spring_boot_quartz.model.SelfJobPO>
      **/
     Page<SelfJobPO> getPage(Integer pageNum, Integer pageSize, String name);
+
+    /**
+     * @description 通过id获取任务
+     * @author zhou
+     * @create 2021/3/24 19:08
+     * @param jobId 任务id
+     * @return com.zjl.spring_boot_quartz.model.SelfJobPO
+     **/
+    SelfJobPO getById(Long jobId);
 }
