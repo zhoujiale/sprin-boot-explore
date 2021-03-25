@@ -54,6 +54,7 @@ public class QuartzConfiguration {
         //jobStore
         properties.put("org.quartz.jobStore.class","org.quartz.impl.jdbcjobstore.JobStoreTX");
         properties.put("org.quartz.jobStore.tablePrefix","QRTZ_");
+        properties.put("org.quartz.jobStore.driverDelegateClass","org.quartz.impl.jdbcjobstore.StdJDBCDelegate");
         properties.put("org.quartz.jobStore.misfireThreshold", "12000");
         return properties;
     }
