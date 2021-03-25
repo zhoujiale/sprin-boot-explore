@@ -13,11 +13,12 @@ import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 
 /**
- * @name: SwaggerConfiguration
- * @description: swagger配置
- * @author: zhou
- * @create: 2021-03-23 22:50
- */
+ * @author zhou
+ * @version 1.0
+ * @className SwaggerConfiguration
+ * @description
+ * @date 2021/03/24 11:01
+ **/
 @EnableOpenApi
 @Configuration
 public class SwaggerConfiguration implements WebMvcConfigurer {
