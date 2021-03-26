@@ -27,6 +27,8 @@ public class SelfJobPO {
     private Long jobId;
     @Column(name = "job_name",nullable = false,columnDefinition = "varchar(45) comment '任务名称'")
     private String jobName;
+    @Column(name = "group_name",nullable = false,columnDefinition = "varchar(45) comment '任务分组'")
+    private String groupName;
     @Column(name = "bean_name",nullable = false,columnDefinition = "varchar(45) comment 'java容器名称'")
     private String beanName;
     @Column(name = "cron_expression",nullable = false,columnDefinition = "varchar(100) comment 'cron表达式'")

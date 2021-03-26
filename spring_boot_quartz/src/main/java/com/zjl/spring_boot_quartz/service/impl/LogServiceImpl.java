@@ -43,6 +43,11 @@ public class LogServiceImpl implements LogService {
         selfJobLogDao.batchDelete(logIdList);
     }
 
+    @Override
+    public void add(SelfJobLogPO selfJobPO) {
+        selfJobLogDao.add(selfJobPO);
+    }
+
     /**
      * @description 任务判空
      * @author zhou

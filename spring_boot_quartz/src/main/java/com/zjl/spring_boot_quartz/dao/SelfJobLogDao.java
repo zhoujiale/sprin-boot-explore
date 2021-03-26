@@ -32,4 +32,13 @@ public interface SelfJobLogDao {
      * @return void
      **/
     void batchDelete(List<Long> logIdList);
+
+    /**
+     * @description 添加日志
+     * @author zhou
+     * @create 2021/3/26 13:07
+     * @param selfJobPO 日志实体
+     * @return void
+     **/
+    void add(SelfJobLogPO selfJobPO);
 }

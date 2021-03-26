@@ -30,4 +30,8 @@ public class SelfJobLogPO {
     private Long userTime;
     @Column(name = "create_date",nullable = false,columnDefinition = "datetime default current_timestamp comment '开始执行时间'")
     private LocalDateTime createDate;
+    @Column(name = "execute_status",nullable = false,columnDefinition = "int(11) default 1 comment '执行状态 0失败 1成功'")
+    private Integer executeStatus;
+    @Column(name = "error",columnDefinition = "varchar(500) default '' comment '错误'")
+    private String error;
 }

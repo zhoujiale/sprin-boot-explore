@@ -37,4 +37,9 @@ public class SelfJobLogDaoImpl implements SelfJobLogDao {
     public void batchDelete(List<Long> logIdList) {
         selfJobLogRepository.deleteSelfJobLogPOSByLogIdIn(logIdList);
     }
+
+    @Override
+    public void add(SelfJobLogPO selfJobPO) {
+        selfJobLogRepository.save(selfJobPO);
+    }
 }

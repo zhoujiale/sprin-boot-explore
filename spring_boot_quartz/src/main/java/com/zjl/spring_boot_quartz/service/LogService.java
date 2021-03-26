@@ -32,4 +32,14 @@ public interface LogService {
      * @return void
      **/
     void delete(List<Long> logIdList);
+
+    /**
+     * @description 添加日志
+     * @author zhou
+     * @create 2021/3/26 13:01
+     * @param
+     * @param selfJobPO
+     * @return void
+     **/
+    void add(SelfJobLogPO selfJobPO);
 }
