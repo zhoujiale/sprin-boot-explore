@@ -31,6 +31,8 @@ public class SelfJobPO {
     private String groupName;
     @Column(name = "bean_name",nullable = false,columnDefinition = "varchar(45) comment 'java容器名称'")
     private String beanName;
+    @Column(name = "method_name",nullable = false,columnDefinition = "varchar(45) comment '方法名'")
+    private String methodName;
     @Column(name = "cron_expression",nullable = false,columnDefinition = "varchar(100) comment 'cron表达式'")
     private String cronExpression;
     @Column(name = "params",nullable = false,columnDefinition = "varchar(100) default '' comment '参数'")

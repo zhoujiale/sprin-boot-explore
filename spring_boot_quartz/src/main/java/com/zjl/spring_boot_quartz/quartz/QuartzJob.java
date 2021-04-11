@@ -30,24 +30,19 @@ public class QuartzJob extends QuartzJobBean {
         SelfJobPO selfJobPO = (SelfJobPO) jobExecutionContext.getMergedJobDataMap().get(TackConstants.TASK_NAME);
         long startTime = System.currentTimeMillis();
         SelfJobLogPO logPO = new SelfJobLogPO();
-
-        Integer executeStatus = null;
         try {
             log.debug("定时任务开始执行,jobId:[{}]");
-            long useTime = System.currentTimeMillis() - startTime;
-            executeStatus = ExecuteEnum.SUCCESS.getCode();
-            logPO.setUserTime(useTime);
-            logPO.setExecuteStatus(executeStatus);
+            this.execute(selfJobPO);
+            logPO.setExecuteStatus(ExecuteEnum.SUCCESS.getCode());
             logPO.setError(StringUtils.EMPTY);
-            log.debug("定时任务执行结束,jobId[{}],耗时:[{}]毫秒",useTime);
         }catch (Exception e){
             log.error("定时任务执行失败,jobId:[{}]",e.toString());
-            long useTime = System.currentTimeMillis() - startTime;
-            executeStatus = ExecuteEnum.FAIL.getCode();
-            logPO.setUserTime(useTime);
-            logPO.setExecuteStatus(executeStatus);
+            logPO.setExecuteStatus(ExecuteEnum.FAIL.getCode());
             logPO.setError(StringUtils.substring(e.toString(),0,500));
         }finally {
+            long useTime = System.currentTimeMillis() - startTime;
+            log.debug("定时任务执行结束,jobId[{}],耗时:[{}]毫秒",useTime);
+            logPO.setUserTime(useTime);
             logService.add(logPO);
         }
     }
@@ -59,7 +54,7 @@ public class QuartzJob extends QuartzJobBean {
      * @param selfJobPO 定时任务模型
      * @return void
      **/
-    private void invokeMethod(SelfJobPO selfJobPO) throws Exception{
+    private void execute(SelfJobPO selfJobPO) throws Exception{
 
     }
 }
