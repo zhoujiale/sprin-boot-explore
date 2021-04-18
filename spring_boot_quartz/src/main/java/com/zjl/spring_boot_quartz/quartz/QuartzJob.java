@@ -1,5 +1,6 @@
 package com.zjl.spring_boot_quartz.quartz;
 
+import com.zjl.commons.util.spring.SpringContextUtil;
 import com.zjl.spring_boot_quartz.domain.ExecuteEnum;
 import com.zjl.spring_boot_quartz.model.SelfJobLogPO;
 import com.zjl.spring_boot_quartz.model.SelfJobPO;
@@ -11,6 +12,8 @@ import org.quartz.JobExecutionException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.quartz.QuartzJobBean;
 import org.springframework.stereotype.Component;
+
+import java.lang.reflect.Method;
 
 /**
  * @name: QuartzJob
@@ -55,6 +58,8 @@ public class QuartzJob extends QuartzJobBean {
      * @return void
      **/
     private void execute(SelfJobPO selfJobPO) throws Exception{
-
+        Object bean = SpringContextUtil.getBean(selfJobPO.getBeanName());
+        Method method = bean.getClass().getDeclaredMethod(selfJobPO.getMethodName(), String.class);
+        method.invoke(bean,selfJobPO.getParams());
     }
 }

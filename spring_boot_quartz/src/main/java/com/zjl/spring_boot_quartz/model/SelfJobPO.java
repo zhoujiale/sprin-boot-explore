@@ -43,4 +43,7 @@ public class SelfJobPO {
     private LocalDateTime createDate;
     @Column(name = "update_date",nullable = false,columnDefinition = "datetime default current_timestamp on update current_timestamp comment '更新时间'")
     private LocalDateTime updateDate;
+
+    @Transient
+    public static final String JOB_PARAM_KEY = "JOB_PARAM_KEY";
 }
