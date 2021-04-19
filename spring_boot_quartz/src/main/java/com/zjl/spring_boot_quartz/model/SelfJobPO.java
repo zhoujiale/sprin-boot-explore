@@ -31,6 +31,8 @@ public class SelfJobPO {
     private String groupName;
     @Column(name = "bean_name",nullable = false,columnDefinition = "varchar(45) comment 'java容器名称'")
     private String beanName;
+    @Column(name = "method_name",nullable = false,columnDefinition = "varchar(45) comment '方法名'")
+    private String methodName;
     @Column(name = "cron_expression",nullable = false,columnDefinition = "varchar(100) comment 'cron表达式'")
     private String cronExpression;
     @Column(name = "params",nullable = false,columnDefinition = "varchar(100) default '' comment '参数'")
@@ -41,4 +43,7 @@ public class SelfJobPO {
     private LocalDateTime createDate;
     @Column(name = "update_date",nullable = false,columnDefinition = "datetime default current_timestamp on update current_timestamp comment '更新时间'")
     private LocalDateTime updateDate;
+
+    @Transient
+    public static final String JOB_PARAM_KEY = "JOB_PARAM_KEY";
 }

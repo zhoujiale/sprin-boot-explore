@@ -23,7 +23,8 @@ public enum ServiceErrorEnum {
     JOB_NAME("5084", "缺少任务名称"),
     CORN("5085","缺少cron表达式" ),
     LOG_EMPTY("5086", "请选择日志"),
-    JOB_EMPTY("5087", "任务不存在")
+    JOB_EMPTY("5087", "任务不存在"),
+    ADD_JOB_ERROR("5087","添加定时任务失败")
     ;
     private String errCode;
 
