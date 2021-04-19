@@ -1,5 +1,6 @@
 package com.zjl.spring_boot_quartz.quartz;
 
+import com.zjl.commons.util.spring.SpringContextUtil;
 import com.zjl.spring_boot_quartz.domain.ExecuteEnum;
 import com.zjl.spring_boot_quartz.model.SelfJobLogPO;
 import com.zjl.spring_boot_quartz.model.SelfJobPO;
@@ -30,7 +31,6 @@ public class QuartzJob extends QuartzJobBean {
         SelfJobPO selfJobPO = (SelfJobPO) jobExecutionContext.getMergedJobDataMap().get(TackConstants.TASK_NAME);
         long startTime = System.currentTimeMillis();
         SelfJobLogPO logPO = new SelfJobLogPO();
-
         Integer executeStatus = null;
         try {
             log.debug("定时任务开始执行,jobId:[{}]");
@@ -60,6 +60,10 @@ public class QuartzJob extends QuartzJobBean {
      * @return void
      **/
     private void invokeMethod(SelfJobPO selfJobPO) throws Exception{
-
+        String beanName = selfJobPO.getBeanName();
+        //通过bean名称反射获取类
+        Object bean = SpringContextUtil.getBean(beanName);
+        //参数
+        String params = selfJobPO.getParams();
     }
 }
