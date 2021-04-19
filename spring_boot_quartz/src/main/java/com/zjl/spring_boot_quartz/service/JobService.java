@@ -18,7 +18,7 @@ public interface JobService {
      * @param selfJobPO
      * @return void
      **/
-    void add(SelfJobPO selfJobPO);
+    void addJob(SelfJobPO selfJobPO);
 
     /**
      * @description 编辑任务
@@ -27,7 +27,7 @@ public interface JobService {
      * @param selfJobPO
      * @return void
      **/
-    void update(SelfJobPO selfJobPO);
+    void updateJob(SelfJobPO selfJobPO);
 
     /**
      * @description 删除任务
@@ -36,7 +36,7 @@ public interface JobService {
      * @param
      * @return void
      **/
-    void delete(Long jobId);
+    void deleteJob(Long jobId);
 
     /**
      * @description 获取分页的任务列表
@@ -46,4 +46,33 @@ public interface JobService {
      * @return org.springframework.data.domain.Page<com.zjl.spring_boot_quartz.model.SelfJobPO>
      **/
     Page<SelfJobPO> getPage(Integer pageNum, Integer pageSize, String name);
+
+    /**
+     * @description 暂停任务
+     * @author zhou
+     * @create 2021/4/19 13:53
+     * @param jobId
+     * @return void
+     **/
+    void pauseJob(Long jobId);
+
+    /**
+     * @description 执行任务
+     * @author zhou
+     * @create 2021/4/19 13:54
+     * @param jobId
+     * @return void
+     **/
+    void runJob(Long jobId);
+
+    /**
+     * @description 恢复任务
+     * @author zhou
+     * @create 2021/4/19 14:04
+     * @param
+     * @return void
+     **/
+    void restoreJob(Long jobId);
+
+
 }

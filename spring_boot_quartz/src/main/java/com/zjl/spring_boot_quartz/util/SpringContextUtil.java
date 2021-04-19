@@ -1,4 +1,4 @@
-package com.zjl.commons.util.spring;
+package com.zjl.spring_boot_quartz.util;
 
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
@@ -11,9 +11,9 @@ import org.springframework.stereotype.Component;
  * @version 1.0
  * @className SpringContextUtil
  * @description
- * @date 2021/03/26 13:44
+ * @date 2021/04/19 20:12
  **/
-@Lazy
+@Lazy(value = false)
 @Component
 public class SpringContextUtil implements ApplicationContextAware {
 

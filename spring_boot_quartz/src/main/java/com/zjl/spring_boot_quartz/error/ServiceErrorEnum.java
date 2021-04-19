@@ -24,7 +24,14 @@ public enum ServiceErrorEnum {
     CORN("5085","缺少cron表达式" ),
     LOG_EMPTY("5086", "请选择日志"),
     JOB_EMPTY("5087", "任务不存在"),
-    ADD_JOB_ERROR("5087","添加定时任务失败")
+    ADD_JOB_ERROR("5087","添加定时任务失败"),
+    JOB_IS_PAUSE("5088", "定时任务已经暂停"),
+    JOB_IS_RUNNING("5089", "定时任务已经在运行"),
+    MODIFY_JOB_ERROR("5090", "更新定时任务失败"),
+    PAUSE_JOB_ERROR("5091", "暂停定时任务失败"),
+    RESUME_JOB_ERROR("5092", "恢复定时任务失败"),
+    DELETE_JOB_ERROR("5093", "删除定时任务失败"),
+    EXEC_JOB_ERROR("5094", "执行定时任务失败")
     ;
     private String errCode;
 

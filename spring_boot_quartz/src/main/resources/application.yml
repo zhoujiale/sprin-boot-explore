@@ -42,4 +42,6 @@ spring:
     job-store-type: jdbc
     jdbc:
       initialize-schema: always
-
+logging:
+  level:
+    root: debug

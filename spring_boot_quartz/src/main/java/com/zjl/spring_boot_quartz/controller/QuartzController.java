@@ -38,21 +38,42 @@ public class QuartzController {
     @ApiOperation(value = "添加任务")
     @PostMapping(value = "/add")
     public WebResponse add(@RequestBody SelfJobPO selfJobPO){
-        jobService.add(selfJobPO);
+        jobService.addJob(selfJobPO);
         return WebResponse.success();
     }
 
     @ApiOperation(value = "编辑任务")
     @PostMapping(value = "/update")
     public WebResponse update(@RequestBody SelfJobPO selfJobPO){
-        jobService.update(selfJobPO);
+        jobService.updateJob(selfJobPO);
         return WebResponse.success();
     }
 
     @ApiOperation(value = "删除任务")
     @DeleteMapping(value = "/delete")
     public WebResponse delete(@RequestParam(value = "jobId")Long jobId){
-        jobService.delete(jobId);
+        jobService.deleteJob(jobId);
+        return WebResponse.success();
+    }
+
+    @ApiOperation(value = "暂停任务")
+    @PostMapping(value = "/pause")
+    public WebResponse pause(@RequestParam(value = "jobId")Long jobId){
+        jobService.pauseJob(jobId);
+        return WebResponse.success();
+    }
+
+    @ApiOperation(value = "恢复任务")
+    @PostMapping(value = "/resume")
+    public WebResponse restore(@RequestParam(value = "jobId")Long jobId){
+        jobService.restoreJob(jobId);
+        return WebResponse.success();
+    }
+
+    @ApiOperation(value = "立即执行任务")
+    @PostMapping(value = "/exec")
+    public WebResponse exec(@RequestParam(value = "jobId")Long jobId){
+        jobService.runJob(jobId);
         return WebResponse.success();
     }
 

@@ -14,4 +14,5 @@ public class SpringBootQuartzApplication {
         SpringApplication.run(SpringBootQuartzApplication.class, args);
     }
 
+
 }

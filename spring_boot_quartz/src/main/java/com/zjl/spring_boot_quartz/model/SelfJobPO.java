@@ -1,9 +1,12 @@
 package com.zjl.spring_boot_quartz.model;
 
 import lombok.Data;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
@@ -19,7 +22,7 @@ import java.time.LocalDateTime;
 @Table(name = "self_job")
 @org.hibernate.annotations.Table(appliesTo = "self_job",comment = "任务模型")
 @EntityListeners(AuditingEntityListener.class)
-public class SelfJobPO {
+public class SelfJobPO implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -39,11 +42,12 @@ public class SelfJobPO {
     private String params;
     @Column(name = "job_status",nullable = false,columnDefinition = "int(1) default 0 comment '任务状态'")
     private Integer jobStatus;
+    @CreatedDate
     @Column(name = "create_date",nullable = false,columnDefinition = "datetime default current_timestamp comment '创建时间'")
     private LocalDateTime createDate;
+    @LastModifiedDate
     @Column(name = "update_date",nullable = false,columnDefinition = "datetime default current_timestamp on update current_timestamp comment '更新时间'")
     private LocalDateTime updateDate;
 
-    @Transient
-    public static final String JOB_PARAM_KEY = "JOB_PARAM_KEY";
+
 }

@@ -1,16 +1,22 @@
 package com.zjl.spring_boot_quartz.service.impl;
 
+import com.zjl.commons.util.valid.OperateEnum;
 import com.zjl.spring_boot_quartz.dao.SelfJobDao;
-import com.zjl.spring_boot_quartz.domain.OperateEnum;
+import com.zjl.spring_boot_quartz.domain.StateEnum;
 import com.zjl.spring_boot_quartz.error.ServiceErrorEnum;
 import com.zjl.spring_boot_quartz.error.ServiceErrorException;
 import com.zjl.spring_boot_quartz.model.SelfJobPO;
+import com.zjl.spring_boot_quartz.quartz.QuartzUtil;
 import com.zjl.spring_boot_quartz.service.JobService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.quartz.Scheduler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import javax.annotation.Resource;
 
 /**
  * @author zhou
@@ -26,30 +32,75 @@ public class JobServiceImpl implements JobService {
     @Autowired
     private SelfJobDao selfJobDao;
 
+    @Resource
+    private Scheduler scheduler;
+
     @Override
-    public void add(SelfJobPO selfJobPO) {
+    @Transactional(rollbackFor = RuntimeException.class)
+    public void addJob(SelfJobPO selfJobPO) {
         this.validSelfJob(selfJobPO,OperateEnum.ADD);
         selfJobDao.add(selfJobPO);
+        QuartzUtil.createJob(scheduler,selfJobPO);
     }
 
     @Override
-    public void update(SelfJobPO selfJobPO) {
+    @Transactional(rollbackFor = RuntimeException.class)
+    public void updateJob(SelfJobPO selfJobPO) {
         this.validSelfJob(selfJobPO,OperateEnum.MODIFY);
         selfJobDao.modify(selfJobPO);
+        QuartzUtil.updateJob(scheduler,selfJobPO);
     }
 
     @Override
-    public void delete(Long jobId) {
-        if (null == jobId){
-            log.error("缺少jobId");
-            throw new ServiceErrorException(ServiceErrorEnum.JOB_ID);
-        }
+    @Transactional(rollbackFor = RuntimeException.class)
+    public void deleteJob(Long jobId) {
+        SelfJobPO selfJobPO = selfJobDao.getById(jobId);
+        this.selfJobIsEmpty(selfJobPO);
         selfJobDao.delete(jobId);
+        QuartzUtil.deleteJob(scheduler,selfJobPO);
     }
 
     @Override
     public Page<SelfJobPO> getPage(Integer pageNum, Integer pageSize, String name) {
         return selfJobDao.getPage(pageNum,pageSize,name);
+    }
+
+    @Override
+    @Transactional(rollbackFor = RuntimeException.class)
+    public void pauseJob(Long jobId) {
+        SelfJobPO selfJobPO = selfJobDao.getById(jobId);
+        this.selfJobIsEmpty(selfJobPO);
+        if (StateEnum.PAUSE.getCode().equals(selfJobPO.getJobStatus())){
+            log.warn("任务已经暂停了");
+            throw new ServiceErrorException(ServiceErrorEnum.JOB_IS_PAUSE);
+        }
+        selfJobPO.setJobStatus(StateEnum.PAUSE.getCode());
+        selfJobDao.modify(selfJobPO);
+        QuartzUtil.pauseJob(scheduler,selfJobPO);
+    }
+
+    @Override
+    public void runJob(Long jobId) {
+        SelfJobPO selfJobPO = selfJobDao.getById(jobId);
+        this.selfJobIsEmpty(selfJobPO);
+        if (StateEnum.PAUSE.getCode().equals(selfJobPO.getJobStatus())){
+            selfJobPO.setJobStatus(StateEnum.RUN.getCode());
+        }
+        selfJobDao.modify(selfJobPO);
+        QuartzUtil.execJob(scheduler,selfJobPO);
+    }
+
+    @Override
+    public void restoreJob(Long jobId) {
+        SelfJobPO selfJobPO = selfJobDao.getById(jobId);
+        this.selfJobIsEmpty(selfJobPO);
+        if (StateEnum.RUN.getCode().equals(selfJobPO.getJobStatus())){
+            log.warn("任务已经在运行了");
+            throw new ServiceErrorException(ServiceErrorEnum.JOB_IS_RUNNING);
+        }
+        selfJobPO.setJobStatus(StateEnum.RUN.getCode());
+        selfJobDao.modify(selfJobPO);
+        QuartzUtil.resumeJob(scheduler,selfJobPO);
     }
 
     private void validSelfJob(SelfJobPO selfJobPO, OperateEnum operateEnum){
@@ -70,6 +121,13 @@ public class JobServiceImpl implements JobService {
         if (StringUtils.isBlank(selfJobPO.getCronExpression())){
             log.error("缺少cron表达式");
             throw new ServiceErrorException(ServiceErrorEnum.CORN);
+        }
+    }
+
+    private void selfJobIsEmpty(SelfJobPO selfJobPO){
+        if(null == selfJobPO){
+            log.error("定时任务不存在");
+            throw new ServiceErrorException(ServiceErrorEnum.JOB_EMPTY);
         }
     }
 }

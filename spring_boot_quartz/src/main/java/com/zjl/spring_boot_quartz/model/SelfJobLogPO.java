@@ -4,6 +4,7 @@ import lombok.Data;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
@@ -18,7 +19,7 @@ import java.time.LocalDateTime;
 @Table(name = "self_job_log")
 @org.hibernate.annotations.Table(appliesTo = "self_job_log",comment = "任务日志")
 @EntityListeners(AuditingEntityListener.class)
-public class SelfJobLogPO {
+public class SelfJobLogPO implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

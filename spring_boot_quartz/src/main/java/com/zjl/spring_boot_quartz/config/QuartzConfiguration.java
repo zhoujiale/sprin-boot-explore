@@ -28,7 +28,7 @@ public class QuartzConfiguration {
      * @param 
      * @return org.springframework.scheduling.quartz.SchedulerFactoryBean
      **/
-    @Bean
+    @Bean("schedulerFactoryBean")
     public SchedulerFactoryBean schedulerFactoryBean(DataSource dataSource, Properties quartzProperties){
         SchedulerFactoryBean schedulerFactoryBean = new SchedulerFactoryBean();
         schedulerFactoryBean.setOverwriteExistingJobs(true);

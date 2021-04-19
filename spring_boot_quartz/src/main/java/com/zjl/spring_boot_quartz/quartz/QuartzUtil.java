@@ -16,6 +16,7 @@ public class QuartzUtil {
 
     private static final String KEY = "TASK_";
 
+
     public static JobKey getJobKey(Long jobId,String group){
         return JobKey.jobKey(KEY+jobId,group);
     }
@@ -23,6 +24,9 @@ public class QuartzUtil {
     public static TriggerKey getTriggerKey(Long jobId,String group){
         return TriggerKey.triggerKey(KEY+jobId,group);
     }
+
+
+
 
     /**
      * @description 创建定时任务
@@ -43,8 +47,9 @@ public class QuartzUtil {
             //触发器
             CronTrigger cronTrigger = TriggerBuilder.newTrigger().withIdentity(getTriggerKey(selfJobPO.getJobId(), selfJobPO.getGroupName()))
                     .withSchedule(cronScheduleBuilder).build();
-            jobDetail.getJobDataMap().put(SelfJobPO.JOB_PARAM_KEY,selfJobPO);
-
+            //存储信息
+            jobDetail.getJobDataMap().put(TackConstants.TASK_NAME,selfJobPO);
+            //调度器存储任务信息和触发器
             scheduler.scheduleJob(jobDetail,cronTrigger);
         }catch (SchedulerException e){
             ErrorLogUtil.errorLog(e);
@@ -60,6 +65,95 @@ public class QuartzUtil {
      * @return void
      **/
     public static void updateJob(Scheduler scheduler,SelfJobPO selfJobPO){
-        
+
+        try {
+            //获取触发器key
+            TriggerKey triggerKey = getTriggerKey(selfJobPO.getJobId(),selfJobPO.getGroupName());
+            //重新构建cron
+            CronScheduleBuilder cronScheduleBuilder = CronScheduleBuilder.cronSchedule(selfJobPO.getCronExpression())
+                    .withMisfireHandlingInstructionDoNothing();
+            //获取原来的触发器
+            CronTrigger cronTrigger = (CronTrigger) scheduler.getTrigger(triggerKey);
+            if(cronTrigger.getCronExpression().equalsIgnoreCase(selfJobPO.getCronExpression())){
+                return;
+            }
+            //更新触发器
+            cronTrigger = cronTrigger.getTriggerBuilder().withIdentity(triggerKey).withSchedule(cronScheduleBuilder).build();
+            //更新触发器中的调度信息
+            cronTrigger.getJobDataMap().put(TackConstants.TASK_NAME,selfJobPO);
+            //更新任务
+            scheduler.rescheduleJob(triggerKey,cronTrigger);
+
+        } catch (SchedulerException e) {
+            ErrorLogUtil.errorLog(e);
+            throw new ServiceErrorException(ServiceErrorEnum.MODIFY_JOB_ERROR);
+        }
+
+    }
+
+    /**
+     * @description 暂停定时任务
+     * @author zhou
+     * @create 2021/4/19 14:50
+     * @param
+     * @return void
+     **/
+    public static void pauseJob(Scheduler scheduler,SelfJobPO selfJobPO){
+        try {
+            scheduler.pauseJob(getJobKey(selfJobPO.getJobId(),selfJobPO.getGroupName()));
+        } catch (SchedulerException e) {
+            ErrorLogUtil.errorLog(e);
+            throw new ServiceErrorException(ServiceErrorEnum.PAUSE_JOB_ERROR);
+        }
+    }
+
+    /**
+     * @description 恢复定时任务
+     * @author zhou
+     * @create 2021/4/19 14:56 
+     * @param 
+     * @return void
+     **/
+    public static void resumeJob(Scheduler scheduler,SelfJobPO selfJobPO){
+        try {
+            scheduler.resumeJob(getJobKey(selfJobPO.getJobId(),selfJobPO.getGroupName()));
+        } catch (SchedulerException e) {
+            ErrorLogUtil.errorLog(e);
+            throw new ServiceErrorException(ServiceErrorEnum.RESUME_JOB_ERROR);
+        }
+    }
+
+    /**
+     * @description 删除定时任务
+     * @author zhou
+     * @create 2021/4/19 16:55
+     * @param
+     * @return void
+     **/
+    public static void deleteJob(Scheduler scheduler,SelfJobPO selfJobPO){
+        try{
+            scheduler.deleteJob(getJobKey(selfJobPO.getJobId(),selfJobPO.getGroupName()));
+        }catch (SchedulerException e){
+            ErrorLogUtil.errorLog(e);
+            throw new ServiceErrorException(ServiceErrorEnum.DELETE_JOB_ERROR);
+        }
+    }
+
+    /**
+     * @description 立即执行定时任务
+     * @author zhou
+     * @create 2021/4/19 17:01
+     * @param
+     * @return void
+     **/
+    public static void execJob(Scheduler scheduler,SelfJobPO selfJobPO){
+        try {
+            JobDataMap jobDataMap = new JobDataMap();
+            jobDataMap.put(TackConstants.TASK_NAME,selfJobPO);
+            scheduler.triggerJob(getJobKey(selfJobPO.getJobId(),selfJobPO.getGroupName()),jobDataMap);
+        } catch (SchedulerException e) {
+            ErrorLogUtil.errorLog(e);
+            throw new ServiceErrorException(ServiceErrorEnum.EXEC_JOB_ERROR);
+        }
     }
 }
