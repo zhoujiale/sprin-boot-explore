@@ -3,6 +3,8 @@ package com.zjl.spring_boot_quartz.dao;
 import com.zjl.spring_boot_quartz.model.SelfJobPO;
 import org.springframework.data.domain.Page;
 
+import java.util.List;
+
 /**
  * @author zhou
  * @className SelfJobDao
@@ -55,4 +57,13 @@ public interface SelfJobDao {
      * @return com.zjl.spring_boot_quartz.model.SelfJobPO
      **/
     SelfJobPO getById(Long jobId);
+
+    /**
+     * @description 获取所有现存的服务
+     * @author zhou
+     * @create 2021/4/20 10:30 
+     * @param 
+     * @return java.util.List<com.zjl.spring_boot_quartz.model.SelfJobPO>
+     **/
+    List<SelfJobPO> getAllJob();
 }

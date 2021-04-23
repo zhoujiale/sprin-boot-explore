@@ -3,11 +3,10 @@ package com.zjl.commons.util.date;
 import com.zjl.commons.util.log.ErrorLogUtil;
 import org.apache.commons.lang3.StringUtils;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.ZoneOffset;
+import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.Date;
 
 /**
  * @name: DateUtil
@@ -88,5 +87,10 @@ public class DateUtil {
         return localDateTime.toEpochSecond(ZoneOffset.ofHours(ZONE));
     }
 
+    public static Date localDateTimeToDate(LocalDateTime localDateTime){
+        ZoneId zoneId = ZoneId.systemDefault();
+        Instant instant = localDateTime.atZone(zoneId).toInstant();
+        return Date.from(instant);
+    }
 
 }

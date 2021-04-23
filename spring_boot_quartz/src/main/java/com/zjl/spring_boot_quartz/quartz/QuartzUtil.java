@@ -25,8 +25,9 @@ public class QuartzUtil {
         return TriggerKey.triggerKey(KEY+jobId,group);
     }
 
-
-
+    public static Trigger getJobTrigger(Scheduler scheduler,Long jobId,String group) throws SchedulerException {
+        return scheduler.getTrigger(getTriggerKey(jobId, group));
+    }
 
     /**
      * @description 创建定时任务

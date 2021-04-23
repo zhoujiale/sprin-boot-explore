@@ -8,5 +8,5 @@ package com.zjl.spring_boot_quartz.service;
  **/
 public interface SelfJobService {
 
-    void minuteJob();
+    void minuteJob(String params);
 }

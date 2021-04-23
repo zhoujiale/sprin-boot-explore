@@ -7,10 +7,16 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
+import springfox.documentation.builders.RequestParameterBuilder;
 import springfox.documentation.oas.annotations.EnableOpenApi;
 import springfox.documentation.service.ApiInfo;
+import springfox.documentation.service.ParameterType;
+import springfox.documentation.service.RequestParameter;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @name: SwaggerConfiguration
@@ -24,12 +30,22 @@ public class SwaggerConfiguration implements WebMvcConfigurer {
 
     @Bean
     public Docket createRestApi(){
+        List<RequestParameter> list = new ArrayList<>();
+        RequestParameterBuilder tokenBuilder = new RequestParameterBuilder();
+        tokenBuilder.name(RequestConstant.TOKEN).description("token")
+                .in(ParameterType.HEADER).build();
+        RequestParameterBuilder remarkBuilder = new RequestParameterBuilder();
+        remarkBuilder.name(RequestConstant.REMARK).description("remark")
+                .in(ParameterType.HEADER).build();
+        list.add(tokenBuilder.build());
+        list.add(remarkBuilder.build());
         return new Docket(DocumentationType.OAS_30)
                 .apiInfo(apiInfo())
                 .select()
                 .apis(RequestHandlerSelectors.withMethodAnnotation(ApiOperation.class))
                 .paths(PathSelectors.any())
-                .build();
+                .build()
+                .globalRequestParameters(list);
     }
 
     private ApiInfo apiInfo(){

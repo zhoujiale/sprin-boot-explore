@@ -1,5 +1,5 @@
 server:
-  port: 9092
+  port: 8082
   servlet:
     context-path: /security
     session:
@@ -43,4 +43,6 @@ spring:
     password: 7rWBBtyi2H3Cc9ld
 logging:
   level:
-    org.springframework.security: debug
+    root: info
+jwt:
+  secret: 7rWBBtyi2H3Cc9ld

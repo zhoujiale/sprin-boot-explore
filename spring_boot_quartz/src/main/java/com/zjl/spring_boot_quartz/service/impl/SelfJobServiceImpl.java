@@ -19,7 +19,7 @@ public class SelfJobServiceImpl implements SelfJobService {
 
 
     @Override
-    public void minuteJob() {
+    public void minuteJob(String params) {
       log.info("job:[{}],method:[{}]","selfJobService","minuteJob");
       log.info("执行时间:[{}]", LocalDateTime.now().toString());
     }

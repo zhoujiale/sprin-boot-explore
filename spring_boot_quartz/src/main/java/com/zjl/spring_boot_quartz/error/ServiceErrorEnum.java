@@ -31,7 +31,8 @@ public enum ServiceErrorEnum {
     PAUSE_JOB_ERROR("5091", "暂停定时任务失败"),
     RESUME_JOB_ERROR("5092", "恢复定时任务失败"),
     DELETE_JOB_ERROR("5093", "删除定时任务失败"),
-    EXEC_JOB_ERROR("5094", "执行定时任务失败")
+    EXEC_JOB_ERROR("5094", "执行定时任务失败"),
+    GET_TRIGGER_ERROR("5095", "获取触发器失败")
     ;
     private String errCode;
 

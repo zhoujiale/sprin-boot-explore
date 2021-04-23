@@ -62,4 +62,9 @@ public class SelfJobDaoImpl implements SelfJobDao {
         Optional<SelfJobPO> byId = selfJobRepository.findById(jobId);
         return byId.orElse(null);
     }
+
+    @Override
+    public List<SelfJobPO> getAllJob() {
+        return selfJobRepository.findAll();
+    }
 }

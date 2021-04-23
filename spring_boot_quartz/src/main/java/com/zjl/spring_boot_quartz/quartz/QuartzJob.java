@@ -1,5 +1,6 @@
 package com.zjl.spring_boot_quartz.quartz;
 
+import com.zjl.commons.util.log.ErrorLogUtil;
 import com.zjl.spring_boot_quartz.domain.ExecuteEnum;
 import com.zjl.spring_boot_quartz.model.SelfJobLogPO;
 import com.zjl.spring_boot_quartz.model.SelfJobPO;
@@ -9,11 +10,12 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.quartz.QuartzJobBean;
 import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Method;
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 
 /**
  * @name: QuartzJob
@@ -25,26 +27,31 @@ import java.lang.reflect.Method;
 @Component
 public class QuartzJob extends QuartzJobBean {
 
-    @Autowired
-    private LogService logService;
+
 
     @Override
     protected void executeInternal(JobExecutionContext jobExecutionContext) throws JobExecutionException {
         SelfJobLogPO logPO = new SelfJobLogPO();
         long startTime = System.currentTimeMillis();
+        logPO.setCreateDate(LocalDateTime.ofEpochSecond(startTime/1000,0, ZoneOffset.ofHours(0)));
+        log.warn(logPO.getCreateDate().toString());
+        SelfJobPO selfJobPO = null;
+        LogService logService = SpringContextUtil.getBean(LogService.class);
         try {
-            SelfJobPO selfJobPO = (SelfJobPO) jobExecutionContext.getMergedJobDataMap().get(TackConstants.TASK_NAME);
-            log.debug("定时任务开始执行,jobId:[{}]");
+            selfJobPO = (SelfJobPO) jobExecutionContext.getMergedJobDataMap().get(TackConstants.TASK_NAME);
+            log.debug("定时任务开始执行,jobId:[{}]", selfJobPO.getJobId());
             this.execute(selfJobPO);
+            logPO.setJobId(selfJobPO.getJobId());
             logPO.setExecuteStatus(ExecuteEnum.SUCCESS.getCode());
             logPO.setError(StringUtils.EMPTY);
         } catch (Exception e) {
-            log.error("定时任务执行失败,jobId:[{}]", e.toString());
+            ErrorLogUtil.errorLog(e);
+            log.error("定时任务执行失败,jobId:[{}]", selfJobPO.getJobId());
             logPO.setExecuteStatus(ExecuteEnum.FAIL.getCode());
             logPO.setError(StringUtils.substring(e.toString(), 0, 500));
         } finally {
             long useTime = System.currentTimeMillis() - startTime;
-            log.debug("定时任务执行结束,jobId[{}],耗时:[{}]毫秒", useTime);
+            log.debug("定时任务执行结束,jobId[{}],耗时:[{}]毫秒", selfJobPO.getJobId(), useTime);
             logPO.setUserTime(useTime);
             logService.add(logPO);
         }

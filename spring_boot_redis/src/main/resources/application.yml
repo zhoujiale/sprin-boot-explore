@@ -1,13 +1,33 @@
 server:
-  port: 8084
+  port: 8087
   servlet:
-    context-path: /quartz
+    context-path: /redis
 spring:
   application:
-    name: QUARTZ
+    name: REDIS
+  data:
+    redis:
+      repositories:
+        enabled: false
+  cache:
+    type: redis
+  redis:
+    host: 127.0.0.1
+    password: 7rWBBtyi2H3Cc9ld
+    port: 6379
+    lettuce:
+      pool:
+        max-wait: -1ms
+    timeout: 20000
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+    database: mysql
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://47.114.33.113:3306/self_quartz?useUnicode=true&characterEncoding=utf8&serverTimezone=GMT%2B8
+    url: jdbc:mysql://47.114.33.113:3306/spring_security?useUnicode=true&characterEncoding=utf8&serverTimezone=GMT%2B8
     username: zjl
     password: o7fBXanNqcyXseVvh3Zu8FXCclTEXHwc3WCqY4Jrb/NyP7vT2mG6mynPFQFewZ0LJf7WTemSIgnw8szRWAYYXw==
     type: com.alibaba.druid.pool.DruidDataSource
@@ -29,19 +49,3 @@ spring:
         config:
           enabled: true
       connection-properties: config.decrypt=true;config.decrypt.key=MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBAMEHLbu0kASdjAhnMrT/Xm+CpeOlytwF8k2Oph/bLVM920OQrdv9djpaMr13V5fcgWIxoRISGOw9xespSeYsbFkCAwEAAQ==
-  jpa:
-    hibernate:
-      ddl-auto: update
-    show-sql: true
-    database-platform: org.hibernate.dialect.MySQL8Dialect
-    database: mysql
-    properties:
-      hibernate:
-        format_sql: true
-  quartz:
-    job-store-type: jdbc
-    jdbc:
-      initialize-schema: always
-logging:
-  level:
-    root: info

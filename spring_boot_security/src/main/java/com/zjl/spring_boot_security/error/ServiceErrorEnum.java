@@ -21,8 +21,12 @@ public enum ServiceErrorEnum {
     DISABLE_ERROR("5082","账号被禁用"),
     AUTH_SERVICE_ERROR("5083","认证服务异常"),
     CREDENTIALS_EXPIRE("5084","凭证过期"),
-    PERMISSION_REFUSE("5085","当前账号没有该项操作权限")
-    ;
+    PERMISSION_REFUSE("5085","当前账号没有该项操作权限"),
+    TOKEN_EMPTY("5086", "缺少令牌"), 
+    JWT_PARSE_ERROR("5087", "jwt解析错误"),
+    JWT_VERIFY_ERROR("5088", "jwt验证错误"),
+    JWT_EXPIRE("5089", "jwt过期"),
+    JWT_COMPLETE("5090", "jwt不完整");
     private String errCode;
 
     private String errMsg;
