@@ -1,11 +1,11 @@
 package com.zjl.spring_boot_security.model;
 
+import com.zjl.spring_boot_security.config.SelfGrantedAuthority;
 import lombok.Data;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
@@ -53,6 +53,8 @@ public class SecurityUserPO implements UserDetails,Serializable {
     private Set<RolePO> allRoles;
     @Transient
     private Set<PermissionPO> allPermissions;
+    @Transient
+    private Collection<? extends GrantedAuthority> authorities;
 
     private static final String ROLE_PREFIX = "ROLE_";
 
@@ -60,9 +62,9 @@ public class SecurityUserPO implements UserDetails,Serializable {
     public Collection<? extends GrantedAuthority> getAuthorities() {
         List<GrantedAuthority> grantedAuthorityList = new ArrayList<>();
         allRoles.forEach(rolePO ->
-                        grantedAuthorityList.add(new SimpleGrantedAuthority(ROLE_PREFIX + rolePO.getRoleName())));
+                        grantedAuthorityList.add(new SelfGrantedAuthority(ROLE_PREFIX + rolePO.getRoleName())));
         allPermissions.forEach(permissionPO ->
-                grantedAuthorityList.add(new SimpleGrantedAuthority(permissionPO.getPermissionName())));
+                grantedAuthorityList.add(new SelfGrantedAuthority(permissionPO.getPermissionName())));
         return grantedAuthorityList;
     }
 
@@ -95,4 +97,6 @@ public class SecurityUserPO implements UserDetails,Serializable {
     public boolean isEnabled() {
         return true;
     }
+
+
 }

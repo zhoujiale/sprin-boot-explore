@@ -1,8 +1,15 @@
 package com.zjl.spring_boot_security.config;
 
 import com.zjl.spring_boot_security.service.impl.SelfUserDetailService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.redis.cache.RedisCache;
+import org.springframework.data.redis.cache.RedisCacheConfiguration;
+import org.springframework.data.redis.cache.RedisCacheWriter;
+import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory;
+import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer;
+import org.springframework.data.redis.serializer.RedisSerializationContext;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.Customizer;
@@ -11,8 +18,11 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.cache.SpringCacheBasedUserCache;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -30,6 +40,9 @@ import java.util.Arrays;
 public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     private static final String ORIGIN = "http://www.docway.net";
+
+    @Autowired
+    private TokenFilter tokenFilter;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -51,6 +64,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                         "/user/login/**")
                 .permitAll();
         http.authorizeRequests().anyRequest().authenticated();
+        http.addFilterBefore(tokenFilter, UsernamePasswordAuthenticationFilter.class);
         http.logout(logout -> logout
                 .logoutUrl("/user/logout/**")
                 .logoutSuccessHandler(selfLogoutSuccessHandler())
@@ -67,15 +81,43 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     }
 
     @Override
+    protected UserDetailsService userDetailsService() {
+        return super.userDetailsService();
+    }
+
+    @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(selfUserDetailService())
                 .passwordEncoder(passwordEncoder());
     }
 
     @Bean
-    public SelfUserDetailService selfUserDetailService() {
-        return new SelfUserDetailService();
+    public SelfRedisCacheManager selfRedisCacheManager(LettuceConnectionFactory connectionFactory){
+        return new SelfRedisCacheManager(RedisCacheWriter.nonLockingRedisCacheWriter(connectionFactory),this.redisCacheConfiguration());
     }
+
+    @Bean
+    public RedisCache redisCache(LettuceConnectionFactory connectionFactory){
+        return selfRedisCacheManager(connectionFactory).createRedisCache("redis-user-cache",this.redisCacheConfiguration());
+    }
+
+    @Bean
+    public SpringCacheBasedUserCache springCacheBasedUserCache(LettuceConnectionFactory connectionFactory){
+        return new SpringCacheBasedUserCache(redisCache(connectionFactory));
+    }
+
+    private RedisCacheConfiguration redisCacheConfiguration(){
+        RedisSerializationContext.SerializationPair<Object> pair = RedisSerializationContext.SerializationPair
+                .fromSerializer(new GenericJackson2JsonRedisSerializer());
+        return RedisCacheConfiguration.defaultCacheConfig().serializeValuesWith(pair);
+    }
+
+    @Bean
+    public SelfUserDetailService selfUserDetailService() {
+        return new SelfUserDetailService(userDetailsService());
+    }
+
+
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -102,7 +144,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.setAllowedOrigins(Arrays.asList(ORIGIN));
         configuration.setAllowedMethods(Arrays.asList("GET","POST","PUT","DELETE","OPTION"));
-        configuration.setAllowedHeaders(Arrays.asList("Origin", "X-Requested-With", "Content-Type", "Accept","Authorization","If-Modified-Since"));
+        configuration.setAllowedHeaders(Arrays.asList("Origin", "X-Requested-With", "Content-Type", "Accept","Authorization","If-Modified-Since","authToken"));
         configuration.setAllowCredentials(true);
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);

@@ -14,7 +14,6 @@ import java.util.Map;
  * @description
  * @date 2021/04/20 16:39
  **/
-
 public class SelfRedisCacheManager extends RedisCacheManager {
 
 
@@ -42,4 +41,6 @@ public class SelfRedisCacheManager extends RedisCacheManager {
     protected RedisCache createRedisCache(String name, RedisCacheConfiguration cacheConfig) {
         return super.createRedisCache(name, cacheConfig);
     }
+
+
 }

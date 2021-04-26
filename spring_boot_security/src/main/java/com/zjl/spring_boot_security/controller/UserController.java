@@ -39,11 +39,11 @@ public class UserController {
     @ApiOperation(value = "登录")
     @PostMapping(value = "/login")
     public WebResponse login(@RequestBody LoginBO loginBO, HttpServletResponse response, HttpServletRequest request) {
-        userService.userLogin(loginBO);
+        String userLogin = userService.userLogin(loginBO);
         Cookie selfCookie = new Cookie("selfCookie", "my-cookie");
             selfCookie.setPath(request.getContextPath() + "/");
         response.addCookie(selfCookie);
-        return WebResponse.success();
+        return WebResponse.success(userLogin);
     }
 
 

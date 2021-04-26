@@ -13,7 +13,9 @@ import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -46,11 +48,12 @@ public class TokenFilter extends OncePerRequestFilter {
             filterChain.doFilter(httpServletRequest,httpServletResponse);
         }else {
             String token = httpServletRequest.getHeader(RequestConstant.TOKEN);
-            this.authHandler(token);
+            this.authHandler(token,httpServletRequest);
+            filterChain.doFilter(httpServletRequest,httpServletResponse);
         }
     }
 
-    private void authHandler(String token){
+    private void authHandler(String token,HttpServletRequest request){
         if (StringUtils.isBlank(token)){
             log.error("缺少令牌token");
             throw new ServiceErrorException(ServiceErrorEnum.TOKEN_EMPTY);
@@ -64,7 +67,7 @@ public class TokenFilter extends OncePerRequestFilter {
             List<String> audience = parse.getAudience();
             if(CollectionUtils.isNotEmpty(audience) && audience.size() >1){
                 String name = audience.get(1);
-                UserDetails userDetails = selfUserDetailService.loadUserByUsername(name);
+                this.authUser(name,request);
             }else {
                 log.error("jwt信息不完整");
                 throw new ServiceErrorException(ServiceErrorEnum.JWT_COMPLETE);
@@ -85,9 +88,11 @@ public class TokenFilter extends OncePerRequestFilter {
      * @param 
      * @return void
      **/
-    private void authUser(String username){
+    private void authUser(String username,HttpServletRequest request){
         //加载主体
         UserDetails userDetails = selfUserDetailService.loadUserByUsername(username);
         UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(username, null, userDetails.getAuthorities());
+        authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+        SecurityContextHolder.getContext().setAuthentication(authenticationToken);
     }
 }

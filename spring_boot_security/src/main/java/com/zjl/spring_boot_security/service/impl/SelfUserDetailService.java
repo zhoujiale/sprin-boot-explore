@@ -4,14 +4,17 @@ import com.zjl.spring_boot_security.dao.UserDao;
 import com.zjl.spring_boot_security.model.PermissionPO;
 import com.zjl.spring_boot_security.model.RolePO;
 import com.zjl.spring_boot_security.model.SecurityUserPO;
+import com.zjl.spring_boot_security.model.SelfUser;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.CachingUserDetailsService;
 import org.springframework.security.authentication.LockedException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.core.userdetails.cache.SpringCacheBasedUserCache;
 
 import java.util.Collection;
 import java.util.HashSet;
@@ -26,14 +29,23 @@ import java.util.stream.Collectors;
  * @date 2021/01/18 19:36
  **/
 @Slf4j
-public class SelfUserDetailService implements UserDetailsService {
+public class SelfUserDetailService extends CachingUserDetailsService {
 
     @Autowired
     private UserDao userDao;
+    @Autowired
+    private SpringCacheBasedUserCache userCache;
 
+    public SelfUserDetailService(UserDetailsService delegate) {
+        super(delegate);
+    }
 
     @Override
     public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
+        UserDetails userFromCache = userCache.getUserFromCache(userName);
+        if (null != userFromCache){
+            return userFromCache;
+        }
         SecurityUserPO userPO = userDao.queryUserByName(userName);
         if (null == userPO){
             log.warn("not found user:[{}]",userName);
@@ -49,6 +61,9 @@ public class SelfUserDetailService implements UserDetailsService {
                 .map(RolePO::getRoleId).collect(Collectors.toList())));
         userPO.setAllPermissions(permissionPOSet);
         Collection<? extends GrantedAuthority> authorities = userPO.getAuthorities();
-        return new User(userPO.getUsername(),userPO.getPassword(),authorities);
+        User user = new User(userName, userPO.getPassword(), authorities);
+        SelfUser selfUser = new SelfUser(user);
+        userCache.putUserInCache(selfUser);
+        return user;
     }
 }

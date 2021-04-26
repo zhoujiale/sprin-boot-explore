@@ -5,6 +5,7 @@ import com.zjl.spring_boot_security.domain.bo.LoginBO;
 import com.zjl.spring_boot_security.domain.bo.UserBO;
 import com.zjl.spring_boot_security.model.SecurityUserPO;
 import com.zjl.spring_boot_security.service.UserService;
+import com.zjl.spring_boot_security.utlil.JWTUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -35,11 +36,13 @@ public class UserServiceImpl implements UserService {
     private AuthenticationManager authenticationManager;
 
     @Override
-    public void userLogin(LoginBO loginBO) {
+    public String userLogin(LoginBO loginBO) {
         SecurityContext currentUser = SecurityContextHolder.getContext();
         UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(loginBO.getUserName(),loginBO.getPassword());
         final Authentication authenticate = authenticationManager.authenticate(authenticationToken);
         currentUser.setAuthentication(authenticate);
+        SecurityUserPO securityUserPO = userDao.queryUserByName(loginBO.getUserName());
+        return JWTUtil.getJwtToken(securityUserPO);
     }
 
     @Override

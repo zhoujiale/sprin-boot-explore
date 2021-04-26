@@ -19,7 +19,7 @@ public interface UserService {
      * @param loginBO 登录业务参数
      * @return void
      **/
-    void userLogin(LoginBO loginBO);
+    String userLogin(LoginBO loginBO);
 
     /**
      * @description 添加用户
