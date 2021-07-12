@@ -44,4 +44,13 @@ public interface ProducerService {
      * @return void
      **/
     void topicSendMessage(String message,String routingKey);
+    
+    /**
+     * @description 发送一条延时消息
+     * @author zhou
+     * @create 2021/7/12 13:27
+     * @param 
+     * @return void
+     **/
+    void delayInfo(String message);
 }
