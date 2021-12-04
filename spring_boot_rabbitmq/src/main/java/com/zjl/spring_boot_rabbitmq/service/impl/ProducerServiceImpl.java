@@ -36,9 +36,9 @@ public class ProducerServiceImpl implements ProducerService {
     @Override
     public void sendSimpleMessage(String message) {
         LocalDateTime now = LocalDateTime.now();
-        log.info("producer simple msg:[{}]",now.toString());
+        // log.info("producer simple msg:[{}]",now.toString());
         rabbitTemplate.convertAndSend(SimpleQueueConfig.QUEUE_NAME,message);
-        log.info("send simple msg:[{}]",message);
+        // log.info("send simple msg:[{}]",message);
     }
 
     @Override
