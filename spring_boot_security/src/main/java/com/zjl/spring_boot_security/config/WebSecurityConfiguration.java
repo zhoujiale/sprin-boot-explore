@@ -29,7 +29,7 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import java.util.Arrays;
 /**
- * @name: SecurityConfigration
+ * @name: SecurityConfiguration
  * @description: 安全配置
  * @author: zhou
  * @create: 2021-01-17 21:28

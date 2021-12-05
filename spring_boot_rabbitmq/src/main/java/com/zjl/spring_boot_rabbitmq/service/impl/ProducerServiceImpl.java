@@ -36,32 +36,44 @@ public class ProducerServiceImpl implements ProducerService {
     @Override
     public void sendSimpleMessage(String message) {
         LocalDateTime now = LocalDateTime.now();
-        // log.info("producer simple msg:[{}]",now.toString());
-        rabbitTemplate.convertAndSend(SimpleQueueConfig.QUEUE_NAME,message);
-        // log.info("send simple msg:[{}]",message);
+        log.info("producer simple msg:[{}]", now.toString());
+        rabbitTemplate.convertAndSend(SimpleQueueConfig.QUEUE_NAME, message);
+        log.info("send simple msg:[{}]", message);
     }
 
     @Override
     public void fanoutSendMessage(String message) {
         LocalDateTime now = LocalDateTime.now();
-        log.info("producer message time:[{}]",now.toString());
-        rabbitTemplate.convertAndSend(fanoutExchange.getName(), StringUtils.EMPTY,message);
-        log.info("producer fanout message:[{}]",message);
+        log.info("producer message time:[{}]", now.toString());
+        rabbitTemplate.convertAndSend(fanoutExchange.getName(), StringUtils.EMPTY, message);
+        log.info("producer fanout message:[{}]", message);
     }
 
     @Override
     public void directSendMessage(String message, String routingKey) {
         LocalDateTime now = LocalDateTime.now();
-        log.info("producer direct time:[{}]",now.toString());
-        rabbitTemplate.convertAndSend(directExchange.getName(),routingKey,message);
-        log.info("producer direct message:[{}]",message);
+        log.info("producer direct time:[{}]", now.toString());
+        rabbitTemplate.convertAndSend(directExchange.getName(), routingKey, message);
+        log.info("producer direct message:[{}]", message);
     }
 
     @Override
     public void topicSendMessage(String message, String routingKey) {
         LocalDateTime now = LocalDateTime.now();
-        log.info("producer topic time:[{}]",now.toString());
-        rabbitTemplate.convertAndSend(topicExchange.getName(),routingKey,message);
-        log.info("producer topic message:[{}]",message);
+        log.info("producer topic time:[{}]", now.toString());
+        rabbitTemplate.convertAndSend(topicExchange.getName(), routingKey, message);
+        log.info("producer topic message:[{}]", message);
+    }
+
+    @Override
+    public void delayInfo(String message) {
+        LocalDateTime now = LocalDateTime.now();
+        rabbitTemplate.convertAndSend("dead_exchange", "dlx", message,
+                m -> {
+                    m.getMessageProperties().setExpiration(String.valueOf(5000));
+                    return m;
+                }
+        );
+        log.info("发送延时时间:[{}]", now.toString());
     }
 }

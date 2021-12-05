@@ -18,7 +18,6 @@
         <module>spring_boot_quartz</module>
         <module>spring_boot_netty</module>
         <module>spring_boot_redis</module>
-        <module>spring_boot_oauth</module>
         <module>commons</module>
     </modules>
 
