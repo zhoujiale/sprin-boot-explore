@@ -76,4 +76,11 @@ public class ProducerServiceImpl implements ProducerService {
         );
         log.info("发送延时时间:[{}]", now.toString());
     }
+
+    @Override
+    public void confirmInfo(String message) {
+        LocalDateTime now = LocalDateTime.now();
+        rabbitTemplate.convertAndSend("confirm_exchange","confirm.reject",message);
+        log.info("发送时间:[{}]",now.toString());
+    }
 }

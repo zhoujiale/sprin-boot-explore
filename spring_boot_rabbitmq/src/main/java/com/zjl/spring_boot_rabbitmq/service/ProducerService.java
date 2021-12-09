@@ -53,4 +53,13 @@ public interface ProducerService {
      * @return void
      **/
     void delayInfo(String message);
+    
+    /**
+     * @description 手动确认消息
+     * @author zhou
+     * @create 2021/7/13 14:16 
+     * @param 
+     * @return void
+     **/
+    void confirmInfo(String message);
 }

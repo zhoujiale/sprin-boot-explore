@@ -7,6 +7,7 @@
                         connectionURL="jdbc:mysql://127.0.0.1:3306/ebook?useUnicode=true&amp;characterEncoding=utf8&amp;serverTimezone=GMT%2B8"
                         userId="root"
                         password="123456">
+            <property name="nullCatalogMeansCurrent" value="true" />
         </jdbcConnection>
         <javaModelGenerator targetPackage="com.zjl.spring_boot_mybatis.model" targetProject="src/main/java"/>
         <javaClientGenerator targetPackage="com.zjl.spring_boot_mybatis.mapper" targetProject="src/main/java"/>

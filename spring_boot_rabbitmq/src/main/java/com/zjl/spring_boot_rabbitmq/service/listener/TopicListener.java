@@ -1,11 +1,15 @@
 package com.zjl.spring_boot_rabbitmq.service.listener;
 
+import com.rabbitmq.client.Channel;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.core.ExchangeTypes;
+import org.springframework.amqp.core.Message;
 import org.springframework.amqp.rabbit.annotation.Exchange;
 import org.springframework.amqp.rabbit.annotation.Queue;
 import org.springframework.amqp.rabbit.annotation.QueueBinding;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
+
+import java.io.IOException;
 
 /**
  * @name: TopicListener
@@ -34,7 +38,7 @@ public class TopicListener {
 
 
     @RabbitListener(bindings = @QueueBinding(
-            value = @Queue(value = "web_queue",durable = "false",autoDelete = "true",exclusive = "false"),
+            value = @Queue(value = "web_queue", durable = "false", autoDelete = "true", exclusive = "false"),
             exchange = @Exchange(value = "web", type = ExchangeTypes.TOPIC),
             key = {"web.info"}
     ))
@@ -43,11 +47,25 @@ public class TopicListener {
     }
 
     @RabbitListener(bindings = @QueueBinding(
-            value = @Queue(value = "dlx_queue",durable = "false",autoDelete = "true",exclusive = "false"),
-            exchange = @Exchange(value = "dlx_exchange",type = ExchangeTypes.TOPIC),
+            value = @Queue(value = "dlx_queue", durable = "false", autoDelete = "true", exclusive = "false"),
+            exchange = @Exchange(value = "dlx_exchange", type = ExchangeTypes.TOPIC),
             key = {"web.expire"}
     ))
-    public void delayListener(String message){
+    public void delayListener(String message) {
         log.info("delay info:[{}]", message);
+    }
+
+    @RabbitListener(bindings = @QueueBinding(
+            value = @Queue(value = "confirm_queue", durable = "false", autoDelete = "true", exclusive = "false"),
+            exchange = @Exchange(value = "confirm_exchange", type = ExchangeTypes.TOPIC),
+            key = {"confirm.manual"}
+    ))
+    public void confirmListener(Message message, Channel channel) {
+        try {
+            channel.basicNack(message.getMessageProperties().getDeliveryTag(), false, false);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        log.info("confirm info:[{}]", message);
     }
 }
