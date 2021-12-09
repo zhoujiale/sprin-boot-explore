@@ -6,16 +6,13 @@
         <groupId>com.zjl</groupId>
         <artifactId>spring_boot_explore</artifactId>
         <version>1.0</version>
+        <relativePath/> <!-- lookup parent from repository -->
     </parent>
-
-    <packaging>jar</packaging>
     <groupId>com.zjl</groupId>
-    <artifactId>spring_boot_rabbitmq</artifactId>
+    <artifactId>spring_boot_elasticsearch</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>spring_boot_rabbitmq</name>
-    <description>Rabbbitmq project for Spring Boot</description>
-
-
+    <name>spring_boot_elasticsearch</name>
+    <description>Demo project for Spring Boot</description>
     <properties>
         <java.version>1.8</java.version>
     </properties>
@@ -29,15 +26,6 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-amqp</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-configuration-processor</artifactId>
-            <optional>true</optional>
-        </dependency>
     </dependencies>
 
     <build>
@@ -49,6 +37,5 @@
             </plugin>
         </plugins>
     </build>
-
 
 </project>
