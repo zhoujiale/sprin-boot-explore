@@ -1,1 +1,19 @@
-
+server:
+  port: 8095
+  servlet:
+    context-path: /es
+spring:
+  application:
+    name: ELASTIC-SEARCH
+  data:
+    elasticsearch:
+      repositories:
+        enabled: true
+  elasticsearch:
+    rest:
+      uris: 127.0.0.1:9200
+      username: elastic
+      password: elastic
+logging:
+  level:
+    root: debug
