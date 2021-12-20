@@ -1,7 +1,10 @@
 package com.zjl.spring_boot_elasticsearch.controller;
 
+import com.zjl.commons.util.page.PageVO;
 import com.zjl.commons.util.response.WebResponse;
 import com.zjl.spring_boot_elasticsearch.model.ProductPO;
+import com.zjl.spring_boot_elasticsearch.model.ProductQuery;
+import com.zjl.spring_boot_elasticsearch.model.ProductVO;
 import com.zjl.spring_boot_elasticsearch.service.ProductService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -42,6 +45,17 @@ public class ProductController {
     @PutMapping(value = "/modify")
     public WebResponse modify(@RequestBody ProductPO productPO){
         productService.modify(productPO);
+        return WebResponse.success();
+    }
+
+    @ApiOperation(value = "查询")
+    @GetMapping(value = "/query")
+    public WebResponse query(@RequestParam(value = "pageNum",defaultValue = "1")Integer pageNum,
+                             @RequestParam(value = "pageSize",defaultValue = "10")Integer pageSize){
+        ProductQuery productQuery = new ProductQuery();
+        productQuery.setPageNum(pageNum);
+        productQuery.setPageSize(pageSize);
+        PageVO<ProductVO> pageVO = productService.query(productQuery);
         return WebResponse.success();
     }
 }

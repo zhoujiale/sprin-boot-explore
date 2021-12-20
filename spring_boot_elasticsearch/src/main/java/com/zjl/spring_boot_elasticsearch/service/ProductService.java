@@ -1,6 +1,9 @@
 package com.zjl.spring_boot_elasticsearch.service;
 
+import com.zjl.commons.util.page.PageVO;
 import com.zjl.spring_boot_elasticsearch.model.ProductPO;
+import com.zjl.spring_boot_elasticsearch.model.ProductQuery;
+import com.zjl.spring_boot_elasticsearch.model.ProductVO;
 
 /**
  * @Auther: zhou
@@ -35,4 +38,13 @@ public interface ProductService {
      * @return void
      **/
     void modify(ProductPO productPO);
+
+    /**
+     * @description 查询商品
+     * @author zhou
+     * @create 2021/12/20 19:30 
+     * @param 
+     * @return com.zjl.commons.util.page.PageVO<com.zjl.spring_boot_elasticsearch.model.ProductVO>
+     **/
+    PageVO<ProductVO> query(ProductQuery productQuery);
 }
