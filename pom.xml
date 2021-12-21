@@ -19,6 +19,7 @@
         <module>spring_boot_netty</module>
         <module>spring_boot_redis</module>
         <module>spring_boot_elasticsearch</module>
+        <module>spring_boot_mongodb</module>
         <module>commons</module>
     </modules>
 
@@ -169,6 +170,11 @@
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter-data-elasticsearch</artifactId>
+                <version>${spring-boot.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-data-mongodb</artifactId>
                 <version>${spring-boot.version}</version>
             </dependency>
 

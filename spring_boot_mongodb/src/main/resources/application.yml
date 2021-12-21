@@ -1,0 +1,19 @@
+server:
+  port: 8096
+  servlet:
+    context-path: /mongo
+spring:
+  application:
+    name: MONGO-DB
+  data:
+    mongodb:
+      host: 47.114.33.113
+      port: 27017
+      username: mongoadmin
+      password: mongoadmin
+      database: test
+      authentication-database: admin
+
+logging:
+  level:
+    log4j.category.org.springframework.data.mongodb: debug
