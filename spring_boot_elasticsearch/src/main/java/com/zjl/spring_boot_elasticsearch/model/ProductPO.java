@@ -17,7 +17,7 @@ import java.time.LocalDateTime;
  * @create: 2021-12-11 14:38
  */
 @Data
-@Document(indexName = "product",createIndex = true)
+@Document(indexName = "product", createIndex = true)
 public class ProductPO {
 
     /**
@@ -30,8 +30,11 @@ public class ProductPO {
     /**
      * 商品名称
      */
-    @Field(type = FieldType.Text, name = "product_name", searchAnalyzer = "")
+    @Field(type = FieldType.Text, name = "product_name", searchAnalyzer = "ik_max_word")
     private String productName;
+
+    @Field(type = FieldType.Keyword,name = "category")
+    private String category;
 
     /**
      * 描述
@@ -46,14 +49,29 @@ public class ProductPO {
     private BigDecimal price;
 
     /**
+     * 价格范围
+     */
+    @Field(type = FieldType.Double_Range)
+    private ValidPrice validPrice;
+
+    /**
      * 创建时间
      */
-    @Field(type = FieldType.Date, name = "create_date",format = DateFormat.date_time_no_millis)
+    @Field(type = FieldType.Date, name = "create_date", format = DateFormat.date_time_no_millis)
     private LocalDateTime createDate;
 
     /**
      * 更新时间
      */
-    @Field(type = FieldType.Date, name = "update_date",format = DateFormat.date_time_no_millis)
+    @Field(type = FieldType.Date, name = "update_date", format = DateFormat.date_time_no_millis)
     private LocalDateTime updateDate;
+
+    class ValidPrice {
+
+        @Field(type = FieldType.Double, name = "min_price")
+        private BigDecimal minPrice;
+
+        @Field(type = FieldType.Double, name = "max_price")
+        private BigDecimal maxPrice;
+    }
 }

@@ -43,8 +43,17 @@ public interface ProductService {
      * @description 查询商品
      * @author zhou
      * @create 2021/12/20 19:30 
-     * @param 
+     * @param productQuery
      * @return com.zjl.commons.util.page.PageVO<com.zjl.spring_boot_elasticsearch.model.ProductVO>
      **/
     PageVO<ProductVO> query(ProductQuery productQuery);
+
+    /**
+     * @description 通过java客户端查询
+     * @author zhou
+     * @create 2021/12/29 21:37
+     * @param productQuery
+     * @return com.zjl.commons.util.page.PageVO<com.zjl.spring_boot_elasticsearch.model.ProductVO>
+     **/
+    PageVO<ProductVO> queryByElasticsearchClient(ProductQuery productQuery);
 }

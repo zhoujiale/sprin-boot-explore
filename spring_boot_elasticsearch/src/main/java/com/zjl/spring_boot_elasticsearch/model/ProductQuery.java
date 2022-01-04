@@ -2,6 +2,7 @@ package com.zjl.spring_boot_elasticsearch.model;
 
 import lombok.Data;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 
@@ -24,6 +25,10 @@ public class ProductQuery {
     private String beginDate;
 
     private String endDate;
+
+    private BigDecimal minPrice;
+
+    private BigDecimal maxPrice;
 
     private List<Map<String,String>> sortMapList;
 }

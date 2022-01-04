@@ -56,6 +56,6 @@ public class ProductController {
         productQuery.setPageNum(pageNum);
         productQuery.setPageSize(pageSize);
         PageVO<ProductVO> pageVO = productService.query(productQuery);
-        return WebResponse.success();
+        return WebResponse.success(pageVO);
     }
 }

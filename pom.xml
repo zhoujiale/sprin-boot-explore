@@ -45,6 +45,7 @@
         <netty.version>4.1.59.Final</netty.version>
         <jwt.version>3.8.0</jwt.version>
         <jwks-rsa.version>0.17.1</jwks-rsa.version>
+        <elasticsearch.version>7.10.0</elasticsearch.version>
     </properties>
 
     <dependencyManagement>
