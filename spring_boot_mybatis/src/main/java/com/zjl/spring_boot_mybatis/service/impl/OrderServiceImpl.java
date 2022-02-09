@@ -53,7 +53,8 @@ public class OrderServiceImpl implements OrderService {
         List<OrderDetailPO> select = orderDetailPOMapper.select(selectModelQueryExpressionDSL ->
                 selectModelQueryExpressionDSL.join(SqlTable.of("tb_order"))
                         .on(OrderDetailPODynamicSqlSupport.orderId, new EqualTo(OrderPODynamicSqlSupport.orderId))
-                        .where(OrderPODynamicSqlSupport.customerId, isEqualTo(1)));
+                        .where(OrderPODynamicSqlSupport.customerId, isEqualTo(1))
+        );
         List<OrderVO> orderVOList = new ArrayList<>();
         Map<Integer, List<OrderDetailPO>> collect = select.stream().collect(Collectors.groupingBy(OrderDetailPO::getOrderId));
         for(Map.Entry<Integer,List<OrderDetailPO>> entry: collect.entrySet()){

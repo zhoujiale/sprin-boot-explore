@@ -17,7 +17,7 @@ import java.math.BigDecimal;
 import java.util.Collections;
 import java.util.List;
 
-import static org.mybatis.dynamic.sql.SqlBuilder.isEqualTo;
+import static org.mybatis.dynamic.sql.SqlBuilder.*;
 
 /**
  * @name: BookServiceImpl
@@ -50,8 +50,10 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public List<BookPO> queryList() {
-        return bookPOMapper.select(SelectDSLCompleter.allRows());
+    public List<BookPO> queryList(BookPO bookPO) {
+        return bookPOMapper.select(selectModelQueryExpressionDSL ->
+                selectModelQueryExpressionDSL.where(BookPODynamicSqlSupport.bookName, isLike(bookPO.getBookName()))
+        );
     }
 
     @Override
@@ -71,7 +73,8 @@ public class BookServiceImpl implements BookService {
     @Override
     public List<BookPO> orderByTime() {
         return bookPOMapper.select(selectModelQueryExpressionDSL ->
-                selectModelQueryExpressionDSL.orderBy(BookPODynamicSqlSupport.publicationDate.descending()));
+                selectModelQueryExpressionDSL.orderBy(BookPODynamicSqlSupport.publicationDate.descending(),
+                        BookPODynamicSqlSupport.createTime.descending()));
     }
 
     @Override

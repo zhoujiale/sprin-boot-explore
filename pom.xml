@@ -16,7 +16,7 @@
         <module>spring_boot_jpa</module>
         <module>spring_boot_rabbitmq</module>
         <module>spring_boot_quartz</module>
-        <module>spring_boot_netty</module>
+        <module>spring_boot_netty_server</module>
         <module>spring_boot_redis</module>
         <module>spring_boot_elasticsearch</module>
         <module>spring_boot_mongodb</module>

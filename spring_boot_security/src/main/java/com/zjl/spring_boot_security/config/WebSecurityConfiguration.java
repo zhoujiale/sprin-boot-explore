@@ -85,10 +85,21 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
         return super.userDetailsService();
     }
 
+    @Bean
+    public SelfUserDetailService selfUserDetailService() {
+        return new SelfUserDetailService(userDetailsService());
+    }
+
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(selfUserDetailService())
                 .passwordEncoder(passwordEncoder());
+    }
+
+    private RedisCacheConfiguration redisCacheConfiguration(){
+        RedisSerializationContext.SerializationPair<Object> pair = RedisSerializationContext.SerializationPair
+                .fromSerializer(new GenericJackson2JsonRedisSerializer());
+        return RedisCacheConfiguration.defaultCacheConfig().serializeValuesWith(pair);
     }
 
     @Bean
@@ -106,16 +117,6 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
         return new SpringCacheBasedUserCache(redisCache(connectionFactory));
     }
 
-    private RedisCacheConfiguration redisCacheConfiguration(){
-        RedisSerializationContext.SerializationPair<Object> pair = RedisSerializationContext.SerializationPair
-                .fromSerializer(new GenericJackson2JsonRedisSerializer());
-        return RedisCacheConfiguration.defaultCacheConfig().serializeValuesWith(pair);
-    }
-
-    @Bean
-    public SelfUserDetailService selfUserDetailService() {
-        return new SelfUserDetailService(userDetailsService());
-    }
 
 
 

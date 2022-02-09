@@ -47,7 +47,7 @@ public interface BookService {
      * @param 
      * @return java.util.List<com.zjl.spring_boot_mybatis.model.BookPO>
      **/
-    List<BookPO> queryList();
+    List<BookPO> queryList(BookPO bookPO);
 
     /** 
      * @description 通过名称查询姓名 

@@ -37,7 +37,7 @@ public class BookDaoImpl implements BookDao {
         BookPO bookPO = new BookPO();
         bookPO.setBookName(name);
         ExampleMatcher exampleMatcher = ExampleMatcher.matching()
-                .withMatcher("bookName", ExampleMatcher.GenericPropertyMatchers.endsWith());
+                .withMatcher("bookName", ExampleMatcher.GenericPropertyMatchers.startsWith());
         return bookRepository.findAll(Example.of(bookPO,exampleMatcher));
     }
 
