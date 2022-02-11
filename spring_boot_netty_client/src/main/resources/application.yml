@@ -1,0 +1,12 @@
+server:
+  port: 8091
+  servlet:
+    context-path: /client
+spring:
+  application:
+    name: netty-client
+netty:
+  server:
+    host: 127.0.0.1
+    port: 8097
+    size: 10

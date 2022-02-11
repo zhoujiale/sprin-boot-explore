@@ -1,7 +1,8 @@
 server:
   port: 8087
-  servlet:
-    context-path: /netty
 spring:
   application:
     name: netty
+netty:
+  server:
+    port: 8097
