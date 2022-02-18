@@ -21,6 +21,7 @@
         <module>spring_boot_redis</module>
         <module>spring_boot_elasticsearch</module>
         <module>spring_boot_mongodb</module>
+        <module>spring_boot_rocketmq</module>
         <module>commons</module>
     </modules>
 
@@ -47,6 +48,7 @@
         <jwt.version>3.8.0</jwt.version>
         <jwks-rsa.version>0.17.1</jwks-rsa.version>
         <elasticsearch.version>7.10.0</elasticsearch.version>
+        <rocketmq.version>2.2.1</rocketmq.version>
     </properties>
 
     <dependencyManagement>
@@ -184,7 +186,11 @@
                 <artifactId>spring-boot-starter-data-mongodb</artifactId>
                 <version>${spring-boot.version}</version>
             </dependency>
-
+            <dependency>
+                <groupId>org.apache.rocketmq</groupId>
+                <artifactId>rocketmq-spring-boot-starter</artifactId>
+                <version>${rocketmq.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 

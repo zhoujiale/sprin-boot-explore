@@ -1,14 +1,15 @@
 package com.zjl.spring_boot_netty.server;
 
-import io.netty.buffer.Unpooled;
+import com.zjl.commons.util.netty.*;
+import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
-import io.netty.channel.SimpleChannelInboundHandler;
-import io.netty.channel.socket.DatagramPacket;
-import io.netty.util.CharsetUtil;
+import io.netty.channel.ChannelInboundHandlerAdapter;
+import io.netty.util.AttributeKey;
 import lombok.extern.slf4j.Slf4j;
 
-import java.util.Random;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author zhou
@@ -19,33 +20,24 @@ import java.util.Random;
  **/
 @Slf4j
 @ChannelHandler.Sharable
-public class NettyServerHandler extends SimpleChannelInboundHandler<DatagramPacket> {
+public class NettyServerHandler extends ChannelInboundHandlerAdapter {
 
-    private static final Random random = new Random();
-
-    private static final String[] quotes = {
-            "Where there is love there is life.",
-            "First they ignore you, then they laugh at you, then they fight you, then you win.",
-            "Be the change you want to see in the world.",
-            "The weak can never forgive. Forgiveness is the attribute of the strong.",
-    };
-
-    private static String nextQuote() {
-        int quoteId;
-        synchronized (random) {
-            quoteId = random.nextInt(quotes.length);
-        }
-        return quotes[quoteId];
+    private static Map<Integer, Channel> map = new HashMap<Integer, Channel>();
+    
+    @Override
+    public void channelActive(ChannelHandlerContext ctx) throws Exception {
+        log.info("first handler");
+        super.channelActive(ctx);
     }
 
-
-
     @Override
-    public void channelRead0(ChannelHandlerContext channelHandlerContext, DatagramPacket packet) throws Exception {
-        System.err.println(packet);
-        if ("QOTM?".equals(packet.content().toString(CharsetUtil.UTF_8))){
-            channelHandlerContext.write(new DatagramPacket(Unpooled.copiedBuffer("QOTM:"+ nextQuote(),
-                    CharsetUtil.UTF_8), packet.sender()));
+    public void channelRead(ChannelHandlerContext channelHandlerContext, Object o) throws Exception {
+        if(o instanceof LoginReqEntity){
+            //登录
+            login((LoginReqEntity)o,channelHandlerContext.channel());
+        }else {
+            //消息
+            sendMsg((MsgReqEntity)o,channelHandlerContext.channel());
         }
     }
 
@@ -58,5 +50,40 @@ public class NettyServerHandler extends SimpleChannelInboundHandler<DatagramPack
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
         cause.printStackTrace();
         ctx.close();
+    }
+    
+    private void login(LoginReqEntity loginReqEntity,Channel channel){
+        LoginResEntity loginResEntity = new LoginResEntity();
+
+        Channel c = map.get(loginReqEntity.getUserId());
+
+        if (null == c){
+            map.put(loginReqEntity.getUserId(),channel);
+            channel.attr(AttributeKey.valueOf("userId")).set(loginReqEntity.getUserId());;
+            loginResEntity.setStatus(0);
+            loginResEntity.setMsg("登录成功");
+            loginResEntity.setUserId(loginReqEntity.getUserId());
+            channel.writeAndFlush(loginResEntity);
+        }else {
+            loginResEntity.setStatus(1);
+            loginResEntity.setMsg("已在线");
+            channel.writeAndFlush(loginResEntity);
+        }
+    }
+
+    private void sendMsg(MsgReqEntity msgReqEntity,Channel channel){
+        Integer toUserId = msgReqEntity.getToUserId();
+        Channel c = map.get(toUserId);
+        if (null == c){
+            MsgResEntity msgResEntity = new MsgResEntity();
+            msgResEntity.setStatus(1);
+            msgResEntity.setMsg(toUserId+",不在线");
+            channel.writeAndFlush(msgResEntity);
+        }else {
+            MsgRecEntity msgRecEntity = new MsgRecEntity();
+            msgRecEntity.setFromUserId(msgReqEntity.getFromUserId());
+            msgRecEntity.setMsg(msgReqEntity.getMsg());
+            c.writeAndFlush(msgRecEntity);
+        }
     }
 }

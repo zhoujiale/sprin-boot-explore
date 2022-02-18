@@ -7,6 +7,7 @@ import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
+import io.netty.handler.codec.LengthFieldBasedFrameDecoder;
 import io.netty.handler.ssl.SslContext;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,10 +59,13 @@ public class NettyServer {
                     @Override
                     protected void initChannel(SocketChannel socketChannel) throws Exception {
                         ChannelPipeline pipeline = socketChannel.pipeline();
+                        pipeline.addLast(new LengthFieldBasedFrameDecoder(Integer.MAX_VALUE,5,4));
+                        pipeline.addLast(new SelfDecoder());
                         pipeline.addLast(nettyServerHandler);
+                        pipeline.addLast(new SelfEncoder());
                     }
                 });
-        ChannelFuture channelFuture = serverBootstrap.bind(8097).sync();
+        ChannelFuture channelFuture = serverBootstrap.bind(nettyConfiguration.getPort()).sync();
         log.info("netty 服务启动成功");
         channelFuture.channel().closeFuture().sync();
     }

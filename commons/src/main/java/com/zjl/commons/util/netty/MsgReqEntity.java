@@ -1,0 +1,27 @@
+package com.zjl.commons.util.netty;
+
+import lombok.Data;
+
+import java.io.Serializable;
+
+/**
+ * @author zhou
+ * @version 1.0
+ * @className MsgReqEntity
+ * @description
+ * @date 2022/02/17 21:09
+ **/
+@Data
+public class MsgReqEntity extends BaseEntity implements Serializable {
+
+    private Integer fromUserId;
+
+    private Integer toUserId;
+
+    private String msg;
+
+    @Override
+    public Byte code() {
+        return 3;
+    }
+}
