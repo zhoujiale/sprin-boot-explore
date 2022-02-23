@@ -1,5 +1,6 @@
 package com.zjl.spring_boot_rocketmq.producer;
 
+import io.netty.channel.DefaultChannelId;
 import org.apache.rocketmq.client.producer.DefaultMQProducer;
 import org.apache.rocketmq.client.producer.SendCallback;
 import org.apache.rocketmq.client.producer.SendResult;
@@ -24,10 +25,11 @@ public class AsyncProducer {
         // Specify name server addresses.
         producer.setNamesrvAddr("localhost:9876");
         //Launch the instance.
+        DefaultChannelId.newInstance();
         producer.start();
         producer.setRetryTimesWhenSendAsyncFailed(0);
 
-        int messageCount = 100;
+        int messageCount = 1;
         final CountDownLatch countDownLatch = new CountDownLatch(messageCount);
         for (int i = 0; i < messageCount; i++) {
             try {
@@ -36,9 +38,11 @@ public class AsyncProducer {
                         "TagA",
                         "OrderID188",
                         "Hello world".getBytes(RemotingHelper.DEFAULT_CHARSET));
+                System.out.println(System.currentTimeMillis());
                 producer.send(msg, new SendCallback() {
                     @Override
                     public void onSuccess(SendResult sendResult) {
+                        System.out.println(System.currentTimeMillis());
                         countDownLatch.countDown();
                         System.out.printf("%-10d OK %s %n", index, sendResult.getMsgId());
                     }
@@ -55,6 +59,6 @@ public class AsyncProducer {
             }
         }
         countDownLatch.await(5, TimeUnit.SECONDS);
-        producer.shutdown();
+        //producer.shutdown();
     }
 }

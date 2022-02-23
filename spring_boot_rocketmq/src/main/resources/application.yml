@@ -1,2 +1,12 @@
 server:
   port: 8081
+spring:
+  application:
+    name: rocket-mq
+rocketmq:
+  name-server: 127.0.0.1:9876
+  producer:
+    #生产者组
+    group: self-producer-group
+  consumer:
+    group: self-consumer-group
