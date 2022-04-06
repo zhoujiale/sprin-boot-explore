@@ -5,7 +5,7 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://127.0.0.1:3306/ebook?useUnicode=true&characterEncoding=utf8&serverTimezone=GMT%2B8
     username: root
-    password: 123456
+    password: root
 logging:
   level:
     com.zjl.spring_boot_mybatis.mapper: debug

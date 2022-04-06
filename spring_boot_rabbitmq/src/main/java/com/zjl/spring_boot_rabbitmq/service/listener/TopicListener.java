@@ -68,4 +68,9 @@ public class TopicListener {
         }
         log.info("confirm info:[{}]", message);
     }
+
+    @RabbitListener(queues = "plugin_delay_queue")
+    public void pluginDelayListener(String message){
+        log.info("plugin delay info:[{}]", message);
+    }
 }

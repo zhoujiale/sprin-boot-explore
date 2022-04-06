@@ -1,13 +1,11 @@
 package com.zjl.spring_boot_rabbitmq.mq;
 
-import org.springframework.amqp.core.Binding;
-import org.springframework.amqp.core.BindingBuilder;
-import org.springframework.amqp.core.Queue;
-import org.springframework.amqp.core.TopicExchange;
+import org.springframework.amqp.core.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author zhou
@@ -18,6 +16,8 @@ import java.util.HashMap;
  **/
 @Configuration
 public class DelayQueueConfig {
+
+    private static final String DELAY_TYPE = "x-delayed-message";
 
     /**
      * @param
@@ -61,5 +61,32 @@ public class DelayQueueConfig {
                 .bind(deadQueue)
                 .to(deadExchange)
                 .with("dlx");
+    }
+
+    /**
+     * @param
+     * @return org.springframework.amqp.core.CustomExchange
+     * @description 延时交换器
+     * @date 2022/4/6 20:42
+     * @author zhou
+     */
+    @Bean
+    public CustomExchange customDelayExchange() {
+        Map<String, Object> args = new HashMap<String, Object>();
+        args.put("x-delayed-type", "topic");
+        return new CustomExchange("plugin_delay_exchange", "x-delayed-message", false, true, args);
+    }
+
+    @Bean
+    public Queue pluginDelayQueue(){
+        return new Queue("plugin_delay_queue");
+    }
+
+    @Bean
+    public Binding delayBinding(CustomExchange customDelayExchange,Queue pluginDelayQueue){
+        return BindingBuilder
+                .bind(pluginDelayQueue)
+                .to(customDelayExchange)
+                .with("plugin.delay").noargs();
     }
 }

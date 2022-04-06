@@ -24,6 +24,11 @@ public class ProducerController {
         producerService.delayInfo(info);
     }
 
+    @GetMapping(value = "/delayPlugin")
+    public void delayPlugin(@RequestParam(value = "info")String info){
+        producerService.delayPlugin(info);
+    }
+
     @GetMapping(value = "/confirmInfo")
     public void confirmInfo(@RequestParam(value = "confirm")String confirm){
         producerService.confirmInfo(confirm);

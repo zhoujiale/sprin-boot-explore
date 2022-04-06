@@ -26,6 +26,8 @@ spring:
         acknowledge-mode: manual
     publisher-returns: true
     publisher-confirm-type: correlated
+    template:
+      mandatory: false
 logging:
   level:
     org.springframework.amqp: info

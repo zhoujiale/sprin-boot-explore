@@ -62,4 +62,13 @@ public interface ProducerService {
      * @return void
      **/
     void confirmInfo(String message);
+
+    /**
+     * @description 延时插件消息推送
+     * @date 2022/4/6 20:35
+     * @author zhou
+     * @param info
+     * @return void
+     */
+    void delayPlugin(String info);
 }

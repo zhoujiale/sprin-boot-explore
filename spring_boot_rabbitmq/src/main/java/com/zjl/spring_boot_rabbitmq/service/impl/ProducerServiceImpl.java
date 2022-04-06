@@ -83,4 +83,15 @@ public class ProducerServiceImpl implements ProducerService {
         rabbitTemplate.convertAndSend("confirm_exchange","confirm.reject",message);
         log.info("发送时间:[{}]",now.toString());
     }
+
+    @Override
+    public void delayPlugin(String info) {
+        LocalDateTime now = LocalDateTime.now();
+        rabbitTemplate.setMandatory(false);
+        rabbitTemplate.convertAndSend("plugin_delay_exchange","plugin.delay",info,message -> {
+            message.getMessageProperties().setHeader("x-delay","5000");
+            return message;
+        });
+        log.info("发送延时时间:[{}]", now.toString());
+    }
 }

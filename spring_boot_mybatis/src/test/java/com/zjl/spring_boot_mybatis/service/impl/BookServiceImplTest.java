@@ -38,7 +38,7 @@ class BookServiceImplTest {
 
     @Test
     void queryList() {
-        List<BookPO> bookPOList = bookService.queryList();
+        List<BookPO> bookPOList = bookService.queryList(new BookPO());
         bookPOList.forEach(bookPO -> System.out.println(bookPO.getBookName()));
     }
 
