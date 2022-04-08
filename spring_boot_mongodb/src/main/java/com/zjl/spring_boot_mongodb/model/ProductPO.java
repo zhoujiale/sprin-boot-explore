@@ -6,6 +6,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 import org.springframework.data.mongodb.core.mapping.FieldType;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
@@ -18,7 +19,7 @@ import java.time.LocalDateTime;
  **/
 @Data
 @Document(collection = "product")
-public class ProductPO {
+public class ProductPO implements Serializable {
 
     @Id
     private String id;
@@ -32,6 +33,6 @@ public class ProductPO {
     @Field(targetType = FieldType.DATE_TIME,name = "create_date")
     private LocalDateTime createDate;
 
-    @Field(targetType = FieldType.DATE_TIME,name = "create_date")
+    @Field(targetType = FieldType.DATE_TIME,name = "update_date")
     private LocalDateTime updateDate;
 }

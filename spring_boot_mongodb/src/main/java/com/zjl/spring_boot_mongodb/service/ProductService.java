@@ -1,5 +1,6 @@
 package com.zjl.spring_boot_mongodb.service;
 
+import com.zjl.commons.util.page.PageVO;
 import com.zjl.spring_boot_mongodb.model.ProductPO;
 
 /**
@@ -27,4 +28,32 @@ public interface ProductService {
      * @return com.zjl.spring_boot_mongodb.model.ProductPO
      **/
     ProductPO getOne(String id);
+
+    /**
+     * @description 更新
+     * @date 2022/4/8 20:51
+     * @author zhou
+     * @param productPO
+     * @return void
+     */
+    void update(ProductPO productPO);
+    
+    /**
+     * @description 分页查询
+     * @date 2022/4/8 20:54
+     * @author zhou
+     * @param pageNum
+     * @param pageSize
+     * @return com.zjl.commons.util.page.PageVO<com.zjl.spring_boot_mongodb.model.ProductPO>
+     */
+    PageVO<ProductPO> queryPage(Integer pageNum, Integer pageSize);
+
+    /**
+     * @description 删除
+     * @date 2022/4/8 21:56
+     * @author zhou
+     * @param id
+     * @return void
+     */
+    void delete(String id);
 }

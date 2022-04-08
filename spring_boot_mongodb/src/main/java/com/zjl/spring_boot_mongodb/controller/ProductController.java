@@ -1,5 +1,6 @@
 package com.zjl.spring_boot_mongodb.controller;
 
+import com.zjl.commons.util.page.PageVO;
 import com.zjl.commons.util.response.WebResponse;
 import com.zjl.spring_boot_mongodb.model.ProductPO;
 import com.zjl.spring_boot_mongodb.service.ProductService;
@@ -30,10 +31,32 @@ public class ProductController {
         return WebResponse.success();
     }
 
-    @ApiOperation(value = "获取一个")
+    @ApiOperation(value = "获取")
     @GetMapping(value = "/getOne")
     public WebResponse getOne(@RequestParam(value = "id")String id){
         ProductPO productPO = productService.getOne(id);
         return WebResponse.success(productPO);
+    }
+
+    @ApiOperation(value = "删除")
+    @DeleteMapping(value = "/delete")
+    public WebResponse delete(@RequestParam(value = "id")String id){
+        productService.delete(id);
+        return WebResponse.success();
+    }
+
+    @ApiOperation(value = "更新")
+    @PutMapping(value = "/update")
+    public WebResponse update(@RequestBody ProductPO productPO){
+        productService.update(productPO);
+        return WebResponse.success();
+    }
+
+    @ApiOperation(value = "列表")
+    @GetMapping(value = "/list")
+    public WebResponse list(@RequestParam(value = "pageNum",defaultValue = "1")Integer pageNum,
+                            @RequestParam(value = "pageSize",defaultValue = "10")Integer pageSize){
+        PageVO<ProductPO> pageVO = productService.queryPage(pageNum,pageSize);
+        return WebResponse.success(pageVO);
     }
 }
