@@ -23,7 +23,6 @@ spring:
           initial-interval: 3000
           #最大重试间隔
           max-interval: 30000
-        acknowledge-mode: manual
     publisher-returns: true
     publisher-confirm-type: correlated
     template:

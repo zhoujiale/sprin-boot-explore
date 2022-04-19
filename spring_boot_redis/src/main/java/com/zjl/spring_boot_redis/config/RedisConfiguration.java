@@ -4,6 +4,7 @@ import com.zjl.spring_boot_redis.util.RedisUtil;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.CachingConfigurerSupport;
 import org.springframework.cache.annotation.EnableCaching;
+import org.springframework.cache.interceptor.KeyGenerator;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.cache.RedisCacheConfiguration;
@@ -32,6 +33,25 @@ import java.util.List;
 @EnableCaching
 @Configuration
 public class RedisConfiguration extends CachingConfigurerSupport {
+
+
+    @Bean(name = "selfKeyGenerator")
+    public KeyGenerator sassKeyGenerator(){
+        final String prefix = "self";
+        final String sp = ":";
+        return (target, method, params) -> {
+            StringBuilder sb = new StringBuilder();
+            sb.append(prefix).append(sp);
+            sb.append(target.getClass().getSimpleName())
+                    .append(sp);
+            sb.append(method.getName());
+            for (Object param:params){
+                sb.append(sp);
+                sb.append(param);
+            }
+            return sb.toString();
+        };
+    }
 
     @Bean
     public CacheManager cacheManager(LettuceConnectionFactory connectionFactory){

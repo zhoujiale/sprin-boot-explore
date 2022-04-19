@@ -14,7 +14,7 @@ import org.springframework.data.elasticsearch.annotations.FieldType;
  * @date 2022/01/04 11:08
  **/
 @Data
-@Document(indexName = "book",createIndex = false)
+@Document(indexName = "book1.1",createIndex = false)
 public class BookPO {
 
     @Id
@@ -24,5 +24,6 @@ public class BookPO {
     @Field(type = FieldType.Text,name = "book_name")
     private String bookName;
 
-
+    @Field(type = FieldType.Text,name = "labels")
+    private String labels;
 }
