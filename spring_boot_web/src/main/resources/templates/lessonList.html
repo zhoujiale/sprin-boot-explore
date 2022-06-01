@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>LessonList</title>
+</head>
+<body>
+<p th:text="#{welcome}">欢迎语</p>
+<table>
+    <thead>
+    <tr>
+        <th th:text="${tableHead.lessonName}">课程</th>
+        <th th:text="${tableHead.teacherName}">教师</th>
+        <th th:text="${tableHead.online}">线上</th>
+        <th th:text="${tableHead.lessonDate}">时间</th>
+        <th th:text="${tableHead.feature}">特点</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="lesson : ${lessonList}">
+        <th th:text="${{lesson.name}}">课程名</th>
+        <th th:text="${{lesson.teacherName}}">教师名</th>
+        <th th:text="${#temporals.format(lesson.lessonDate,'yyyy-MM-dd')}">时间</th>
+        <th th:if="${lesson.online}">是</th>
+        <th th:if="!${lesson.online}">否</th>
+        <th th:text="${#strings.listJoin(lesson.features,',')}">特点</th>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

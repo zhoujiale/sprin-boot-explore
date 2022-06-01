@@ -55,4 +55,5 @@ public class UserServiceImpl implements UserService {
         userDao.addUserRole(securityUserPO.getUserId(),userBO.getRoleIdList());
         return securityUserPO;
     }
+
 }

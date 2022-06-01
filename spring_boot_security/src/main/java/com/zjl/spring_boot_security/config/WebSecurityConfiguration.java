@@ -39,7 +39,7 @@ import java.util.Arrays;
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
-    private static final String ORIGIN = "http://www.docway.net";
+    private static final String ORIGIN = "http://xiaoyaoji.cn";
 
     @Autowired
     private TokenFilter tokenFilter;

@@ -1,0 +1,21 @@
+server:
+  port: 8082
+  servlet:
+    context-path: /web
+spring:
+  application:
+    name: WEB
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+  thymeleaf:
+    mode: HTML
+    cache: false
+    suffix: .html
+    encoding: UTF-8
+    prefix: classpath:/templates/
+  messages:
+    basename: lessonList
+    encoding: UTF-8
+
+
