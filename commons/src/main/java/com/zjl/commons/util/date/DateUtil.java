@@ -93,4 +93,8 @@ public class DateUtil {
         return Date.from(instant);
     }
 
+    public static String localDateTimeToStr(LocalDateTime localDateTime,String format){
+        return localDateTime.format(DateTimeFormatter.ofPattern(format));
+    }
+
 }
