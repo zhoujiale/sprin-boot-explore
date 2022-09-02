@@ -15,9 +15,72 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="Java EE 6-Java EE 6" level="project" />
+    <orderEntry type="library" name="Maven: javax.servlet:javax.servlet-api:4.0.1" level="project" />
     <orderEntry type="library" name="Maven: org.apache.commons:commons-collections4:4.4" level="project" />
     <orderEntry type="library" name="Maven: org.apache.commons:commons-lang3:3.11" level="project" />
     <orderEntry type="library" name="Maven: com.alibaba:fastjson:1.2.75" level="project" />
+    <orderEntry type="library" name="Maven: com.vladsch.flexmark:flexmark-all:0.62.2" level="project" />
+    <orderEntry type="library" name="Maven: com.vladsch.flexmark:flexmark:0.62.2" level="project" />
+    <orderEntry type="library" name="Maven: com.vladsch.flexmark:flexmark-ext-abbreviation:0.62.2" level="project" />
+    <orderEntry type="library" name="Maven: com.vladsch.flexmark:flexmark-util:0.62.2" level="project" />
+    <orderEntry type="library" name="Maven: com.vladsch.flexmark:flexmark-ext-admonition:0.62.2" level="project" />
+    <orderEntry type="library" name="Maven: com.vladsch.flexmark:flexmark-ext-anchorlink:0.62.2" level="project" />
+    <orderEntry type="library" name="Maven: com.vladsch.flexmark:flexmark-ext-aside:0.62.2" level="project" />
+    <orderEntry type="library" name="Maven: com.vladsch.flexmark:flexmark-ext-attributes:0.62.2" level="project" />
+    <orderEntry type="library" name="Maven: com.vladsch.flexmark:flexmark-ext-autolink:0.62.2" level="project" />
+    <orderEntry type="library" name="Maven: org.nibor.autolink:autolink:0.6.0" level="project" />
+    <orderEntry type="library" name="Maven: com.vladsch.flexmark:flexmark-ext-definition:0.62.2" level="project" />
+    <orderEntry type="library" name="Maven: com.vladsch.flexmark:flexmark-ext-emoji:0.62.2" level="project" />
+    <orderEntry type="library" name="Maven: com.vladsch.flexmark:flexmark-ext-enumerated-reference:0.62.2" level="project" />
+    <orderEntry type="library" name="Maven: com.vladsch.flexmark:flexmark-ext-escaped-character:0.62.2" level="project" />
+    <orderEntry type="library" name="Maven: com.vladsch.flexmark:flexmark-ext-footnotes:0.62.2" level="project" />
+    <orderEntry type="library" name="Maven: com.vladsch.flexmark:flexmark-ext-gfm-issues:0.62.2" level="project" />
+    <orderEntry type="library" name="Maven: com.vladsch.flexmark:flexmark-ext-gfm-strikethrough:0.62.2" level="project" />
+    <orderEntry type="library" name="Maven: com.vladsch.flexmark:flexmark-ext-gfm-tasklist:0.62.2" level="project" />
+    <orderEntry type="library" name="Maven: com.vladsch.flexmark:flexmark-ext-gfm-users:0.62.2" level="project" />
+    <orderEntry type="library" name="Maven: com.vladsch.flexmark:flexmark-ext-gitlab:0.62.2" level="project" />
+    <orderEntry type="library" name="Maven: com.vladsch.flexmark:flexmark-ext-jekyll-front-matter:0.62.2" level="project" />
+    <orderEntry type="library" name="Maven: com.vladsch.flexmark:flexmark-ext-jekyll-tag:0.62.2" level="project" />
+    <orderEntry type="library" name="Maven: com.vladsch.flexmark:flexmark-ext-media-tags:0.62.2" level="project" />
+    <orderEntry type="library" name="Maven: com.vladsch.flexmark:flexmark-ext-macros:0.62.2" level="project" />
+    <orderEntry type="library" name="Maven: com.vladsch.flexmark:flexmark-ext-ins:0.62.2" level="project" />
+    <orderEntry type="library" name="Maven: com.vladsch.flexmark:flexmark-ext-xwiki-macros:0.62.2" level="project" />
+    <orderEntry type="library" name="Maven: com.vladsch.flexmark:flexmark-ext-superscript:0.62.2" level="project" />
+    <orderEntry type="library" name="Maven: com.vladsch.flexmark:flexmark-ext-tables:0.62.2" level="project" />
+    <orderEntry type="library" name="Maven: com.vladsch.flexmark:flexmark-ext-toc:0.62.2" level="project" />
+    <orderEntry type="library" name="Maven: com.vladsch.flexmark:flexmark-ext-typographic:0.62.2" level="project" />
+    <orderEntry type="library" name="Maven: com.vladsch.flexmark:flexmark-ext-wikilink:0.62.2" level="project" />
+    <orderEntry type="library" name="Maven: com.vladsch.flexmark:flexmark-ext-yaml-front-matter:0.62.2" level="project" />
+    <orderEntry type="library" name="Maven: com.vladsch.flexmark:flexmark-ext-youtube-embedded:0.62.2" level="project" />
+    <orderEntry type="library" name="Maven: com.vladsch.flexmark:flexmark-html2md-converter:0.62.2" level="project" />
+    <orderEntry type="library" name="Maven: org.jsoup:jsoup:1.11.3" level="project" />
+    <orderEntry type="library" name="Maven: com.vladsch.flexmark:flexmark-jira-converter:0.62.2" level="project" />
+    <orderEntry type="library" name="Maven: com.vladsch.flexmark:flexmark-pdf-converter:0.62.2" level="project" />
+    <orderEntry type="library" name="Maven: com.openhtmltopdf:openhtmltopdf-core:1.0.0" level="project" />
+    <orderEntry type="library" name="Maven: com.openhtmltopdf:openhtmltopdf-pdfbox:1.0.0" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.pdfbox:pdfbox:2.0.16" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.pdfbox:fontbox:2.0.16" level="project" />
+    <orderEntry type="library" name="Maven: commons-logging:commons-logging:1.2" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.pdfbox:xmpbox:2.0.16" level="project" />
+    <orderEntry type="library" name="Maven: de.rototor.pdfbox:graphics2d:0.24" level="project" />
+    <orderEntry type="library" name="Maven: com.openhtmltopdf:openhtmltopdf-rtl-support:1.0.0" level="project" />
+    <orderEntry type="library" name="Maven: com.ibm.icu:icu4j:59.1" level="project" />
+    <orderEntry type="library" name="Maven: com.openhtmltopdf:openhtmltopdf-jsoup-dom-converter:1.0.0" level="project" />
+    <orderEntry type="library" name="Maven: com.vladsch.flexmark:flexmark-profile-pegdown:0.62.2" level="project" />
+    <orderEntry type="library" name="Maven: com.vladsch.flexmark:flexmark-util-ast:0.62.2" level="project" />
+    <orderEntry type="library" name="Maven: org.jetbrains:annotations:15.0" level="project" />
+    <orderEntry type="library" name="Maven: com.vladsch.flexmark:flexmark-util-builder:0.62.2" level="project" />
+    <orderEntry type="library" name="Maven: com.vladsch.flexmark:flexmark-util-collection:0.62.2" level="project" />
+    <orderEntry type="library" name="Maven: com.vladsch.flexmark:flexmark-util-data:0.62.2" level="project" />
+    <orderEntry type="library" name="Maven: com.vladsch.flexmark:flexmark-util-dependency:0.62.2" level="project" />
+    <orderEntry type="library" name="Maven: com.vladsch.flexmark:flexmark-util-format:0.62.2" level="project" />
+    <orderEntry type="library" name="Maven: com.vladsch.flexmark:flexmark-util-html:0.62.2" level="project" />
+    <orderEntry type="library" name="Maven: com.vladsch.flexmark:flexmark-util-misc:0.62.2" level="project" />
+    <orderEntry type="library" name="Maven: com.vladsch.flexmark:flexmark-util-options:0.62.2" level="project" />
+    <orderEntry type="library" name="Maven: com.vladsch.flexmark:flexmark-util-sequence:0.62.2" level="project" />
+    <orderEntry type="library" name="Maven: com.vladsch.flexmark:flexmark-util-visitor:0.62.2" level="project" />
+    <orderEntry type="library" name="Maven: com.vladsch.flexmark:flexmark-youtrack-converter:0.62.2" level="project" />
     <orderEntry type="library" name="Maven: org.projectlombok:lombok:1.18.12" level="project" />
     <orderEntry type="library" name="Maven: io.springfox:springfox-boot-starter:3.0.0" level="project" />
     <orderEntry type="library" name="Maven: io.springfox:springfox-oas:3.0.0" level="project" />
