@@ -37,5 +37,6 @@ public class ElasticsearchRestClientTest {
                                 .alias(new Alias("my_book").writeIndex(true))
                         , RequestOptions.DEFAULT);
         System.out.println(createIndexResponse.index());
+        System.out.println(createIndexResponse.isAcknowledged());
     }
 }

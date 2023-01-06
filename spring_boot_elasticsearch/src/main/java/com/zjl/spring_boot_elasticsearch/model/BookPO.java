@@ -6,6 +6,8 @@ import org.springframework.data.elasticsearch.annotations.Document;
 import org.springframework.data.elasticsearch.annotations.Field;
 import org.springframework.data.elasticsearch.annotations.FieldType;
 
+import java.math.BigDecimal;
+
 /**
  * @author zhou
  * @version 1.0
@@ -14,7 +16,7 @@ import org.springframework.data.elasticsearch.annotations.FieldType;
  * @date 2022/01/04 11:08
  **/
 @Data
-@Document(indexName = "book1.1",createIndex = false)
+@Document(indexName = "my_book",createIndex = false)
 public class BookPO {
 
     @Id
@@ -26,4 +28,7 @@ public class BookPO {
 
     @Field(type = FieldType.Text,name = "labels")
     private String labels;
+
+    @Field(type = FieldType.Double,name = "price")
+    private BigDecimal price;
 }

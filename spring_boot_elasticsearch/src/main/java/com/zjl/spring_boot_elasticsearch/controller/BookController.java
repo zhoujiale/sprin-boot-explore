@@ -33,10 +33,31 @@ public class BookController {
         return WebResponse.success();
     }
 
-    @ApiOperation(value = "/查询")
+    @ApiOperation(value = "批量添加")
+    @PostMapping(value = "/batchAdd")
+    public WebResponse batchAdd(@RequestBody List<BookPO> bookPOList){
+        bookService.batchAddList(bookPOList);
+        return WebResponse.success();
+    }
+
+    @ApiOperation(value = "查询")
     @GetMapping(value = "/list")
     public WebResponse list(@RequestParam(value = "labels",required = false)String labels){
        List<BookPO> list = bookService.list(labels);
        return WebResponse.success(list);
+    }
+
+    @ApiOperation(value = "更新")
+    @PutMapping(value = "/update")
+    public WebResponse update(@RequestBody BookPO bookPO){
+        bookService.update(bookPO);
+        return WebResponse.success();
+    }
+
+    @ApiOperation(value = "动态更新")
+    @PutMapping(value = "/updateDynamic")
+    public WebResponse updateDynamic(@RequestBody BookPO bookPO){
+        bookService.updateDynamic(bookPO);
+        return WebResponse.success();
     }
 }

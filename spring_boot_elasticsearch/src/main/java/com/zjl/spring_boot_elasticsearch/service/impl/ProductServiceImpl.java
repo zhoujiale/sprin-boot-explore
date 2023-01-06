@@ -12,6 +12,7 @@ import org.elasticsearch.action.search.SearchRequest;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.client.RequestOptions;
 import org.elasticsearch.client.RestHighLevelClient;
+import org.elasticsearch.common.unit.Fuzziness;
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.SearchHit;
@@ -100,14 +101,16 @@ public class ProductServiceImpl implements ProductService {
          * boolQueryBuilder.should();
          **/
         //精确查询 类似sql的=
-        boolQueryBuilder.must(QueryBuilders.termQuery("produce_name",productQuery.getKeyword()));
+        boolQueryBuilder.must(QueryBuilders.termQuery("produce_name", productQuery.getKeyword()));
         //匹配查询
-        boolQueryBuilder.must(QueryBuilders.matchQuery("product_name",productQuery.getKeyword()));
+        boolQueryBuilder.must(QueryBuilders.matchQuery("product_name", productQuery.getKeyword()));
         //短语查询
-        boolQueryBuilder.must(QueryBuilders.matchPhraseQuery("product_name",productQuery.getKeyword()));
+        boolQueryBuilder.must(QueryBuilders.matchPhraseQuery("product_name", productQuery.getKeyword()));
+        //模糊
+        boolQueryBuilder.must(QueryBuilders.fuzzyQuery("product_name", productQuery.getKeyword()).fuzziness(Fuzziness.ONE));
         //范围查询
         boolQueryBuilder.must(QueryBuilders.rangeQuery("price").from(productQuery.getMinPrice())
-        .to(productQuery.getMaxPrice()));
+                .to(productQuery.getMaxPrice()));
         /**
          * 聚合
          * 平均数
@@ -134,17 +137,17 @@ public class ProductServiceImpl implements ProductService {
     }
 
     /**
+     * @param
+     * @return org.elasticsearch.action.search.SearchResponse
      * @description 获取查询结果
      * @author zhou
      * @create 2022/1/4 15:01
-     * @param
-     * @return org.elasticsearch.action.search.SearchResponse
      **/
-    private SearchResponse getSearchResponse(SearchRequest searchRequest){
+    private SearchResponse getSearchResponse(SearchRequest searchRequest) {
         SearchResponse searchResponse;
-        try{
+        try {
             searchResponse = elasticsearchClient.search(searchRequest, RequestOptions.DEFAULT);
-        }catch (IOException e){
+        } catch (IOException e) {
             log.error("ES服务连接异常");
             throw new RuntimeException("ES服务连接异常");
         }

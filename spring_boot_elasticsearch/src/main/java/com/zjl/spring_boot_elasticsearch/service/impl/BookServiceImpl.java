@@ -6,10 +6,16 @@ import com.zjl.spring_boot_elasticsearch.repository.BookRepository;
 import com.zjl.spring_boot_elasticsearch.service.BookService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.elasticsearch.action.bulk.BulkRequest;
+import org.elasticsearch.action.bulk.BulkResponse;
+import org.elasticsearch.action.index.IndexRequest;
 import org.elasticsearch.action.search.SearchRequest;
 import org.elasticsearch.action.search.SearchResponse;
+import org.elasticsearch.action.update.UpdateRequest;
+import org.elasticsearch.action.update.UpdateResponse;
 import org.elasticsearch.client.RequestOptions;
 import org.elasticsearch.client.RestHighLevelClient;
+import org.elasticsearch.common.xcontent.XContentType;
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.SearchHit;
@@ -18,9 +24,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * @author zhou
@@ -39,8 +43,32 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public void add(BookPO bookPO) {
-        bookPO.setBookId(UUID.randomUUID().toString().replaceAll("-",""));
+        bookPO.setBookId(UUID.randomUUID().toString().replaceAll("-", ""));
         bookRepository.save(bookPO);
+    }
+
+    @Override
+    public void batchAddList(List<BookPO> bookPOList) {
+        //批量操作 bulk api
+        BulkRequest bulkRequest = new BulkRequest();
+        Map<String, Object> map;
+        for (BookPO bookPO : bookPOList) {
+            map = new HashMap<>(6);
+            map.put("book_name", bookPO.getBookName());
+            map.put("labels", bookPO.getLabels());
+            map.put("price", bookPO.getPrice());
+            IndexRequest indexRequest = new IndexRequest()
+                    .index("my_book")
+                    .source(map, XContentType.JSON);
+            bulkRequest.add(indexRequest);
+        }
+        BulkResponse bulkResponse;
+        try {
+            bulkResponse = elasticsearchClient.bulk(bulkRequest, RequestOptions.DEFAULT);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return;
+        }
     }
 
     @Override
@@ -51,7 +79,7 @@ public class BookServiceImpl implements BookService {
         //构建查询
         SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
         BoolQueryBuilder boolQueryBuilder = QueryBuilders.boolQuery();
-        if(StringUtils.isNotBlank(labels)) {
+        if (StringUtils.isNotBlank(labels)) {
             boolQueryBuilder.must(QueryBuilders.matchQuery("labels", labels));
         }
         searchSourceBuilder.query(boolQueryBuilder);
@@ -64,18 +92,47 @@ public class BookServiceImpl implements BookService {
         return bookList;
     }
 
+    @Override
+    public void update(BookPO bookPO) {
+        bookRepository.save(bookPO);
+    }
+
+    @Override
+    public void updateDynamic(BookPO bookPO) {
+        //通过id更新
+        UpdateRequest updateRequest = new UpdateRequest();
+        updateRequest.index("my_book").id(bookPO.getBookId());
+        if (StringUtils.isNotBlank(bookPO.getBookName())) {
+            updateRequest.doc(XContentType.JSON, "book_name", bookPO.getBookName());
+        }
+        if (StringUtils.isNotBlank(bookPO.getLabels())) {
+            updateRequest.doc(XContentType.JSON, "labels", bookPO.getLabels());
+        }
+        if (null != bookPO.getPrice()) {
+            updateRequest.doc(XContentType.JSON, "price", bookPO.getPrice());
+        }
+        UpdateResponse updateResponse;
+        try {
+            updateResponse = elasticsearchClient.update(updateRequest, RequestOptions.DEFAULT);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return;
+        }
+        log.info(updateResponse.toString());
+    }
+
     /**
+     * @param
+     * @return org.elasticsearch.action.search.SearchResponse
      * @description 获取查询结果
      * @author zhou
      * @create 2022/1/4 15:01
-     * @param
-     * @return org.elasticsearch.action.search.SearchResponse
      **/
-    private SearchResponse getSearchResponse(SearchRequest searchRequest){
+    private SearchResponse getSearchResponse(SearchRequest searchRequest) {
         SearchResponse searchResponse;
-        try{
+        try {
             searchResponse = elasticsearchClient.search(searchRequest, RequestOptions.DEFAULT);
-        }catch (IOException e){
+        } catch (IOException e) {
             log.error("ES服务连接异常");
             throw new RuntimeException("ES服务连接异常");
         }

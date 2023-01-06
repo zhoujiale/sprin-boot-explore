@@ -4,6 +4,7 @@ import lombok.Data;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.amqp.rabbit.connection.CachingConnectionFactory;
+import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -43,9 +44,9 @@ public class RabbitMqConfiguration {
     }
 
     @Bean
-    public RabbitTemplate rabbitTemplate(){
+    public RabbitTemplate rabbitTemplate(ConnectionFactory connectionFactory){
         Logger log = LoggerFactory.getLogger(RabbitTemplate.class);
-        RabbitTemplate rabbitTemplate = new RabbitTemplate(connectionFactory());
+        RabbitTemplate rabbitTemplate = new RabbitTemplate(connectionFactory);
         //RetryTemplate retryTemplate = new RetryTemplate();
         //ExponentialBackOffPolicy backOffPolicy = new ExponentialBackOffPolicy();
         ////首次重试间隔
