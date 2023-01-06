@@ -23,6 +23,7 @@
         <module>spring_boot_mongodb</module>
         <module>spring_boot_rocketmq</module>
         <module>commons</module>
+        <module>spring_boot_zookeeper</module>
     </modules>
 
     <properties>
@@ -52,6 +53,7 @@
         <poi.version>5.2.2</poi.version>
         <easyexcel.version>3.1.1</easyexcel.version>
         <flexmark.version>0.62.2</flexmark.version>
+        <zookeeper.version>3.7.0</zookeeper.version>
     </properties>
 
     <dependencyManagement>
@@ -213,6 +215,11 @@
                 <groupId>com.vladsch.flexmark</groupId>
                 <artifactId>flexmark-all</artifactId>
                 <version>${flexmark.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.zookeeper</groupId>
+                <artifactId>zookeeper</artifactId>
+                <version>${zookeeper.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
