@@ -29,4 +29,5 @@ public interface UserService {
      * @return com.zjl.spring_boot_security.model.SecurityUserPO
      **/
     SecurityUserPO addUser(UserBO userBO);
+
 }

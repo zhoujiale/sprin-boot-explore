@@ -24,6 +24,7 @@
         <module>spring_boot_rocketmq</module>
         <module>commons</module>
         <module>spring_boot_zookeeper</module>
+        <module>spring_boot_webflux</module>
     </modules>
 
     <properties>
