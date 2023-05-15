@@ -4,9 +4,10 @@ spring:
   application:
     name: rocket-mq
 rocketmq:
-  name-server: 121.43.41.19:9876
+  name-server: 60.167.177.183:9876
   producer:
     #生产者组
     group: self-producer-group
   consumer:
     group: self-consumer-group
+    pull-batch-size: 10
