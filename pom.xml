@@ -27,6 +27,7 @@
         <module>spring_boot_webflux</module>
         <module>spring_boot_statemachine</module>
         <module>spring_boot_java</module>
+        <module>spring_boot_hadoop</module>
     </modules>
 
     <properties>
@@ -57,6 +58,7 @@
         <easyexcel.version>3.1.1</easyexcel.version>
         <flexmark.version>0.62.2</flexmark.version>
         <zookeeper.version>3.7.0</zookeeper.version>
+        <hadoop.version>3.3.6</hadoop.version>
     </properties>
 
     <dependencyManagement>
@@ -234,7 +236,26 @@
                 <artifactId>spring-statemachine-data-redis</artifactId>
                 <version>2.3.0</version>
             </dependency>
-
+<!--            <dependency>-->
+<!--                <groupId>org.springframework.data</groupId>-->
+<!--                <artifactId>spring-data-hadoop-boot</artifactId>-->
+<!--                <version>2.5.0.RELEASE</version>-->
+<!--            </dependency>-->
+            <dependency>
+                <groupId>org.apache.hadoop</groupId>
+                <artifactId>hadoop-client</artifactId>
+                <version>${hadoop.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.hadoop</groupId>
+                <artifactId>hadoop-common</artifactId>
+                <version>${hadoop.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.hadoop</groupId>
+                <artifactId>hadoop-hdfs</artifactId>
+                <version>${hadoop.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
