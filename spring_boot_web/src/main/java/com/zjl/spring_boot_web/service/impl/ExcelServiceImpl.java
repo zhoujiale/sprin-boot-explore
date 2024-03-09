@@ -1,5 +1,6 @@
 package com.zjl.spring_boot_web.service.impl;
 
+import com.alibaba.excel.EasyExcel;
 import com.zjl.spring_boot_web.entity.OrderPO;
 import com.zjl.spring_boot_web.repository.OrderRepository;
 import com.zjl.spring_boot_web.service.ExcelService;
@@ -12,8 +13,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.io.OutputStream;
 import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -69,7 +72,7 @@ public class ExcelServiceImpl implements ExcelService {
                 os.flush();
                 os.close();
             } catch (Exception e) {
-
+                log.error(e.getMessage(),e);
             }
         }
 
@@ -77,8 +80,14 @@ public class ExcelServiceImpl implements ExcelService {
 
     @Override
     public void easyExcel(HttpServletResponse response) {
-        ExcelModel excelModel = new ExcelModel();
-        String name = ExcelUtil.getName("订单", ".xlsx");
-        excelModel.setFileName(name);
+        response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+        response.setCharacterEncoding(StandardCharsets.UTF_8.name());
+        String fileName = "";
+        response.setHeader("Content-disposition", "attachment;filename*=utf-8''" + fileName + ".xlsx");
+        try {
+            EasyExcel.write(response.getOutputStream(), ExcelModel.class).sheet("模板").doWrite(new ArrayList<>());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

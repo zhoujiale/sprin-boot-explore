@@ -40,14 +40,14 @@ public class ThymeleafController {
         lesson1.setTeacherName("李老师");
         lesson1.setOnline(Boolean.FALSE);
         lesson1.setLessonDate(LocalDate.of(2022,1,25));
-        lesson1.setFeatures(Arrays.asList(new String[]{"耐心","业务能力强"}));
+        lesson1.setFeatures(Arrays.asList("耐心","业务能力强"));
         lessonList.add(lesson1);
         Lesson lesson2 = new Lesson();
         lesson2.setName("数学课");
         lesson2.setTeacherName("王老师");
         lesson2.setOnline(Boolean.TRUE);
         lesson2.setLessonDate(LocalDate.of(2022,8,20));
-        lesson2.setFeatures(Arrays.asList(new String[]{"经验丰富","获过奖"}));
+        lesson2.setFeatures(Arrays.asList("经验丰富","获过奖"));
         lessonList.add(lesson2);
         return lessonList;
     }

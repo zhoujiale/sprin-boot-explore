@@ -6,39 +6,39 @@
 
     <groupId>com.zjl</groupId>
     <artifactId>spring_boot_explore</artifactId>
-    <version>1.0</version>
+    <version>1.0.0</version>
     <packaging>pom</packaging>
 
     <modules>
         <module>commons</module>
-        <module>spring_boot_shiro</module>
-        <module>spring_boot_security</module>
-        <module>spring_boot_mybatis</module>
-        <module>spring_boot_jpa</module>
-        <module>spring_boot_rabbitmq</module>
-        <module>spring_boot_quartz</module>
-        <module>spring_boot_netty_server</module>
-        <module>spring_boot_netty_client</module>
-        <module>spring_boot_redis</module>
-        <module>spring_boot_elasticsearch</module>
-        <module>spring_boot_mongodb</module>
-        <module>spring_boot_rocketmq</module>
-        <module>spring_boot_zookeeper</module>
-        <module>spring_boot_webflux</module>
+<!--        <module>spring_boot_shiro</module>-->
+<!--        <module>spring_boot_security</module>-->
+<!--        <module>spring_boot_mybatis</module>-->
+<!--        <module>spring_boot_jpa</module>-->
+<!--        <module>spring_boot_rabbitmq</module>-->
+<!--        <module>spring_boot_quartz</module>-->
+<!--        <module>spring_boot_netty_server</module>-->
+<!--        <module>spring_boot_netty_client</module>-->
+<!--        <module>spring_boot_redis</module>-->
+<!--        <module>spring_boot_elasticsearch</module>-->
+<!--        <module>spring_boot_mongodb</module>-->
+<!--        <module>spring_boot_rocketmq</module>-->
+<!--        <module>spring_boot_zookeeper</module>-->
+<!--        <module>spring_boot_webflux</module>-->
         <module>spring_boot_web</module>
-        <module>spring_boot_statemachine</module>
+<!--        <module>spring_boot_statemachine</module>-->
         <module>spring_boot_java</module>
-        <module>spring_boot_hadoop</module>
+<!--        <module>spring_boot_hadoop</module>-->
     </modules>
 
     <properties>
         <java.verion>1.8</java.verion>
         <skipTests>true</skipTests>
-        <spring-boot.version>2.3.2.RELEASE</spring-boot.version>
+        <spring-boot.version>2.7.18</spring-boot.version>
         <lombol.version>1.18.12</lombol.version>
         <shiro.version>1.6.0</shiro.version>
         <shiro-redis.version>3.3.1</shiro-redis.version>
-        <mysql.version>8.0.20</mysql.version>
+        <mysql.version>8.0.33</mysql.version>
         <druid.version>1.1.23</druid.version>
         <springfox.version>3.0.0</springfox.version>
         <commons-collection.version>4.4</commons-collection.version>
@@ -56,7 +56,7 @@
         <jwks-rsa.version>0.17.1</jwks-rsa.version>
         <elasticsearch.version>7.10.0</elasticsearch.version>
         <rocketmq.version>2.2.1</rocketmq.version>
-        <poi.version>5.2.2</poi.version>
+        <poi.version>5.2.5</poi.version>
         <easyexcel.version>3.1.1</easyexcel.version>
         <zookeeper.version>3.7.0</zookeeper.version>
         <hadoop.version>3.3.6</hadoop.version>

@@ -25,7 +25,7 @@ public class ExcelController {
     private ExcelService excelService;
 
     @GetMapping(value = "/export")
-    public WebResponse exportFile(HttpServletResponse response){
+    public WebResponse<Void> exportFile(HttpServletResponse response){
         log.info("excel export begin");
         excelService.exportExcel(response);
         return WebResponse.success();
