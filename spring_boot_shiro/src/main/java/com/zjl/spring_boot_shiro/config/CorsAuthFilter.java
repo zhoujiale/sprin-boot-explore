@@ -1,6 +1,6 @@
 package com.zjl.spring_boot_shiro.config;
 
-import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson2.JSON;
 import com.zjl.commons.util.response.WebResponse;
 import com.zjl.spring_boot_shiro.error.ServiceErrorEnum;
 import org.apache.shiro.web.filter.authc.FormAuthenticationFilter;

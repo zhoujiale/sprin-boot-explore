@@ -11,7 +11,7 @@
 
     <modules>
         <module>commons</module>
-<!--        <module>spring_boot_shiro</module>-->
+        <module>spring_boot_shiro</module>
 <!--        <module>spring_boot_security</module>-->
 <!--        <module>spring_boot_mybatis</module>-->
 <!--        <module>spring_boot_jpa</module>-->
@@ -36,10 +36,10 @@
         <skipTests>true</skipTests>
         <spring-boot.version>2.7.18</spring-boot.version>
         <lombol.version>1.18.12</lombol.version>
-        <shiro.version>1.6.0</shiro.version>
+        <shiro.version>1.13.0</shiro.version>
         <shiro-redis.version>3.3.1</shiro-redis.version>
         <mysql.version>8.0.33</mysql.version>
-        <druid.version>1.1.23</druid.version>
+        <druid.version>1.2.21</druid.version>
         <springfox.version>3.0.0</springfox.version>
         <commons-collection.version>4.4</commons-collection.version>
         <commons-lang.version>3.14.0</commons-lang.version>
@@ -89,7 +89,7 @@
             </dependency>
             <dependency>
                 <groupId>org.apache.shiro</groupId>
-                <artifactId>shiro-spring-boot-web-starter</artifactId>
+                <artifactId>shiro-spring-boot-starter</artifactId>
                 <version>${shiro.version}</version>
             </dependency>
             <dependency>
