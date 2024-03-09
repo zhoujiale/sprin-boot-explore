@@ -87,9 +87,7 @@ public class NettyClient {
         threadPoolExecutor.execute(() -> {
             try {
                 start();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }catch (IOException e){
+            } catch (InterruptedException | IOException e) {
                 e.printStackTrace();
             }
         });

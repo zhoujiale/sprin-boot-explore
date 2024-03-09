@@ -17,14 +17,14 @@
 <!--        <module>spring_boot_jpa</module>-->
 <!--        <module>spring_boot_rabbitmq</module>-->
 <!--        <module>spring_boot_quartz</module>-->
-<!--        <module>spring_boot_netty_server</module>-->
-<!--        <module>spring_boot_netty_client</module>-->
+        <module>spring_boot_netty_server</module>
+        <module>spring_boot_netty_client</module>
 <!--        <module>spring_boot_redis</module>-->
 <!--        <module>spring_boot_elasticsearch</module>-->
 <!--        <module>spring_boot_mongodb</module>-->
 <!--        <module>spring_boot_rocketmq</module>-->
 <!--        <module>spring_boot_zookeeper</module>-->
-<!--        <module>spring_boot_webflux</module>-->
+        <module>spring_boot_webflux</module>
         <module>spring_boot_web</module>
 <!--        <module>spring_boot_statemachine</module>-->
         <module>spring_boot_java</module>
@@ -51,7 +51,7 @@
         <pagehelper.version>1.3.0</pagehelper.version>
         <querydsl.version>4.4.0</querydsl.version>
         <quartz.version>2.3.2</quartz.version>
-        <netty.version>4.1.59.Final</netty.version>
+        <netty.version>4.1.107.Final</netty.version>
         <jwt.version>3.8.0</jwt.version>
         <jwks-rsa.version>0.17.1</jwks-rsa.version>
         <elasticsearch.version>7.10.0</elasticsearch.version>
@@ -93,8 +93,8 @@
                 <version>${shiro.version}</version>
             </dependency>
             <dependency>
-                <groupId>mysql</groupId>
-                <artifactId>mysql-connector-java</artifactId>
+                <groupId>com.mysql</groupId>
+                <artifactId>mysql-connector-j</artifactId>
                 <version>${mysql.version}</version>
             </dependency>
             <dependency>
