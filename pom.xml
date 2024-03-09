@@ -10,6 +10,7 @@
     <packaging>pom</packaging>
 
     <modules>
+        <module>commons</module>
         <module>spring_boot_shiro</module>
         <module>spring_boot_security</module>
         <module>spring_boot_mybatis</module>
@@ -22,9 +23,9 @@
         <module>spring_boot_elasticsearch</module>
         <module>spring_boot_mongodb</module>
         <module>spring_boot_rocketmq</module>
-        <module>commons</module>
         <module>spring_boot_zookeeper</module>
         <module>spring_boot_webflux</module>
+        <module>spring_boot_web</module>
         <module>spring_boot_statemachine</module>
         <module>spring_boot_java</module>
         <module>spring_boot_hadoop</module>
