@@ -42,7 +42,8 @@
         <druid.version>1.1.23</druid.version>
         <springfox.version>3.0.0</springfox.version>
         <commons-collection.version>4.4</commons-collection.version>
-        <commons-lang.version>3.11</commons-lang.version>
+        <commons-lang.version>3.14.0</commons-lang.version>
+        <commons-text.version>1.11.0</commons-text.version>
         <commons-pool.version>2.9.0</commons-pool.version>
         <fastjson.version>1.2.75</fastjson.version>
         <mybatis.version>2.1.3</mybatis.version>
@@ -57,9 +58,9 @@
         <rocketmq.version>2.2.1</rocketmq.version>
         <poi.version>5.2.2</poi.version>
         <easyexcel.version>3.1.1</easyexcel.version>
-        <flexmark.version>0.62.2</flexmark.version>
         <zookeeper.version>3.7.0</zookeeper.version>
         <hadoop.version>3.3.6</hadoop.version>
+        <maven-compiler-plugin.version>3.12.1</maven-compiler-plugin.version>
     </properties>
 
     <dependencyManagement>
@@ -74,11 +75,6 @@
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter-web</artifactId>
-                <version>${spring-boot.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-configuration-processor</artifactId>
                 <version>${spring-boot.version}</version>
             </dependency>
             <dependency>
@@ -218,11 +214,6 @@
                 <version>${easyexcel.version}</version>
             </dependency>
             <dependency>
-                <groupId>com.vladsch.flexmark</groupId>
-                <artifactId>flexmark-all</artifactId>
-                <version>${flexmark.version}</version>
-            </dependency>
-            <dependency>
                 <groupId>org.apache.zookeeper</groupId>
                 <artifactId>zookeeper</artifactId>
                 <version>${zookeeper.version}</version>
@@ -291,6 +282,11 @@
                     <groupId>org.springframework.boot</groupId>
                     <artifactId>spring-boot-maven-plugin</artifactId>
                     <version>${spring-boot.version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>${maven-compiler-plugin.version}</version>
                 </plugin>
             </plugins>
         </pluginManagement>

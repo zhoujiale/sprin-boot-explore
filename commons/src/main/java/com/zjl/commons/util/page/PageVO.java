@@ -31,11 +31,7 @@ public class PageVO<T> {
         pageVO.setPageSize(pageSize);
         pageVO.setTotalCount(totalCount);
         long i = totalCount % pageSize;
-        if (i == 0){
-            pageVO.setTotalPage(Math.toIntExact(i));
-        }else {
-            pageVO.setTotalPage(Math.toIntExact(totalCount / pageSize + 1));
-        }
+        pageVO.setTotalPage(i == 0 ? Math.toIntExact(i):Math.toIntExact(totalCount / pageSize + 1));
         return pageVO;
     }
 

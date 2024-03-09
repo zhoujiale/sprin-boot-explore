@@ -1,6 +1,7 @@
 package com.zjl.commons.util.netty;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import java.io.Serializable;
 
@@ -12,6 +13,7 @@ import java.io.Serializable;
  * @date 2022/02/17 21:11
  **/
 @Data
+@EqualsAndHashCode(callSuper = true)
 public class MsgResEntity extends BaseEntity implements Serializable {
 
     /**

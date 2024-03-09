@@ -4,7 +4,7 @@ import com.zjl.commons.util.log.ErrorLogUtil;
 import org.apache.commons.lang3.StringUtils;
 
 import javax.xml.bind.DatatypeConverter;
-import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
@@ -29,12 +29,9 @@ public class MD5Util {
     public static String encrypt(String rawData){
         try {
             MessageDigest messageDigest = MessageDigest.getInstance(MD5);
-            byte[] digest = messageDigest.digest(rawData.getBytes("UTF-8"));
+            byte[] digest = messageDigest.digest(rawData.getBytes(StandardCharsets.UTF_8));
             return DatatypeConverter.printHexBinary(digest).toLowerCase();
         } catch (NoSuchAlgorithmException e) {
-            ErrorLogUtil.errorLog(e);
-            return StringUtils.EMPTY;
-        } catch (UnsupportedEncodingException e) {
             ErrorLogUtil.errorLog(e);
             return StringUtils.EMPTY;
         }

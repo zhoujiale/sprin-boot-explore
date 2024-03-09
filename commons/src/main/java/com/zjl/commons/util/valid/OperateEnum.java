@@ -31,6 +31,6 @@ public enum OperateEnum {
 
     public static boolean validEnum(OperateEnum operateEnum){
         OperateEnum[] values = OperateEnum.values();
-        return Arrays.stream(values).anyMatch(value -> operateEnum.equals(value));
+        return Arrays.asList(values).contains(operateEnum);
     }
 }

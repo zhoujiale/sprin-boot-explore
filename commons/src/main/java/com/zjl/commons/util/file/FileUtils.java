@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.CollectionUtils;
 
 import java.io.*;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.zip.ZipEntry;
@@ -18,9 +19,9 @@ import java.util.zip.ZipOutputStream;
 @Slf4j
 public class FileUtils {
 
-    private static String LINE_SEPARATOR = System.getProperty("line.separator");
+    private static final String LINE_SEPARATOR = System.getProperty("line.separator");
 
-    private static String ZIP = "zip";
+    private static final String ZIP = "zip";
     /**
      * @param file
      * @return java.lang.String
@@ -81,7 +82,7 @@ public class FileUtils {
                 zipFile = fileList.get(0);
             } else {
                 //压缩文件
-                zipFile = zipFile(fileList, zipFile,zipFileParentPath);
+                zipFile(fileList, zipFile, zipFileParentPath);
             }
         }
         return zipFile;
@@ -99,7 +100,7 @@ public class FileUtils {
     private static File zipFile(List<File> srcFileList, File zipFile, String zipFileParentPath) {
         FileInputStream fileInputStream = null;
         int length = zipFileParentPath.length();
-        try(ZipOutputStream zipOutputStream = new ZipOutputStream(new FileOutputStream(zipFile))) {
+        try(ZipOutputStream zipOutputStream = new ZipOutputStream(Files.newOutputStream(zipFile.toPath()))) {
             if (!zipFile.exists()) {
                 //不存在则创建
                 zipFile.createNewFile();

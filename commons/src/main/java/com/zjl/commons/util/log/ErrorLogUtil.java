@@ -14,6 +14,6 @@ public class ErrorLogUtil {
     public static void errorLog(Exception e){
         log.error("错误类型:{}",e.getClass());
         log.error("错误信息:{}",e.getMessage());
-        log.error("错误堆栈:{}",e.getStackTrace());
+        log.error("错误堆栈:{}", (Object) e.getStackTrace());
     }
 }
