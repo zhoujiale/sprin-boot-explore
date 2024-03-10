@@ -7,18 +7,18 @@
     <parent>
         <groupId>com.zjl</groupId>
         <artifactId>spring_boot_explore</artifactId>
-        <version>1.0</version>
+        <version>1.0.0</version>
     </parent>
 
-    <groupId>com.zjl</groupId>
     <artifactId>spring_boot_statemachine</artifactId>
-    <version>1.0</version>
+    <version>1.0.0</version>
+    <packaging>jar</packaging>
 
     <dependencies>
         <dependency>
             <groupId>com.zjl</groupId>
             <artifactId>commons</artifactId>
-            <version>1.0</version>
+            <version>1.0.0</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -33,8 +33,8 @@
             <artifactId>spring-statemachine-data-redis</artifactId>
         </dependency>
         <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
+            <groupId>com.mysql</groupId>
+            <artifactId>mysql-connector-j</artifactId>
             <scope>runtime</scope>
         </dependency>
         <dependency>
