@@ -1,10 +1,8 @@
 package com.zjl.spring_boot_mybatis.service.impl;
 
 import com.zjl.spring_boot_mybatis.service.LockService;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.annotation.Resource;
 
@@ -14,15 +12,15 @@ import javax.annotation.Resource;
  * @descrption TODO
  * @date 2022/3/29 12:18
  */
-@RunWith(SpringRunner.class)
+
 @SpringBootTest
-public class LockServiceImplTest{
+class LockServiceImplTest {
 
     @Resource
     private LockService lockService;
 
     @Test
-    public void modify() {
+    void modify() {
         int i = 0;
         while (true) {
 

@@ -17,7 +17,8 @@ import java.math.BigDecimal;
 import java.util.Collections;
 import java.util.List;
 
-import static org.mybatis.dynamic.sql.SqlBuilder.*;
+import static org.mybatis.dynamic.sql.SqlBuilder.isEqualTo;
+import static org.mybatis.dynamic.sql.SqlBuilder.isLike;
 
 /**
  * @name: BookServiceImpl
@@ -35,7 +36,7 @@ public class BookServiceImpl implements BookService {
     @Override
     public int addBook(BookPO bookPO) {
         int i = bookPOMapper.insertSelective(bookPO);
-        log.info("bookId:[]", bookPO.getBookId());
+        log.info("bookId:{}", bookPO.getBookId());
         return i;
     }
 

@@ -5,7 +5,7 @@ import com.zjl.spring_boot_mybatis.mapper.BookPOMapper;
 import com.zjl.spring_boot_mybatis.service.LockService;
 import lombok.extern.slf4j.Slf4j;
 import org.mybatis.dynamic.sql.SqlTable;
-import org.mybatis.dynamic.sql.render.RenderingStrategy;
+import org.mybatis.dynamic.sql.render.MyBatis3RenderingStrategy;
 import org.mybatis.dynamic.sql.update.render.UpdateStatementProvider;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -43,7 +43,7 @@ public class LockServiceImpl implements LockService {
         System.out.println("开始执行");
         UpdateStatementProvider updateStatement = update(SqlTable.of("tb_book"))
                 .set(BookPODynamicSqlSupport.bookNumber).equalTo(add(BookPODynamicSqlSupport.bookNumber,constant("1")))
-                .where(BookPODynamicSqlSupport.id,isEqualTo(id)).build().render(RenderingStrategy.MYBATIS3);
+                .where(BookPODynamicSqlSupport.id,isEqualTo(id)).build().render(new MyBatis3RenderingStrategy());
         bookPOMapper.update(updateStatement);
     }
 }
