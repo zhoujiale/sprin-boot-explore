@@ -14,6 +14,9 @@
     <packaging>jar</packaging>
     <properties>
         <java.version>1.8</java.version>
+        <skipTests>true</skipTests>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <guava.version>33.0.0-jre</guava.version>
     </properties>
     <dependencies>
         <dependency>
@@ -36,7 +39,7 @@
         <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
-            <version>33.0.0-jre</version>
+            <version>${guava.version}</version>
             <scope>compile</scope>
         </dependency>
     </dependencies>

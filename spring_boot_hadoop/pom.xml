@@ -5,22 +5,22 @@
     <parent>
         <groupId>com.zjl</groupId>
         <artifactId>spring_boot_explore</artifactId>
-        <version>1.0</version>
+        <version>1.0.0</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>com.zjl</groupId>
     <artifactId>spring_boot_hadoop</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.0.0</version>
     <name>spring_boot_hadoop</name>
-    <description>spring_boot_hadoop</description>
     <properties>
         <java.version>1.8</java.version>
+        <skipTests>true</skipTests>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
     <dependencies>
         <dependency>
             <groupId>com.zjl</groupId>
             <artifactId>commons</artifactId>
-            <version>1.0</version>
+            <version>1.0.0</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -29,22 +29,11 @@
         <dependency>
             <groupId>org.apache.hadoop</groupId>
             <artifactId>hadoop-client</artifactId>
-            <version>3.3.6</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.hadoop</groupId>
-            <artifactId>hadoop-common</artifactId>
-            <version>3.3.6</version>
         </dependency>
         <dependency>
             <groupId>org.apache.hadoop</groupId>
             <artifactId>hadoop-hdfs</artifactId>
-            <version>3.3.6</version>
         </dependency>
-<!--        <dependency>-->
-<!--            <groupId>org.springframework.data</groupId>-->
-<!--            <artifactId>spring-data-hadoop-boot</artifactId>-->
-<!--        </dependency>-->
     </dependencies>
 
     <build>

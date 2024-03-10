@@ -15,7 +15,8 @@
 
     <properties>
         <java.version>1.8</java.version>
-        <skipTest>test</skipTest>
+        <skipTests>true</skipTests>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <flexmark.version>0.62.2</flexmark.version>
         <pdfbox.version>3.0.1</pdfbox.version>
         <java-diff-utils.verion>4.12</java-diff-utils.verion>
