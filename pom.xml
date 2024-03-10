@@ -4,31 +4,31 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.zjl</groupId>
-    <artifactId>spring_boot_explore</artifactId>
+    <groupId>com.github.zhoujiale</groupId>
+    <artifactId>spring-boot-explore</artifactId>
     <version>1.0.0</version>
     <packaging>pom</packaging>
 
     <modules>
         <module>commons</module>
-        <module>spring_boot_shiro</module>
-        <module>spring_boot_security</module>
-        <module>spring_boot_mybatis</module>
-        <module>spring_boot_jpa</module>
-        <module>spring_boot_rabbitmq</module>
-        <module>spring_boot_quartz</module>
-        <module>spring_boot_netty_server</module>
-        <module>spring_boot_netty_client</module>
-        <module>spring_boot_redis</module>
-        <module>spring_boot_elasticsearch</module>
-        <module>spring_boot_mongodb</module>
-        <module>spring_boot_rocketmq</module>
-        <module>spring_boot_zookeeper</module>
-        <module>spring_boot_webflux</module>
-        <module>spring_boot_web</module>
-        <module>spring_boot_statemachine</module>
-        <module>spring_boot_java</module>
-        <module>spring_boot_hadoop</module>
+        <module>spring-boot-shiro</module>
+        <module>spring-boot-security</module>
+        <module>spring-boot-mybatis</module>
+        <module>spring-boot-jpa</module>
+        <module>spring-boot-rabbitmq</module>
+        <module>spring-boot-quartz</module>
+        <module>spring-boot-netty-server</module>
+        <module>spring-boot-netty-client</module>
+        <module>spring-boot-redis</module>
+        <module>spring-boot-elasticsearch</module>
+        <module>spring-boot-mongodb</module>
+        <module>spring-boot-rocketmq</module>
+        <module>spring-boot-zookeeper</module>
+        <module>spring-boot-webflux</module>
+        <module>spring-boot-web</module>
+        <module>spring-boot-statemachine</module>
+        <module>spring-boot-java</module>
+        <module>spring-boot-hadoop</module>
     </modules>
 
     <properties>
