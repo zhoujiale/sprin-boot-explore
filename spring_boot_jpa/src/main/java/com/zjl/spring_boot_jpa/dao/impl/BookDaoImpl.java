@@ -50,7 +50,7 @@ public class BookDaoImpl implements BookDao {
 
     @Override
     public List<BookPO> queryBookList(String bookName, BigDecimal minPrice, BigDecimal maxPrice) {
-        Specification<BookPO> specification = (Specification<BookPO>) (root, criteriaQuery, criteriaBuilder) -> {
+        Specification<BookPO> specification = (root, criteriaQuery, criteriaBuilder) -> {
             List<Predicate> andList = new ArrayList<>();
             if (StringUtils.isNotBlank(bookName)){
                 andList.add(criteriaBuilder.like(root.get("bookName"),"%"+bookName+"%"));
