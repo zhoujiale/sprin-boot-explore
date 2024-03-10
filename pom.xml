@@ -15,7 +15,7 @@
 <!--        <module>spring_boot_security</module>-->
 <!--        <module>spring_boot_mybatis</module>-->
 <!--        <module>spring_boot_jpa</module>-->
-<!--        <module>spring_boot_rabbitmq</module>-->
+        <module>spring_boot_rabbitmq</module>
         <module>spring_boot_quartz</module>
         <module>spring_boot_netty_server</module>
         <module>spring_boot_netty_client</module>
