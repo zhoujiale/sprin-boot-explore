@@ -12,7 +12,7 @@
     <modules>
         <module>commons</module>
         <module>spring_boot_shiro</module>
-<!--        <module>spring_boot_security</module>-->
+        <module>spring_boot_security</module>
         <module>spring_boot_mybatis</module>
         <module>spring_boot_jpa</module>
         <module>spring_boot_rabbitmq</module>
@@ -46,13 +46,13 @@
         <commons-lang.version>3.14.0</commons-lang.version>
         <commons-text.version>1.11.0</commons-text.version>
         <commons-pool.version>2.12.0</commons-pool.version>
-        <fastjson.version>1.2.75</fastjson.version>
+        <fastjson.version>2.0.47</fastjson.version>
         <mybatis.version>2.3.2</mybatis.version>
         <mybatis-dynamic-sql.version>1.5.0</mybatis-dynamic-sql.version>
         <pagehelper.version>2.1.0</pagehelper.version>
         <netty.version>4.1.107.Final</netty.version>
-        <jwt.version>3.8.0</jwt.version>
-        <jwks-rsa.version>0.17.1</jwks-rsa.version>
+        <jwt.version>4.4.0</jwt.version>
+        <jwks-rsa.version>0.22.1</jwks-rsa.version>
         <elasticsearch.version>7.10.0</elasticsearch.version>
         <rocketmq.version>2.3.0</rocketmq.version>
         <poi.version>5.2.5</poi.version>
@@ -123,8 +123,8 @@
                 <version>${mybatis-dynamic-sql.version}</version>
             </dependency>
             <dependency>
-                <groupId>com.alibaba</groupId>
-                <artifactId>fastjson</artifactId>
+                <groupId>com.alibaba.fastjson2</groupId>
+                <artifactId>fastjson2</artifactId>
                 <version>${fastjson.version}</version>
             </dependency>
             <dependency>
