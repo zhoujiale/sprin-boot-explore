@@ -23,7 +23,7 @@
 <!--        <module>spring_boot_elasticsearch</module>-->
 <!--        <module>spring_boot_mongodb</module>-->
 <!--        <module>spring_boot_rocketmq</module>-->
-<!--        <module>spring_boot_zookeeper</module>-->
+        <module>spring_boot_zookeeper</module>
         <module>spring_boot_webflux</module>
         <module>spring_boot_web</module>
 <!--        <module>spring_boot_statemachine</module>-->
