@@ -20,7 +20,7 @@
         <module>spring_boot_netty_server</module>
         <module>spring_boot_netty_client</module>
         <module>spring_boot_redis</module>
-<!--        <module>spring_boot_elasticsearch</module>-->
+        <module>spring_boot_elasticsearch</module>
         <module>spring_boot_mongodb</module>
         <module>spring_boot_rocketmq</module>
         <module>spring_boot_zookeeper</module>
