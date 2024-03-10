@@ -14,6 +14,12 @@
     <version>1.0.0</version>
     <packaging>jar</packaging>
 
+    <properties>
+        <java.verion>1.8</java.verion>
+        <skipTests>true</skipTests>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>com.zjl</groupId>
