@@ -1,11 +1,11 @@
 package com.github.zhoujiale.spring.boot.shiro.model;
 
+import jakarta.persistence.*;
 import lombok.Data;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
@@ -18,7 +18,6 @@ import java.time.LocalDateTime;
 @Data
 @Entity
 @Table(name = "tb_shiro_user")
-@org.hibernate.annotations.Table(appliesTo = "tb_shiro_user",comment = "shiro用户表")
 @EntityListeners(AuditingEntityListener.class)
 public class ShiroUserPO implements Serializable {
 

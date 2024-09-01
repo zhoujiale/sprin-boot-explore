@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.github.zhoujiale</groupId>
-    <artifactId>spring-boot-explore</artifactId>
+    <artifactId>spring-boot3-explore</artifactId>
     <version>1.0.0</version>
     <packaging>pom</packaging>
 
@@ -32,12 +32,11 @@
     </modules>
 
     <properties>
-        <java.verion>1.8</java.verion>
+        <java.verion>8</java.verion>
         <skipTests>true</skipTests>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <spring-boot.version>2.7.18</spring-boot.version>
-        <lombol.version>1.18.12</lombol.version>
-        <shiro.version>1.13.0</shiro.version>
+        <spring-boot.version>3.2.3</spring-boot.version>
+        <lombol.version>1.18.30</lombol.version>
         <shiro-redis.version>3.3.1</shiro-redis.version>
         <mysql.version>8.0.33</mysql.version>
         <druid.version>1.2.21</druid.version>
@@ -86,11 +85,6 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter-security</artifactId>
                 <version>${spring-boot.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.shiro</groupId>
-                <artifactId>shiro-spring-boot-starter</artifactId>
-                <version>${shiro.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.mysql</groupId>

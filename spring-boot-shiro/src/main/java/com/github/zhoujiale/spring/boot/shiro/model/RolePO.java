@@ -1,11 +1,11 @@
 package com.github.zhoujiale.spring.boot.shiro.model;
 
+import jakarta.persistence.*;
 import lombok.Data;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import javax.persistence.*;
 import java.time.LocalDateTime;
 
 /**
@@ -17,7 +17,6 @@ import java.time.LocalDateTime;
 @Data
 @Entity
 @Table(name = "tb_role")
-@org.hibernate.annotations.Table(appliesTo = "tb_role",comment = "角色表")
 @EntityListeners(AuditingEntityListener.class)
 public class RolePO {
 

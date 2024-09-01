@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>com.github.zhoujiale</groupId>
-        <artifactId>spring-boot-explore</artifactId>
+        <artifactId>spring-boot3-explore</artifactId>
         <version>1.0.0</version>
     </parent>
 
@@ -15,9 +15,11 @@
     <packaging>jar</packaging>
 
     <properties>
-        <java.version>1.8</java.version>
+        <java.version>17</java.version>
         <skipTests>true</skipTests>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <shiro.version>2.0.0</shiro.version>
+        <javax.servlet.version>4.0.1</javax.servlet.version>
     </properties>
 
     <dependencies>
@@ -50,10 +52,23 @@
         <dependency>
             <groupId>org.apache.shiro</groupId>
             <artifactId>shiro-spring-boot-starter</artifactId>
+            <version>${shiro.version}</version>
         </dependency>
         <dependency>
             <groupId>org.crazycake</groupId>
             <artifactId>shiro-redis</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.apache.shiro</groupId>
+                    <artifactId>shiro-core</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <version>${javax.servlet.version}</version>
+            <scope>compile</scope>
         </dependency>
     </dependencies>
 

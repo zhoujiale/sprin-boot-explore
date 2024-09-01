@@ -1,8 +1,7 @@
 package com.github.zhoujiale.spring.boot.shiro.model;
 
+import jakarta.persistence.*;
 import lombok.Data;
-
-import javax.persistence.*;
 
 /**
  * @name: UserRolePO
@@ -13,7 +12,6 @@ import javax.persistence.*;
 @Data
 @Entity
 @Table(name = "tb_user_role")
-@org.hibernate.annotations.Table(appliesTo = "tb_user_role",comment = "用户角色表")
 public class UserRolePO {
 
     @Id

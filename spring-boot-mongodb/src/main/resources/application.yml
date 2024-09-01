@@ -7,7 +7,7 @@ spring:
     name: MONGO-DB
   data:
     mongodb:
-      host: 47.114.33.113
+      host: 47.99.70.125
       port: 27017
       username: mongoadmin
       password: mongoadmin
