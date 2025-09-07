@@ -29,10 +29,11 @@
         <module>spring-boot-statemachine</module>
         <module>spring-boot-java</module>
         <module>spring-boot-hadoop</module>
+        <module>spring-boot-ai</module>
     </modules>
 
     <properties>
-        <java.verion>8</java.verion>
+        <java.verion>17</java.verion>
         <skipTests>true</skipTests>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <spring-boot.version>3.2.3</spring-boot.version>
@@ -60,6 +61,7 @@
         <hadoop.version>3.3.6</hadoop.version>
         <spring-statemachine.version>3.2.1</spring-statemachine.version>
         <maven-compiler-plugin.version>3.12.1</maven-compiler-plugin.version>
+        <spring-ai.version>1.0.1</spring-ai.version>
     </properties>
 
     <dependencyManagement>
@@ -226,6 +228,21 @@
                 <groupId>org.apache.hadoop</groupId>
                 <artifactId>hadoop-hdfs</artifactId>
                 <version>${hadoop.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.ai</groupId>
+                <artifactId>spring-ai-starter-model-ollama</artifactId>
+                <version>${spring-ai.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-core</artifactId>
+                <exclusions>
+                    <exclusion>
+                        <groupId>commons-logging</groupId>
+                        <artifactId>commons-logging</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
         </dependencies>
     </dependencyManagement>

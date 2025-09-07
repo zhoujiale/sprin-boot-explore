@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
        <groupId>com.github.zhoujiale</groupId>
-        <artifactId>spring-boot-explore</artifactId>
+        <artifactId>spring-boot3-explore</artifactId>
         <version>1.0.0</version>
     </parent>
 

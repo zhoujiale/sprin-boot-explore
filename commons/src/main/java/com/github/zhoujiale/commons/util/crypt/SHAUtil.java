@@ -4,9 +4,9 @@ import com.github.zhoujiale.commons.util.log.ErrorLogUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 
-import javax.xml.bind.DatatypeConverter;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.HexFormat;
 
 /**
  * @author zhou
@@ -36,7 +36,7 @@ public class SHAUtil {
         try {
             MessageDigest messageDigest = MessageDigest.getInstance(algorithm);
             byte[] bytes = messageDigest.digest(rawData.getBytes());
-            return DatatypeConverter.printHexBinary(bytes).toLowerCase();
+            return HexFormat.of().formatHex(bytes);
         }catch (NoSuchAlgorithmException e){
             ErrorLogUtil.errorLog(e);
             return StringUtils.EMPTY;

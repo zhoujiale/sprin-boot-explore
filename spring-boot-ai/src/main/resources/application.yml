@@ -1,0 +1,8 @@
+server:
+  port: 8086
+spring:
+  ai:
+    ollama:
+      base-url: http://localhost:11434
+      chat:
+        model: qwen3:0.6b

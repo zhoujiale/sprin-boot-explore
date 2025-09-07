@@ -3,10 +3,10 @@ package com.github.zhoujiale.commons.util.crypt;
 import com.github.zhoujiale.commons.util.log.ErrorLogUtil;
 import org.apache.commons.lang3.StringUtils;
 
-import javax.xml.bind.DatatypeConverter;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.HexFormat;
 
 /**
  * @author zhou
@@ -30,7 +30,7 @@ public class MD5Util {
         try {
             MessageDigest messageDigest = MessageDigest.getInstance(MD5);
             byte[] digest = messageDigest.digest(rawData.getBytes(StandardCharsets.UTF_8));
-            return DatatypeConverter.printHexBinary(digest).toLowerCase();
+            return HexFormat.of().formatHex(digest);
         } catch (NoSuchAlgorithmException e) {
             ErrorLogUtil.errorLog(e);
             return StringUtils.EMPTY;
