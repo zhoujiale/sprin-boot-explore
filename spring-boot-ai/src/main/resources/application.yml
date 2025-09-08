@@ -6,3 +6,9 @@ spring:
       base-url: http://localhost:11434
       chat:
         model: qwen3:0.6b
+        options:
+          max-tokens: 2048
+          temperature: 0.6
+logging:
+  level:
+    org.springframework.ai.chat.client.advisor: DEBUG

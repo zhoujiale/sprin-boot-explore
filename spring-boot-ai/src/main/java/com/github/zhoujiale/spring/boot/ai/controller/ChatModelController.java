@@ -1,14 +1,14 @@
 package com.github.zhoujiale.spring.boot.ai.controller;
 
 import com.github.zhoujiale.spring.boot.ai.model.ChatSession;
+import com.github.zhoujiale.spring.boot.ai.service.ChatModelService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.ai.chat.model.Generation;
 import org.springframework.ai.ollama.OllamaChatModel;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import reactor.core.publisher.Mono;
-import reactor.core.scheduler.Schedulers;
+import org.springframework.ai.ollama.api.OllamaApi;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.*;
+import reactor.core.publisher.Flux;
 
 @RestController
 @RequestMapping("/chatModel")
@@ -17,9 +17,15 @@ public class ChatModelController {
 
     private final OllamaChatModel ollamaChatModel;
 
-    @PostMapping(value = "/chat")
-    public Mono<String> chat(@RequestBody ChatSession chatSession){
-        return Mono.fromCallable(() -> ollamaChatModel.call(chatSession.getMessage()))
-                .publishOn(Schedulers.boundedElastic());
+    private final ChatModelService chatModelService;
+
+    @PostMapping(value = "/ollamaChat",produces = MediaType.TEXT_EVENT_STREAM_VALUE)
+    public Flux<OllamaApi.ChatResponse> ollamaChat(@RequestBody ChatSession chatSession){
+        return chatModelService.ollamaChat(chatSession);
+    }
+
+    @PostMapping(value = "/chat",produces = MediaType.TEXT_EVENT_STREAM_VALUE)
+    public Flux<Generation> chat(@RequestBody ChatSession chatSession){
+        return chatModelService.chat(chatSession);
     }
 }

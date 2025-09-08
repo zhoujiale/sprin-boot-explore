@@ -1,6 +1,7 @@
 package com.github.zhoujiale.spring.boot.rabbitmq.config;
 
 import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.amqp.rabbit.connection.CachingConnectionFactory;
@@ -17,6 +18,7 @@ import org.springframework.stereotype.Component;
  * @create: 2021-02-18 15:15
  */
 @Data
+@Slf4j
 @Component
 @ConfigurationProperties(prefix = "spring.rabbitmq")
 public class RabbitMqConfiguration {
@@ -59,9 +61,10 @@ public class RabbitMqConfiguration {
         //rabbitTemplate.setRetryTemplate(retryTemplate);
         //当使用returnCallback时,需要设置这个为true
         rabbitTemplate.setMandatory(true);
-        rabbitTemplate.setReturnCallback((message, replyCode, replyText, exchange, routingKey) -> {
-            String correlationId = message.getMessageProperties().getCorrelationId();
-            log.error("消息:{}发送失败,响应码:{},响应信息:{},交换器:{},路由键:{}",correlationId,replyCode,replyText,exchange,routingKey);
+        rabbitTemplate.setReturnsCallback((returnedMessage) -> {
+            String correlationId = returnedMessage.getMessage().getMessageProperties().getCorrelationId();
+            log.error("消息发送失败,correlationId:{},replyCode:{},replyText:{},exchange:{},routingKey:{}",
+                    correlationId,returnedMessage.getReplyCode(),returnedMessage.getReplyText(),returnedMessage.getExchange(),returnedMessage.getRoutingKey());
         });
         rabbitTemplate.setConfirmCallback((correlationData, ack, cause) -> {
             if(ack){
