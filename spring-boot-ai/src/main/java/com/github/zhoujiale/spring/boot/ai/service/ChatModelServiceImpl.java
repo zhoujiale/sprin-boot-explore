@@ -57,15 +57,17 @@ public class ChatModelServiceImpl implements ChatModelService {
 
     @Override
     public Flux<Generation> chat(ChatSession chatSession) {
+        //简易会话记忆窗口
+        MessageChatMemoryAdvisor chatMemoryAdvisor = MessageChatMemoryAdvisor
+                .builder(ChatMemoryUtil.getChatMemory(chatSession.getSessionId()))
+                .conversationId(chatSession.getSessionId()).build();
+        //用户角色模板
+        final String userTemplate = "我当前身体不适，请在了解情况后提供医疗方案，下面是我的症状或我想询问的信息，{message}";
         return chatClient.prompt()
-                .advisors(new SimpleLoggerAdvisor(),
-                        MessageChatMemoryAdvisor
-                                .builder(ChatMemoryUtil.getChatMemory(chatSession.getSessionId()))
-                                .conversationId(chatSession.getSessionId()).build())
+                .advisors(new SimpleLoggerAdvisor(),chatMemoryAdvisor)
                 //用户模板增强
                 .templateRenderer(StTemplateRenderer.builder().startDelimiterToken('{').endDelimiterToken('}').build())
-                .user(u -> u.text("我当前身体不适，请在了解情况后提供医疗方案，下面是我的症状或我想询问的信息，{message}")
-                        .param("message", chatSession.getMessage()))
+                .user(u -> u.text(userTemplate).param("message", chatSession.getMessage()))
                 //模板替换系统提示
                 .system(s -> s.param(PromptConstant.SCOPE, chatSession.getScope()))
                 .stream()
