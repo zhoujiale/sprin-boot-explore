@@ -9,6 +9,15 @@ spring:
         options:
           max-tokens: 2048
           temperature: 0.6
+    mcp:
+      client:
+        name: alimap
+        type: async
+        request-timeout: 60s
+        toolcallback:
+          enabled: true
+
+
 logging:
   level:
     org.springframework.ai.chat.client.advisor: DEBUG

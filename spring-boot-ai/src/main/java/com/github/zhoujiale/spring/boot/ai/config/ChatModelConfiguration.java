@@ -38,4 +38,6 @@ public class ChatModelConfiguration {
                 .maxMessages(2)
                 .build();
     }
+
+
 }
