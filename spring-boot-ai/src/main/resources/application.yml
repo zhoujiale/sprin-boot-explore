@@ -1,14 +1,17 @@
 server:
   port: 8086
 spring:
+  webflux:
+    multipart:
+      max-parts: 5
   ai:
     ollama:
       base-url: http://localhost:11434
       chat:
         model: qwen3:0.6b
         options:
-          max-tokens: 2048
-          temperature: 0.6
+          max-tokens: 4096
+          temperature: 0.1
     mcp:
       client:
         name: alimap

@@ -35,7 +35,7 @@ public class ChatModelConfiguration {
     @Bean
     public MessageWindowChatMemory messageWindowChatMemory(){
         return MessageWindowChatMemory.builder()
-                .maxMessages(2)
+                .maxMessages(10)
                 .build();
     }
 

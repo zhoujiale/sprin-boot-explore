@@ -36,33 +36,38 @@ public class ChatModelController {
     private final AsyncMcpToolCallbackProvider asyncMcpToolCallbackProvider;
 
 
-    @PostMapping(value = "/ollamaChat",produces = MediaType.TEXT_EVENT_STREAM_VALUE)
-    public Flux<OllamaApi.ChatResponse> ollamaChat(@RequestBody ChatSession chatSession){
+    @PostMapping(value = "/ollamaChat", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
+    public Flux<OllamaApi.ChatResponse> ollamaChat(@RequestBody ChatSession chatSession) {
         return chatModelService.ollamaChat(chatSession);
     }
 
-    @PostMapping(value = "/chat",produces = MediaType.TEXT_EVENT_STREAM_VALUE)
-    public Flux<Generation> chat(@RequestBody ChatSession chatSession){
+    @PostMapping(value = "/chat", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
+    public Flux<Generation> chat(@RequestBody ChatSession chatSession) {
         return chatModelService.chat(chatSession);
     }
 
-    @PostMapping(value = "/methodChat",produces = MediaType.TEXT_EVENT_STREAM_VALUE)
-    public Flux<Generation> methodChat(@RequestBody ChatSession chatSession){
+    @PostMapping(value = "/methodChat", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
+    public Flux<Generation> methodChat(@RequestBody ChatSession chatSession) {
         return chatModelService.methodChat(chatSession);
     }
 
-    @PostMapping(value = "/functionChat",produces = MediaType.TEXT_EVENT_STREAM_VALUE)
-    public Flux<Generation> functionChat(@RequestBody ChatSession chatSession){
+    @PostMapping(value = "/functionChat", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
+    public Flux<Generation> functionChat(@RequestBody ChatSession chatSession) {
         return chatModelService.functionChat(chatSession);
     }
 
-    @PostMapping(value = "/mcpChat",produces = MediaType.TEXT_EVENT_STREAM_VALUE)
-    public Flux<Generation> mcpChat(@RequestBody ChatSession chatSession){
+    @PostMapping(value = "/mcpChat", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
+    public Flux<Generation> mcpChat(@RequestBody ChatSession chatSession) {
         return chatModelService.mcpChat(chatSession);
     }
 
-    @PostMapping(value = "/test",produces = MediaType.TEXT_EVENT_STREAM_VALUE)
-    public Mono<McpSchema.CallToolResult> test(){
+    @PostMapping(value = "/multimodalChat", produces = MediaType.TEXT_EVENT_STREAM_VALUE,consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public Flux<Generation> multimodalChat(ChatSession chatSession) {
+        return chatModelService.multimodalChat(chatSession);
+    }
+
+    @PostMapping(value = "/test", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
+    public Mono<McpSchema.CallToolResult> test() {
         McpAsyncClient mcpAsyncClient = mcpAsyncClients.get(0);
         for (ToolCallback toolCallback : asyncMcpToolCallbackProvider.getToolCallbacks()) {
             System.out.println(JSONObject.toJSONString(toolCallback));
@@ -73,9 +78,9 @@ public class ChatModelController {
                 .listTools()
                 .flatMap(tools -> mcpAsyncClient
                         .callTool(new McpSchema.CallToolRequest(
-                            "maps_direction_transit_integrated",
-                                Map.of("origin","120.133794,30.266755","destination","120.142757,30.305211",
-                                        "city","杭州","cityd","杭州")
+                                "maps_direction_transit_integrated",
+                                Map.of("origin", "120.133794,30.266755", "destination", "120.142757,30.305211",
+                                        "city", "杭州", "cityd", "杭州")
                         )));
     }
 }

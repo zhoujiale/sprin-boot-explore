@@ -21,4 +21,6 @@ public interface ChatModelService {
     Flux<Generation> functionChat(ChatSession chatSession);
 
     Flux<Generation> mcpChat(ChatSession chatSession);
+
+    Flux<Generation> multimodalChat(ChatSession chatSession);
 }
