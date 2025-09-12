@@ -16,6 +16,7 @@ import org.springframework.ai.chat.model.Generation;
 import org.springframework.ai.chat.prompt.ChatOptions;
 import org.springframework.ai.chat.prompt.Prompt;
 import org.springframework.ai.content.Media;
+import org.springframework.ai.document.Document;
 import org.springframework.ai.mcp.AsyncMcpToolCallbackProvider;
 import org.springframework.ai.ollama.OllamaChatModel;
 import org.springframework.ai.ollama.api.OllamaApi;
@@ -23,6 +24,8 @@ import org.springframework.ai.ollama.api.OllamaOptions;
 import org.springframework.ai.template.st.StTemplateRenderer;
 import org.springframework.ai.tool.ToolCallback;
 import org.springframework.ai.tool.function.FunctionToolCallback;
+import org.springframework.ai.vectorstore.SearchRequest;
+import org.springframework.ai.vectorstore.VectorStore;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.buffer.DataBufferUtils;
 import org.springframework.stereotype.Service;
@@ -33,6 +36,7 @@ import reactor.core.scheduler.Schedulers;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @classname: ChatModelServiceImpl
@@ -53,6 +57,7 @@ public class ChatModelServiceImpl implements ChatModelService {
 
     private final AsyncMcpToolCallbackProvider asyncMcpToolCallbackProvider;
 
+    private final VectorStore vectorStore;
 
     @Override
     public Flux<OllamaApi.ChatResponse> ollamaChat(ChatSession chatSession) {
@@ -196,5 +201,20 @@ public class ChatModelServiceImpl implements ChatModelService {
                         .stream()
                         .chatResponse()
                         .map(ChatResponse::getResult));
+    }
+
+    @Override
+    public Flux<Document> testAddDocuments() {
+        List<Document> documents = List.of(
+                new Document("Spring AI rocks!! Spring AI rocks!! Spring AI rocks!! Spring AI rocks!! Spring AI rocks!!", Map.of("meta1", "meta1")),
+                new Document("The World is Big and Salvation Lurks Around the Corner"),
+                new Document("You walk forward facing the past and you turn back toward the future.", Map.of("meta2", "meta2")));
+        vectorStore.add(documents);
+        return Flux.fromIterable(vectorStore.similaritySearch(
+                SearchRequest.builder()
+                        .query("Spring")
+                        .topK(5)
+                        .build()
+        ));
     }
 }

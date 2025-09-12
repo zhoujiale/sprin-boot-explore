@@ -7,6 +7,7 @@ import io.modelcontextprotocol.client.McpAsyncClient;
 import io.modelcontextprotocol.spec.McpSchema;
 import lombok.RequiredArgsConstructor;
 import org.springframework.ai.chat.model.Generation;
+import org.springframework.ai.document.Document;
 import org.springframework.ai.mcp.AsyncMcpToolCallbackProvider;
 import org.springframework.ai.ollama.OllamaChatModel;
 import org.springframework.ai.ollama.api.OllamaApi;
@@ -82,5 +83,10 @@ public class ChatModelController {
                                 Map.of("origin", "120.133794,30.266755", "destination", "120.142757,30.305211",
                                         "city", "杭州", "cityd", "杭州")
                         )));
+    }
+
+    @PostMapping(value = "/testAddDocuments",produces = MediaType.TEXT_EVENT_STREAM_VALUE)
+    public Flux<Document> testAddDocuments(){
+        return chatModelService.testAddDocuments();
     }
 }

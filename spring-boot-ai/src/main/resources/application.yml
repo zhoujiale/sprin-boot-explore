@@ -12,6 +12,8 @@ spring:
         options:
           max-tokens: 4096
           temperature: 0.1
+      embedding:
+        model: nomic-embed-text:v1.5
     mcp:
       client:
         name: alimap
@@ -19,7 +21,19 @@ spring:
         request-timeout: 60s
         toolcallback:
           enabled: true
-
+    vectorstore:
+      milvus:
+        client:
+          host: localhost
+          port: 19530
+          username: root
+          password: milvus1234
+        database-name: default
+        collection-name: chat
+        embedding-dimension: 768
+        index-type: ivf_flat
+        metric-type: cosine
+        initialize-schema: true
 
 logging:
   level:

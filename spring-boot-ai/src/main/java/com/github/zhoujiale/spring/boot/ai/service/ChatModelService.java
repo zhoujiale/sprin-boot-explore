@@ -2,6 +2,7 @@ package com.github.zhoujiale.spring.boot.ai.service;
 
 import com.github.zhoujiale.spring.boot.ai.model.ChatSession;
 import org.springframework.ai.chat.model.Generation;
+import org.springframework.ai.document.Document;
 import org.springframework.ai.ollama.api.OllamaApi;
 import reactor.core.publisher.Flux;
 
@@ -23,4 +24,6 @@ public interface ChatModelService {
     Flux<Generation> mcpChat(ChatSession chatSession);
 
     Flux<Generation> multimodalChat(ChatSession chatSession);
+
+    Flux<Document> testAddDocuments();
 }
