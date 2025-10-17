@@ -12,7 +12,11 @@
 
     <artifactId>spring-boot-ai</artifactId>
     <version>1.0.0</version>
-    <packaging>jar</packaging>
+    <packaging>pom</packaging>
+    <modules>
+        <module>spring-boot-ai-client</module>
+        <module>spring-boot-ai-mcp</module>
+    </modules>
     <properties>
         <java.version>17</java.version>
         <skipTests>true</skipTests>
@@ -24,22 +28,6 @@
             <groupId>com.github.zhoujiale</groupId>
             <artifactId>commons</artifactId>
             <version>1.0.0</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-webflux</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.ai</groupId>
-            <artifactId>spring-ai-starter-model-ollama</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.ai</groupId>
-            <artifactId>spring-ai-starter-mcp-client-webflux</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.ai</groupId>
-            <artifactId>spring-ai-starter-vector-store-milvus</artifactId>
         </dependency>
     </dependencies>
 

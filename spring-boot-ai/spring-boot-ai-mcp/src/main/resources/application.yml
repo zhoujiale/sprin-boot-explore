@@ -1,0 +1,10 @@
+server:
+  port: 8087
+spring:
+  webflux:
+    multipart:
+      max-parts: 5
+  ai:
+    mcp:
+      server:
+        name: my-mcp-server
