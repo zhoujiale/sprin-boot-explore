@@ -8,3 +8,8 @@ spring:
     mcp:
       server:
         name: my-mcp-server
+        version: 1.0.0
+        type: async
+        instructions: "这个响应式服务能够提供使用SQL查询数据的能力"
+        sse-methods: /mcp/messages
+
